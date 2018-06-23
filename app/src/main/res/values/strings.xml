@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Reimbursement</string>
+    <string-array name="names">
+        <item>Add Expense</item>
+        <item>Meal</item>
+        <item>Travel</item>
+        <item>Communication</item>
+        <item>Team Expense</item>
+        <item> MISC</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
+

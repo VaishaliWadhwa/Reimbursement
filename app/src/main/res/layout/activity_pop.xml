@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Pop"
+    tools:layout_editor_absoluteX="253dp"
+    tools:layout_editor_absoluteY="41dp"
+    android:background="#ffffff">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="16dp">
+
+        <EditText
+            android:id="@+id/mealdate"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Select Your Meal Date"
+            android:textSize="20dp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Enter Your Restaurant Name"
+            android:textSize="20dp"
+
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Enter Your Client Names"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Purpose"
+            android:textSize="20dp"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="Click Here To Scan"
+            android:id="@+id/button_scan"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@drawable/scan"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Final Amount In The Bill"
+            android:textSize="20dp"
+            android:editable="false"
+            android:id="@+id/final_amount"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:text="Final Submit"/>
+
+    </LinearLayout>
+
+</ScrollView>

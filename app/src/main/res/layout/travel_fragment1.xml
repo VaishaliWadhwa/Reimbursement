@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Travel"
+        tools:layout_editor_absoluteX="253dp"
+        tools:layout_editor_absoluteY="41dp"
+        android:background="#ffffff">
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="match_parent"
+            android:layout_margin="30dp"
+            android:background="#ffffff">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Write Your Purpose"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="date"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:text="START GPS"
+                android:id="@+id/msg1"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Scan Your Travel Bill"
+                android:id="@+id/button_scan"
+
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text=""/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Total Kms"
+                android:editable="false"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Total Amount"
+                android:editable="false"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:text="Had Meal?"
+                    android:textSize="20dp"/>
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton android:id="@+id/radioyes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yes"
+
+                        android:paddingRight="40dp"/>
+                    <RadioButton android:id="@+id/radiono"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No"
+
+                        android:paddingRight="40dp"/>
+                </RadioGroup> </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Scan"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:editable="false"
+                android:text="Total Meal Amount"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:editable="false"
+                android:hint="Final Total Amount"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Final Submit"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
