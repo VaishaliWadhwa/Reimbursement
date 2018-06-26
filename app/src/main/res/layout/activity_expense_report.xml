@@ -20,6 +20,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="5dp"
-        ></android.support.design.widget.FloatingActionButton>
+        android:src="@drawable/ic_add_to_photos_black_24dp">
+
+    </android.support.design.widget.FloatingActionButton>
 </RelativeLayout>
 
