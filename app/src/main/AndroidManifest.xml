@@ -32,7 +32,6 @@
         <activity android:name=".MiscellaneousExpenseActivity" />
         <activity android:name=".TeamExpenseActivity" />
         <activity android:name=".Main2Activity"></activity>
-        <activity android:name=".TeamExpenseActivity" />
         <activity android:name=".ExpenseReport"></activity>
     </application>
 
