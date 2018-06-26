@@ -30,7 +30,8 @@
             android:theme="@style/AppTheme.CustomTheme" />
         <activity android:name=".ImageToTextConverter" />
         <activity android:name=".MiscellaneousExpenseActivity" />
-        <activity android:name=".TeamExpenseActivity"></activity>
+        <activity android:name=".TeamExpenseActivity" />
+        <activity android:name=".ExpenseReport"></activity>
     </application>
 
 </manifest>

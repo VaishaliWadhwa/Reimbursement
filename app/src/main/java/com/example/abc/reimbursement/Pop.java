@@ -1,5 +1,6 @@
 package com.example.abc.reimbursement;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -10,7 +11,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -18,6 +21,7 @@ import java.util.Calendar;
 public class Pop extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
+    EditText finalAmount;
 
 
     @Override
@@ -25,6 +29,8 @@ public class Pop extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pop);
+
+        finalAmount = (EditText) findViewById(R.id.final_amount);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -63,6 +69,33 @@ public class Pop extends AppCompatActivity {
 
             }
         } ;
-    };
+
+        Button buttonScan =(Button)findViewById(R.id.button_scan);
+
+        buttonScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent imageToTextIntent = new Intent (Pop.this , ImageToTextConverter.class );
+                //startActivity(imageToTextIntent);
+                startActivityForResult(imageToTextIntent , 1);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //EditText finalAmount = (EditText) findViewById(R.id.final_amount);
+        if(requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+
+                double result = data.getDoubleExtra("result" , 0.00);
+                finalAmount.setText(Double.toString(result));
+            }
+            if(resultCode == RESULT_CANCELED){
+
+            }
+        }
+    }
 
 }
