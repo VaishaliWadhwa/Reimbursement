@@ -5,13 +5,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-public class TravelFragment1 extends Fragment {
+public class LocalTravelFragment extends Fragment {
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup viewGroup, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.travel_fragment1, viewGroup, false);
+        View view = inflater.inflate(R.layout.local_travel_fragment, viewGroup, false);
 
 
         return view; }

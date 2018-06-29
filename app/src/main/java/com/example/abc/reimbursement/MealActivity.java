@@ -1,11 +1,12 @@
 package com.example.abc.reimbursement;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
@@ -15,18 +16,20 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class MiscellaneousExpenseActivity extends AppCompatActivity {
+public class MealActivity extends AppCompatActivity {
+    DatePickerDialog.OnDateSetListener mDateSetListener;
 
     EditText finalAmount;
 
-    DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_miscellaneous_expense);
+        setContentView(R.layout.activity_meal);
 
         finalAmount = (EditText) findViewById(R.id.final_amount);
+
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -34,7 +37,7 @@ public class MiscellaneousExpenseActivity extends AppCompatActivity {
         int height = dm.heightPixels;
 
         getWindow().setLayout((int)(width*.95),(int)(height*.90));
-        final TextView mDisplayDate = (TextView)findViewById(R.id.date);
+        final TextView mDisplayDate = (TextView)findViewById(R.id.mealdate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +47,7 @@ public class MiscellaneousExpenseActivity extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
-                DatePickerDialog dialog = new DatePickerDialog(MiscellaneousExpenseActivity.this,
+                DatePickerDialog dialog = new DatePickerDialog(MealActivity.this,
                         android.R.style.Theme_Holo_Light,
                         mDateSetListener ,
                         year,month,day);
@@ -70,18 +73,12 @@ public class MiscellaneousExpenseActivity extends AppCompatActivity {
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent imageToTextIntent = new Intent (MiscellaneousExpenseActivity.this , ImageToTextConverter.class );
+                Intent imageToTextIntent = new Intent (MealActivity.this , ImageToTextConverter.class );
                 //startActivity(imageToTextIntent);
                 startActivityForResult(imageToTextIntent , 1);
             }
         });
     }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menue) {
-        getMenuInflater().inflate(R.menu.pop,menu);
-        return super.onCreateOptionsMenu(menu);
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -98,5 +95,5 @@ public class MiscellaneousExpenseActivity extends AppCompatActivity {
             }
         }
     }
-}
 
+}

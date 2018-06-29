@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Travel"
+    tools:context=".TravelActivity"
     tools:layout_editor_absoluteX="253dp"
     tools:layout_editor_absoluteY="41dp"
     android:background="#ffffff">
@@ -13,7 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Travel"
+        tools:context=".TravelActivity"
         android:orientation="vertical"
         >
 
@@ -42,7 +42,7 @@
 
         <fragment
             android:id="@+id/output"
-            class="com.example.abc.reimbursement.TravelFragment1"
+            class="com.example.abc.reimbursement.LocalTravelFragment"
             android:layout_width="match_parent"
             android:layout_height="458dp"
             android:layout_weight="12" />

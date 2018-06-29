@@ -3,16 +3,14 @@ package com.example.abc.reimbursement;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
-public class Travel extends AppCompatActivity implements View.OnClickListener{
+public class TravelActivity extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +51,9 @@ public class Travel extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View v) {
         Fragment fragment = null;
         if (v.getId() == R.id.button1){
-            fragment = new TravelFragment1();
+            fragment = new LocalTravelFragment();
         }else if (v.getId() == R.id.button2){
-            fragment = new TravelFragment2();
+            fragment = new DistantTravelFragment();
         }
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -71,9 +69,9 @@ public class Travel extends AppCompatActivity implements View.OnClickListener{
             }*/
                 /*Fragment fragment = null;
                 if (view == findViewById(R.id.button1)) {
-                    fragment = new TravelFragment1();
+                    fragment = new LocalTravelFragment();
                 } else {
-                    fragment = new TravelFragment2();
+                    fragment = new DistantTravelFragment();
                 }
 
                 FragmentManager manager = getSupportFragmentManager();
