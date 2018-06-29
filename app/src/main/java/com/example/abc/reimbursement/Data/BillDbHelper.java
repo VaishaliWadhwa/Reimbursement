@@ -32,7 +32,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
         @Override
         public void onCreate(SQLiteDatabase db) {
             // Create a String that contains the SQL statement to create the pets table
-            String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + BillEntry.TABLE_NAME + " ("
+            /*String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + BillEntry.TABLE_NAME + " ("
                     + PetEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + PetEntry.COLUMN_PET_NAME + " TEXT NOT NULL, "
                     + PetEntry.COLUMN_PET_BREED + " TEXT, "
@@ -40,7 +40,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
                     + PetEntry.COLUMN_PET_WEIGHT + " INTEGER NOT NULL DEFAULT 0);";
 
             // Execute the SQL statement
-            db.execSQL(SQL_CREATE_PETS_TABLE);
+            db.execSQL(SQL_CREATE_PETS_TABLE);*/
         }
 
         /**
