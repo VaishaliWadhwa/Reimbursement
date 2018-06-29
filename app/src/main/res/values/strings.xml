@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Reimbursement</string>
+    <string name="app_name"></string>
     <string-array name="names">
         <item>Add Expense</item>
         <item>Meal</item>

@@ -9,8 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".TravelActivity"
+        android:layout_height="wrap_content"
+        tools:context=".Travel"
         tools:layout_editor_absoluteX="253dp"
         tools:layout_editor_absoluteY="41dp"
         android:background="#ffffff">
