@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".Stay2"
+        tools:context=".DistantTravelTravelActivity"
         tools:layout_editor_absoluteX="253dp"
         tools:layout_editor_absoluteY="41dp"
         android:background="#ffffff">
@@ -22,36 +22,44 @@
             android:layout_height="match_parent"
             android:layout_margin="30dp"
             android:background="#ffffff">
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:hint="Venue"
-                android:layout_marginBottom="20dp"
+                android:hint="Write Your Purpose" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:text="START GPS"
+                android:id="@+id/msg1"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Scan Your Travel Bill"
+
                 />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text=""/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:hint="Other Details"
-                android:layout_marginBottom="20dp"/>
+                android:hint="Total Kms"
+                android:editable="false"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Total Amount"
+                android:editable="false"/>
 
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Scan Your Travel Bill"
-                android:layout_marginBottom="40dp"
-
-                />
-
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:hint="Total Amount" />
-
-
+                android:text="Final Submit"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

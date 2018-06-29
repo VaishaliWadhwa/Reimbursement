@@ -8,12 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TravelFragment2 extends Fragment implements View.OnClickListener {
+public class DistantTravelFragment extends Fragment implements View.OnClickListener {
     private View mMeal,mTravel,mStay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_travel_fragment2, viewGroup, false);
+        View view = inflater.inflate(R.layout.distant_travel_fragment, viewGroup, false);
         mMeal = view.findViewById(R.id.button12);
         mTravel = view.findViewById(R.id.button22);
         mStay = view.findViewById(R.id.button32);
@@ -37,12 +37,12 @@ public class TravelFragment2 extends Fragment implements View.OnClickListener {
     public void onClick (View v){
         Fragment fragment = null;
         if (v.getId() == R.id.button12) {
-            fragment = new MealFragment();
+            fragment = new DistantTravelMealFragment();
         } else if (v.getId() == R.id.button22) {
-            fragment = new Travelling();
+            fragment = new DistantTravelTravelActivity();
 
         } else if (v.getId() == R.id.button32) {
-            fragment = new Stay2();
+            fragment = new DistantTravelStayFragment();
 
         }
         FragmentManager manager = getFragmentManager();

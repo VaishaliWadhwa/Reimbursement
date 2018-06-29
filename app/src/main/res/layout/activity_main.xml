@@ -6,11 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.abc.reimbursement.MainActivity">
 
-    <TextView
-        android:id="@+id/text_view_pet"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -18,7 +14,7 @@
         android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="5dp"
-        android:src="@drawable/ic_add_to_photos_black_24dp"
-        app:backgroundTint="@android:color/background_light" />
+        android:layout_margin="10dp"
+        android:backgroundTint="#2979FF"
+        android:src="@drawable/ic_add_black_24dp"/>
 </RelativeLayout>

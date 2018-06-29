@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class Pop extends AppCompatActivity {
+public class MealActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
     EditText finalAmount;
@@ -28,17 +26,17 @@ public class Pop extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pop);
+        setContentView(R.layout.activity_meal);
 
         finalAmount = (EditText) findViewById(R.id.final_amount);
 
-        DisplayMetrics dm = new DisplayMetrics();
+        /*DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.95),(int)(height*.90));
+        getWindow().setLayout((int)(width*.95),(int)(height*.90));*/
         final TextView mDisplayDate = (TextView)findViewById(R.id.mealdate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +47,7 @@ public class Pop extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
-                DatePickerDialog dialog = new DatePickerDialog(Pop.this,
+                DatePickerDialog dialog = new DatePickerDialog(MealActivity.this,
                         android.R.style.Theme_Holo_Light,
                         mDateSetListener ,
                         year,month,day);
@@ -75,7 +73,7 @@ public class Pop extends AppCompatActivity {
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent imageToTextIntent = new Intent (Pop.this , ImageToTextConverter.class );
+                Intent imageToTextIntent = new Intent (MealActivity.this , ImageToTextConverter.class );
                 //startActivity(imageToTextIntent);
                 startActivityForResult(imageToTextIntent , 1);
             }

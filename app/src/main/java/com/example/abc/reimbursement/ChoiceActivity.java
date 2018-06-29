@@ -9,14 +9,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class Main2Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ChoiceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_choice);
         Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(Main2Activity.this,
+        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(ChoiceActivity.this,
                 android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.names));
         myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mySpinner.setAdapter(myAdapter);
@@ -34,7 +34,7 @@ public class Main2Activity extends AppCompatActivity implements AdapterView.OnIt
             {
 
 
-                Intent intent = new Intent (Main2Activity.this , Pop.class );
+                Intent intent = new Intent (ChoiceActivity.this , MealActivity.class );
                 startActivity(intent);
                 break;
             }
@@ -42,7 +42,7 @@ public class Main2Activity extends AppCompatActivity implements AdapterView.OnIt
             case (2):
             {
 
-                Intent intent = new Intent (Main2Activity.this , Travel.class );
+                Intent intent = new Intent (ChoiceActivity.this , TravelActivity.class );
                 startActivity(intent);
                 break;
 
@@ -53,7 +53,7 @@ public class Main2Activity extends AppCompatActivity implements AdapterView.OnIt
             case (4):
             {
 
-                Intent intent = new Intent (Main2Activity.this , TeamExpenseActivity.class );
+                Intent intent = new Intent (ChoiceActivity.this , TeamExpenseActivity.class );
                 startActivity(intent);
                 break;
 
@@ -64,7 +64,7 @@ public class Main2Activity extends AppCompatActivity implements AdapterView.OnIt
             case (5):
             {
 
-                Intent intent = new Intent (Main2Activity.this , MiscellaneousExpenseActivity.class );
+                Intent intent = new Intent (ChoiceActivity.this , MiscellaneousActivity.class );
                 startActivity(intent);
                 break;
 

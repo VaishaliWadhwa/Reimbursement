@@ -1,17 +1,10 @@
 package com.example.abc.reimbursement;
 
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 public class ExpenseReport extends AppCompatActivity {
 
@@ -27,7 +20,7 @@ public class ExpenseReport extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ExpenseReport.this, Main2Activity.class);
+                Intent intent = new Intent(ExpenseReport.this, ChoiceActivity.class);
                 startActivity(intent);
             }
         });

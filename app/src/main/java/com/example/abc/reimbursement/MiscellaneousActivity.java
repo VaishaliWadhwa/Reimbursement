@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-public class MiscellaneousExpenseActivity extends AppCompatActivity {
+public class MiscellaneousActivity extends AppCompatActivity {
 
     EditText finalAmount;
 
@@ -27,13 +27,15 @@ public class MiscellaneousExpenseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_miscellaneous_expense);
 
         finalAmount = (EditText) findViewById(R.id.final_amount);
-        DisplayMetrics dm = new DisplayMetrics();
+
+       /* DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int)(width*.95),(int)(height*.90));
+        getWindow().setLayout((int)(width*.95),(int)(height*.90));*/
+
         final TextView mDisplayDate = (TextView)findViewById(R.id.date);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +46,7 @@ public class MiscellaneousExpenseActivity extends AppCompatActivity {
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
-                DatePickerDialog dialog = new DatePickerDialog(MiscellaneousExpenseActivity.this,
+                DatePickerDialog dialog = new DatePickerDialog(MiscellaneousActivity.this,
                         android.R.style.Theme_Holo_Light,
                         mDateSetListener ,
                         year,month,day);
@@ -70,7 +72,7 @@ public class MiscellaneousExpenseActivity extends AppCompatActivity {
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent imageToTextIntent = new Intent (MiscellaneousExpenseActivity.this , ImageToTextConverter.class );
+                Intent imageToTextIntent = new Intent (MiscellaneousActivity.this , ImageToTextConverter.class );
                 //startActivity(imageToTextIntent);
                 startActivityForResult(imageToTextIntent , 1);
             }

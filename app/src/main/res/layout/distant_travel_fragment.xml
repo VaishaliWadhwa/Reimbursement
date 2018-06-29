@@ -72,7 +72,7 @@
 
             <fragment
                 android:id="@+id/fragment2"
-                class="com.example.abc.reimbursement.Travelling"
+                class="com.example.abc.reimbursement.DistantTravelTravelActivity"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
 
