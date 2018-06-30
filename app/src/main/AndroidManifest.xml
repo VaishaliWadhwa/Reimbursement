@@ -35,19 +35,16 @@
         <activity
             android:name=".TeamExpenseActivity"
             android:label="Team Expense" />
-        <activity android:name=".ChoiceActivity" />
+        <activity
+            android:name=".ChoiceActivity"
+            />
         <activity
             android:name=".ExpenseReport"
             android:label="Expense Report" />
-
         <activity
             android:name=".Data.EditorExpense"
             android:label="Edit"
-
-
-            android:theme="@style/AppTheme.CustomTheme"
-
-            />
+            android:theme="@style/AppTheme.CustomTheme" />
     </application>
 
 </manifest>
