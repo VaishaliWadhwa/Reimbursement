@@ -4,10 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import static com.example.abc.reimbursement.Data.BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID;
-import static com.example.abc.reimbursement.Data.BillContract.BillEntry.COLUMN_EXPENSE_EXPENSE_ID;
-import static java.text.Collator.PRIMARY;
-
 public class BillDbHelper extends SQLiteOpenHelper {
 
 
@@ -37,22 +33,22 @@ public class BillDbHelper extends SQLiteOpenHelper {
         public void onCreate(SQLiteDatabase db) {
             // Create a String that contains the SQL statement to create the pets table
             String SQL_CREATE_EXPENSE_TABLE =  "CREATE TABLE " + BillContract.BillEntry.TABLE_NAME + " ("
-                    + COLUMN_EXPENSE_EXPENSE_ID+ " INTEGER , "
-                    + BillContract.BillEntry.COLUMN_EXPENSE_NAME + " TEXT NOT NULL, "
+
+                    + BillContract.BillEntry.COLUMN_EXPENSE_NAME + " TEXT NOT NULL UNIQUE , "
                     + BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE+ " DATE, "
 
                     + BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE+ " DATE, "
-                    + BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE+ " DATE  , "
+                    + BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE+ " DATE  NOT NULL , "
                     + BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME+ " TEXT , "
                     + BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME+ "TEXT ,"
                      + BillContract.BillEntry.COLUMN_EXPENSE_MEMBERS+ "TEXT ,"
                     + BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE+ " TEXT,"
                 + BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT +" REAL, "
                         + BillContract.BillEntry.COLUMN_EXPENSE_CAT+ " TEXT,"
-                    +BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID+ " INTEGER,"
+                    +BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID+ " INTEGER  PRIMARY KEY   AUTOINCREMENT , "
 
-                    + BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT+ " TEXT,"
-                    +  "PRIMARY KEY (" +COLUMN_EXPENSE_EXPENSE_ID + "," + BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID + " )";
+                    + BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT+ " TEXT)";
+
 
             // Execute the SQL statement
             db.execSQL(SQL_CREATE_EXPENSE_TABLE);
