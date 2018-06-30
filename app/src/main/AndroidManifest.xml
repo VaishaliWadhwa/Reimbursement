@@ -29,13 +29,12 @@
             android:name=".TravelActivity" />
         <activity android:name=".ImageToTextConverter"
             android:label="Scan Here"/>
+        <activity android:name=".TeamExpenseActivity"
+            android:label="Team Expense"/>
 
         <activity
             android:name=".MiscellaneousActivity"
             android:label="Miscellaneous"/>
-        <activity
-            android:name=".TeamExpenseActivity"
-            android:label="Team Expense"/>
         <activity
             android:name=".ChoiceActivity"/>
 
