@@ -23,17 +23,24 @@
                 android:value="ocr" />
         </activity>
         <activity
-            android:name=".Pop"
-            android:theme="@style/AppTheme.CustomTheme" />
+            android:name=".MealActivity"
+            android:label="Meal"/>
         <activity
-            android:name=".Travel"
-            android:theme="@style/AppTheme.CustomTheme" />
-        <activity android:name=".ImageToTextConverter" />
-        <activity android:name=".MiscellaneousExpenseActivity" />
-        <activity android:name=".TeamExpenseActivity" />
-        <activity android:name=".Main2Activity"></activity>
+            android:name=".TravelActivity" />
+        <activity android:name=".ImageToTextConverter"
+            android:label="Scan Here"/>
 
-        <activity android:name=".ExpenseReport"></activity>
+        <activity
+            android:name=".MiscellaneousActivity"
+            android:label="Miscellaneous"/>
+        <activity
+            android:name=".TeamExpenseActivity"
+            android:label="Team Expense"/>
+        <activity
+            android:name=".ChoiceActivity"/>
+
+        <activity android:name=".ExpenseReport"
+            android:label="Expense Report"/>
     </application>
 
 </manifest>
