@@ -29,7 +29,7 @@ public class TeamExpenseActivity extends Activity {
         setContentView(R.layout.activity_team_expense);
 
         finalAmount = (EditText) findViewById(R.id.final_amount);
-        
+
 
         final TextView mDisplayDate = (TextView)findViewById(R.id.date);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
