@@ -39,8 +39,8 @@ public class BillDbHelper extends SQLiteOpenHelper {
 
                     + BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE+ " INTEGER NOT NULL, "
                     + BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE+ " INTEGER NOT NULL DEFAULT 0 , "
-                    + BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME+ " INTEGER NOT NULL, " +
-                    + BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME+ "INTEGER" +
+                    + BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME+ " INTEGER NOT NULL, "
+                    + BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME+ "INTEGER"
                      + BillContract.BillEntry.COLUMN_EXPENSE_MEMBERS+ "INTEGER"
                     + BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE+ " TEXT,"
                 + BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT +" TEXT, "

@@ -66,13 +66,11 @@ public class BillContract {
          * <p>
          * Type: INTEGER
          */
-        public final static String COLUMN_EXPENSE_EXPENSE_ID = BaseColumns._ID;
+        public final static String COLUMN_EXPENSE_EXPENSE_ID = "Expense_ID";
 
-        /**
-         * Name of the Expense
-         * <p>
-         * Type: TEXT
-         */
+        public final static String COLUMN_EXPENSE_BILL_ID = "Bill_ID";
+
+
         public final static String COLUMN_EXPENSE_NAME = "name";
 
 
