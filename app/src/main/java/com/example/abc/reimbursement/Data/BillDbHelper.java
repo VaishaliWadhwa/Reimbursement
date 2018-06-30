@@ -32,15 +32,24 @@ public class BillDbHelper extends SQLiteOpenHelper {
         @Override
         public void onCreate(SQLiteDatabase db) {
             // Create a String that contains the SQL statement to create the pets table
-            /*String SQL_CREATE_PETS_TABLE =  "CREATE TABLE " + BillEntry.TABLE_NAME + " ("
-                    + PetEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + PetEntry.COLUMN_PET_NAME + " TEXT NOT NULL, "
-                    + PetEntry.COLUMN_PET_BREED + " TEXT, "
-                    + PetEntry.COLUMN_PET_GENDER + " INTEGER NOT NULL, "
-                    + PetEntry.COLUMN_PET_WEIGHT + " INTEGER NOT NULL DEFAULT 0);";
+            String SQL_CREATE_EXPENSE_TABLE =  "CREATE TABLE " + BillContract.BillEntry.TABLE_NAME + " ("
+                    + BillContract.BillEntry.COLUMN_EXPENSE_EXPENSE_ID+ " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                    + BillContract.BillEntry.COLUMN_EXPENSE_NAME + " TEXT NOT NULL, "
+                    + BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE+ " TEXT, "
+
+                    + BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE+ " INTEGER NOT NULL, "
+                    + BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE+ " INTEGER NOT NULL DEFAULT 0 , "
+                    + BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME+ " INTEGER NOT NULL, " +
+                    + BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME+ "INTEGER" +
+                     + BillContract.BillEntry.COLUMN_EXPENSE_MEMBERS+ "INTEGER"
+                    + BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE+ " TEXT,"
+                + BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT +" TEXT, "
+                        + BillContract.BillEntry.COLUMN_EXPENSE_CAT+ " TEXT,"
+                    + BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID+ " TEXT, "
+                    + BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT+ " TEXT)";
 
             // Execute the SQL statement
-            db.execSQL(SQL_CREATE_PETS_TABLE);*/
+            db.execSQL(SQL_CREATE_EXPENSE_TABLE);
         }
 
         /**
