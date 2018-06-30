@@ -10,7 +10,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
         public static final String LOG_TAG = BillDbHelper.class.getSimpleName();
 
         /** Name of the database file */
-        private static final String DATABASE_NAME = "shelter.db";
+        private static final String DATABASE_NAME = "Reimbursement.db";
 
         /**
          * Database version. If you change the database schema, you must increment the database version.

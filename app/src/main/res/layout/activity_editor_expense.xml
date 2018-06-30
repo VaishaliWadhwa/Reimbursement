@@ -18,7 +18,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/activity_margin"
-    tools:context=".Data.EditorExpense">
+    tools:context=".Data.EditorExpense"
+    android:background="#FFFFFF">
 
     <TextView
         android:layout_width="250dp"

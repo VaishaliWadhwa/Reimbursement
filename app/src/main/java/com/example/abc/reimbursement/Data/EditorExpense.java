@@ -16,6 +16,7 @@ public class EditorExpense extends AppCompatActivity {
         setContentView(R.layout.activity_editor_expense);
 
 
+
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
