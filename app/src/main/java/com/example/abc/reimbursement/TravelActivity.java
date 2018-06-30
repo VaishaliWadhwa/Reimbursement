@@ -16,18 +16,19 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_travel);
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        /*DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);*/
 
         Button btn1 = (Button)findViewById(R.id.button1);
         btn1.setOnClickListener(this);
         Button btn2 = (Button)findViewById(R.id.button2);
         btn2.setOnClickListener(this);
 
-        int width = dm.widthPixels;
+       /* int width = dm.widthPixels;
         int height = dm.heightPixels;
 
-        getWindow().setLayout((int) (width * .95), (int) (height * .90));
+        getWindow().setLayout((int) (width * .95), (int) (height * .90));*/
         /*View.OnClickListener listener = new View.OnClickListener() {
             public void onClick(View view) {
                 Fragment fragment = null;
