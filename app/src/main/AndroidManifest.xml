@@ -24,23 +24,27 @@
         </activity>
         <activity
             android:name=".MealActivity"
-            android:label="Meal"/>
+            android:label="Meal" />
+        <activity android:name=".TravelActivity" />
         <activity
-            android:name=".TravelActivity" />
-        <activity android:name=".ImageToTextConverter"
-            android:label="Scan Here"/>
-
+            android:name=".ImageToTextConverter"
+            android:label="Scan Here" />
         <activity
             android:name=".MiscellaneousActivity"
-            android:label="Miscellaneous"/>
+            android:label="Miscellaneous" />
         <activity
             android:name=".TeamExpenseActivity"
-            android:label="Team Expense"/>
+            android:label="Team Expense" />
+        <activity android:name=".ChoiceActivity" />
         <activity
-            android:name=".ChoiceActivity"/>
+            android:name=".ExpenseReport"
+            android:label="Expense Report" />
 
-        <activity android:name=".ExpenseReport"
-            android:label="Expense Report"/>
+        <activity
+            android:name=".Data.EditorExpense"
+            android:label="Edit"
+            android:theme="@style/AppTheme.CustomTheme"
+            />
     </application>
 
 </manifest>

@@ -1,10 +1,14 @@
 package com.example.abc.reimbursement;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.example.abc.reimbursement.Data.EditorExpense;
 
 /**
  * Displays list of pets that were entered and stored in the app.
@@ -21,16 +25,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ExpenseReport.class);
+                Intent intent = new Intent(MainActivity.this, EditorExpense.class);
+                getWindow().setBackgroundDrawable(new ColorDrawable(
+                        Color.WHITE));
                 startActivity(intent);
 
             }
-
         });
 
 
