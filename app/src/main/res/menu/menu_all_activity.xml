@@ -18,7 +18,7 @@
     <item
         android:id="@+id/action_save"
         android:title="Save"
-        android:icon="@drawable/ic_done"
+        android:icon="@drawable/ic_launcher_background"
         app:showAsAction="always" />
 
     <item
