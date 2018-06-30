@@ -97,6 +97,8 @@ public class BillContract {
         public final static String COLUMN_EXPENSE_CAT = "category";
 
         public final static String COLUMN_EXPENSE_SUBCAT = "sub_category";
+        public final static String COLUMN_EXPENSE_BILL_ID= "Bill_ID";
+
 
 
     }
