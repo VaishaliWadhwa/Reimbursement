@@ -2,7 +2,6 @@ package com.example.abc.reimbursement;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,8 @@ import com.example.abc.reimbursement.Data.BillContract;
  */
 public class BillCursorAdapter extends CursorAdapter {
 
+    LayoutInflater mInflater;
+
     /**
      * Constructs a new {@link BillCursorAdapter}.
      *
@@ -27,6 +28,7 @@ public class BillCursorAdapter extends CursorAdapter {
      */
     public BillCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
+        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     /**

@@ -22,10 +22,10 @@ public class BillProvider extends ContentProvider {
     public static final String LOG_TAG = BillProvider.class.getSimpleName();
 
     /** URI matcher code for the content URI for the pets table */
-    private static final int EXPENSES = 100;
+    private static final int EXPENSES = 200;
 
     /** URI matcher code for the content URI for a single pet in the pets table */
-    private static final int EXPENSES_ID = 101;
+    private static final int EXPENSES_ID = 201;
 
     /**
      * UriMatcher object to match a content URI to a corresponding code.

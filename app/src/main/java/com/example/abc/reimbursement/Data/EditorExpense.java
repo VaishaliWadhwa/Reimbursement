@@ -1,11 +1,7 @@
 package com.example.abc.reimbursement.Data;
 
-import android.app.LoaderManager;
 import android.content.ContentValues;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.abc.reimbursement.R;
 
-public class EditorExpense extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class EditorExpense extends AppCompatActivity  {
     EditText mNameEditText;
     EditText mStartDateEditText;
     EditText mEndDateText;
@@ -40,7 +36,7 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
 
 
         getWindow().setLayout((int) (width * .80), (int) (height * .42));
-        Button button = (Button) findViewById(R.id.ok);
+        Button button = (Button) findViewById(R.id.okay);
         mNameEditText = (EditText) findViewById(R.id.expensename);
         mStartDateEditText = (EditText) findViewById(R.id.startdate);
         mEndDateText = (EditText) findViewById(R.id.enddate);
@@ -147,7 +143,7 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
         }
     }
 
-    @Override
+   /* @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // Since the editor shows all pet attributes, define a projection that contains
         // all columns from the pet table
@@ -201,5 +197,5 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
         mStartDateEditText.setText("");
         mEndDateText.setText("");
 
-    }
+    }*/
 }

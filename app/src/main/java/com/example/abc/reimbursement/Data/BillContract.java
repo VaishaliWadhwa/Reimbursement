@@ -61,14 +61,17 @@ public class BillContract {
          */
         public final static String TABLE_NAME = "Expenses";
 
-        /**
-         * Unique ID number for the Expense (only for use in the database table).
-         * <p>
-         * Type: INTEGER
-         */
+
 
         //public final static String COLUMN_EXPENSE_ID = "_ID";
-        public final static String COLUMN_EXPENSE_BILL_ID = "Bill_ID";
+        //public final static String COLUMN_EXPENSE_BILL_ID = "Bill_ID";
+
+        /**
+         * Unique ID number for the pet (only for use in the database table).
+         *
+         * Type: INTEGER
+         */
+        public final static String _ID = BaseColumns._ID;
 
 
         public final static String COLUMN_EXPENSE_NAME = "name";

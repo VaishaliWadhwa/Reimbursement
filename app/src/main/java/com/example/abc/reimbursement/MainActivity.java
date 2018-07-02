@@ -1,12 +1,13 @@
 package com.example.abc.reimbursement;
 
-import android.app.Activity;
+
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -18,8 +19,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.abc.reimbursement.Data.BillContract;
+import com.example.abc.reimbursement.Data.BillDbHelper;
 import com.example.abc.reimbursement.Data.EditorExpense;
 
 /**
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     /** Identifier for the pet data loader */
     private static final int EXPENSE_LOADER = 0;
+
+    BillDbHelper mDbHelper;
     /*
      * Database helper that will provide us access to the database
      */
@@ -139,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
-        mCursorAdapter.swapCursor(data);
+        //mCursorAdapter.swapCursor(data);
     }
 
     @Override
@@ -148,4 +153,30 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mCursorAdapter.swapCursor(null);
     }
 
+
+    private void displayDatabaseInfo() {
+        // Create and/or open a database to read from it
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        // Perform this raw SQL query "SELECT * FROM pets"
+        // to get a Cursor that contains all rows from the pets table.
+        Cursor cursor = db.rawQuery("SELECT * FROM " + BillContract.BillEntry.TABLE_NAME, null);
+        try {
+            // Display the number of rows in the Cursor (which reflects the number of rows in the
+            // pets table in the database).
+            TextView displayView = (TextView) findViewById(R.id.text_view_pet);
+            displayView.setText("Number of rows in pets database table: " + cursor.getCount());
+        } finally {
+            // Always close the cursor when you're done reading from it. This releases all its
+            // resources and makes it invalid.
+            cursor.close();
+        }
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        displayDatabaseInfo();
+    }
 }
