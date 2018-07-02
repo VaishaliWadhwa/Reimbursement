@@ -51,33 +51,33 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Find the ListView which will be populated with the pet data
-        ListView petListView = (ListView) findViewById(R.id.list);
+        ListView expenseListView = (ListView) findViewById(R.id.list);
 
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
         View emptyView = findViewById(R.id.empty_view);
-        petListView.setEmptyView(emptyView);
+        expenseListView.setEmptyView(emptyView);
 
         // Setup an Adapter to create a list item for each row of pet data in the Cursor.
         // There is no pet data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new BillCursorAdapter(this, null);
-        petListView.setAdapter(mCursorAdapter);
+        expenseListView.setAdapter(mCursorAdapter);
 
         // Setup the item click listener
-        petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 // Create new intent to go to {@link EditorActivity}
-                Intent intent = new Intent(MainActivity.this, EditorExpense.class);
+                Intent intent = new Intent(MainActivity.this, ExpenseReport.class);
 
                 // Form the content URI that represents the specific pet that was clicked on,
                 // by appending the "id" (passed as input to this method) onto the
                 // {@link PetEntry#CONTENT_URI}.
                 // For example, the URI would be "content://com.example.android.pets/pets/2"
                 // if the pet with ID 2 was clicked on.
-                Uri currentPetUri = ContentUris.withAppendedId(BillContract.BillEntry.CONTENT_URI, id);
+                Uri currentExpenseUri = ContentUris.withAppendedId(BillContract.BillEntry.CONTENT_URI, id);
 
                 // Set the URI on the data field of the intent
-                intent.setData(currentPetUri);
+                intent.setData(currentExpenseUri);
 
                 // Launch the {@link EditorActivity} to display the data for the current pet.
                 startActivity(intent);
