@@ -36,7 +36,7 @@ public class EditorExpense extends AppCompatActivity  {
 
 
         getWindow().setLayout((int) (width * .80), (int) (height * .42));
-        Button button = (Button) findViewById(R.id.okay);
+        Button button = (Button) findViewById(R.id.ok);
         mNameEditText = (EditText) findViewById(R.id.expensename);
         mStartDateEditText = (EditText) findViewById(R.id.startdate);
         mEndDateText = (EditText) findViewById(R.id.enddate);

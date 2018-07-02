@@ -1,8 +1,11 @@
 package com.example.abc.reimbursement;
 
-
+import android.app.Activity;
+import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -16,29 +19,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.abc.reimbursement.Data.BillContract;
 import com.example.abc.reimbursement.Data.BillDbHelper;
 import com.example.abc.reimbursement.Data.EditorExpense;
+
 /**
  * Displays list of pets that were entered and stored in the app.
  */
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    /**
-     * Identifier for the pet data loader
-     */
+    /** Identifier for the pet data loader */
     private static final int EXPENSE_LOADER = 0;
-
     BillDbHelper mDbHelper;
     /*
      * Database helper that will provide us access to the database
      */
 
-    /**
-     * Adapter for the ListView
-     */
+    /** Adapter for the ListView */
     BillCursorAdapter mCursorAdapter;
 
 
@@ -96,7 +94,7 @@ public class MainActivity extends AppCompatActivity  {
         });
 
         // Kick off the loader
-        //getLoaderManager().initLoader(EXPENSE_LOADER, null, this);
+        getLoaderManager().initLoader(EXPENSE_LOADER, null, this);
 
     }
 
@@ -122,44 +120,56 @@ public class MainActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        // Define a projection that specifies the columns from the table we care about.
+
+        String[] projection = {
+                BillContract.BillEntry._ID,
+                BillContract.BillEntry.COLUMN_EXPENSE_NAME,
+                BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE,
+                BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE};
 
 
-    private void displayDatabaseInfo() {
-        // Create and/or open a database to read from it
-
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        // Perform this raw SQL query "SELECT * FROM pets"
-        // to get a Cursor that contains all rows from the pets table.
-        Cursor cursor = db.rawQuery("SELECT * FROM " + BillContract.BillEntry.TABLE_NAME, null);
-
-
-        TextView nameTextView = (TextView) findViewById(R.id.name);
-        TextView summaryTextView = (TextView) findViewById(R.id.summary);
-
-        // Find the columns of pet attributes that we're interested in
-        int nameColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_NAME);
-        int startDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE);
-        int endDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE);
-
-        // Read the pet attributes from the Cursor for the current pet
-        String expenseName = cursor.getString(nameColumnIndex);
-        String expenseStartDate = cursor.getString(startDateColumnIndex);
-        String expenseEndDate = cursor.getString(endDateColumnIndex);
-
-        // If the pet breed is empty string or null, then use some default text
-        // that says "Unknown breed", so the TextView isn't blank.
-
-        // Update the TextViews with the attributes for the current pet
-        nameTextView.setText(expenseName);
-        summaryTextView.setText(expenseStartDate + " - " + expenseEndDate);
-        cursor.close();
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                BillContract.BillEntry.CONTENT_URI,   // Provider content URI to query
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
     }
-
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        displayDatabaseInfo();
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        mCursorAdapter.swapCursor(data);
     }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // Callback called when the data needs to be deleted
+        mCursorAdapter.swapCursor(null);
+    }
+
+    /*public String[] getAppCategoryDetail() {
+
+        final String TABLE_NAME = "name of table";
+
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+
+        BillDbHelper mDbHelper =  ;
+        SQLiteDatabase db  = mDbHelper.getReadableDatabase();
+        Cursor cursor      = db.rawQuery(selectQuery, null);
+        String[] data      = null;
+
+        if (cursor.moveToFirst()) {
+            do {
+                // get the data into array, or class variable
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return data;
+    }*/
+
 }
