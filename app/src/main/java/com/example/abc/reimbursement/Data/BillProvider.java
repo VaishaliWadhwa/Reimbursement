@@ -7,15 +7,13 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
-import android.widget.DatePicker;
-
-import com.example.android.pets.data.PetContract.PetEntry;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 
 /**
  * {@link ContentProvider} for Pets app.
@@ -47,7 +45,7 @@ public class BillProvider extends ContentProvider {
         // The content URI of the form "content://com.example.android.pets/pets" will map to the
         // integer code {@link #PETS}. This URI is used to provide access to MULTIPLE rows
         // of the pets table.
-        sUriMatcher.addURI(BillContract.CONTENT_AUTHORITY, BillContract.PATH_PETS, EXPENSES);
+        sUriMatcher.addURI(BillContract.CONTENT_AUTHORITY, BillContract.PATH_EXPENSES, EXPENSES);
 
         // The content URI of the form "content://com.example.android.pets/pets/#" will map to the
         // integer code {@link #PET_ID}. This URI is used to provide access to ONE single row
@@ -56,7 +54,7 @@ public class BillProvider extends ContentProvider {
         // In this case, the "#" wildcard is used where "#" can be substituted for an integer.
         // For example, "content://com.example.android.pets/pets/3" matches, but
         // "content://com.example.android.pets/pets" (without a number at the end) doesn't match.
-        sUriMatcher.addURI(BillContract.CONTENT_AUTHORITY, BillContract.PATH_PETS + "/#", EXPENSES_ID);
+        sUriMatcher.addURI(BillContract.CONTENT_AUTHORITY, BillContract.PATH_EXPENSES + "/#", EXPENSES_ID);
     }
 
     /** Database helper object */
@@ -149,7 +147,7 @@ public class BillProvider extends ContentProvider {
         String purpose = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE);
         Float amount = values.getAsFloat(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT);
         String cat = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_CAT);
-        Integer id = values.getAsInteger(BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID);
+        long id = values.getAsInteger(BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID);
         String subcat = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT);
 
 
@@ -163,7 +161,7 @@ public class BillProvider extends ContentProvider {
         SQLiteDatabase database = mBillDbHelper.getWritableDatabase();
 
         // Insert the new pet with the given values
-        long id = database.insert(BillContract.BillEntry.TABLE_NAME, null, values);
+         id = database.insert(BillContract.BillEntry.TABLE_NAME, null, values);
         // If the ID is -1, then the insertion failed. Log an error and return null.
         if (id == -1) {
             Log.e(LOG_TAG, "Failed to insert row for " + uri);
@@ -288,6 +286,11 @@ public class BillProvider extends ContentProvider {
     }
 
     @Override
+    public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+        return 0;
+    }
+
+    @Override
     public String getType(Uri uri) {
         final int match = sUriMatcher.match(uri);
         switch (match) {
@@ -298,5 +301,11 @@ public class BillProvider extends ContentProvider {
             default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }
+    }
+
+    @Nullable
+    @Override
+    public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+        return null;
     }
 }
