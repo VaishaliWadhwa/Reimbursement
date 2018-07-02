@@ -1,11 +1,13 @@
 package com.example.abc.reimbursement;
 
-import android.app.Activity;
-import android.content.ContentUris;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -17,18 +19,21 @@ import android.widget.ListView;
 
 import com.example.abc.reimbursement.Data.BillContract;
 import com.example.abc.reimbursement.Data.EditorExpense;
+import com.example.abc.reimbursement.Data.MyHelper;
 
 /**
  * Displays list of pets that were entered and stored in the app.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     /*
      * Database helper that will provide us access to the database
-     */
+     */private static final int EXPENSE_LOADER= 0 ;
 
     /** Adapter for the ListView */
     BillCursorAdapter mCursorAdapter;
+    private MyHelper mMyHelper;
+    private SQLiteDatabase mDB;
 
 
     @Override
@@ -49,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        mMyHelper = new MyHelper(MainActivity.this,"Reimbursement",null,1);
+        mDB = mMyHelper.getReadableDatabase();
+
+
+
+
+
 
         // Find the ListView which will be populated with the pet data
         ListView expenseListView = (ListView) findViewById(R.id.list);
@@ -74,15 +86,13 @@ public class MainActivity extends AppCompatActivity {
                 // {@link PetEntry#CONTENT_URI}.
                 // For example, the URI would be "content://com.example.android.pets/pets/2"
                 // if the pet with ID 2 was clicked on.
-                Uri currentExpenseUri = ContentUris.withAppendedId(BillContract.BillEntry.CONTENT_URI, id);
 
-                // Set the URI on the data field of the intent
-                intent.setData(currentExpenseUri);
 
                 // Launch the {@link EditorActivity} to display the data for the current pet.
                 startActivity(intent);
             }
         });
+        getLoaderManager().initLoader(EXPENSE_LOADER,null,this);
 
 
     }
@@ -110,4 +120,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String[] projection = {
+                BillContract.BillEntry.COLUMN_EXPENSE_NAME,
+                BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE,
+                BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE};
+
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                BillContract.BillEntry.CONTENT_URI,         // Query the content URI for the current pet
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mCursorAdapter.swapCursor(data);
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mCursorAdapter.swapCursor(null);
+
+    }
 }

@@ -6,10 +6,10 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +24,11 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
     EditText mEndDateText;
     private Uri mCurrentExpenseUri;
 
+    private static final int EXISTING_EXPENSE_LOADER = 0;
+    private boolean mExpenseHasChanged = false;
+    private MyHelper mMyHelper;
+    private SQLiteDatabase mDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +36,8 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
 
         setContentView(R.layout.activity_editor_expense);
 
+        mMyHelper = new MyHelper(EditorExpense.this,"Reimbursement",null,1);
+        mDB = mMyHelper.getWritableDatabase();
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -40,24 +47,23 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
 
 
         getWindow().setLayout((int) (width * .80), (int) (height * .42));
-        Button button = (Button) findViewById(R.id.ok);
-         mNameEditText = (EditText) findViewById(R.id.expensename);
+
+        mNameEditText = (EditText) findViewById(R.id.expensename);
         mStartDateEditText = (EditText) findViewById(R.id.startdate);
         mEndDateText = (EditText) findViewById(R.id.enddate);
 
         Intent intent = getIntent();
-        mCurrentExpenseUri = intent.getData();
 
+        Button button = (Button) findViewById(R.id.okay);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-
-                saveExpense();
+             saveExpense();
+             finish();
 
             }
-
-            ;
         });
+
         Button button2 = (Button) findViewById(R.id.Back);
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -80,14 +86,7 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
         String EndDateString = mEndDateText.getText().toString().trim();
 
         // Check if this is supposed to be a new pet
-        // and check if all the fields in the editor are blank
-        if (mCurrentExpenseUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(StartDateString) &&
-                TextUtils.isEmpty(EndDateString) ) {
-            // Since no fields were modified, we can return early without creating a new pet.
-            // No need to create ContentValues and no need to do any ContentProvider operations.
-            return;
-        }
+
 
         // Create a ContentValues object where column names are the keys,
         // and pet attributes from the editor are the values.
@@ -95,96 +94,73 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, nameString);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE, StartDateString);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE, EndDateString);
+        long id = mDB.insert("Expenses",null,values);
+        Toast.makeText(this, String.valueOf(id), Toast.LENGTH_SHORT).show();
+
+
+
+
+
 
         // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
-        if (mCurrentExpenseUri == null) {
-            // This is a NEW pet, so insert a new pet into the provider,
-            // returning the content URI for the new pet.
-            Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
 
-            // Show a toast message depending on whether or not the insertion was successful.
-            if (newUri == null) {
-                // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, "Insertion Failed Try Again",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // Otherwise, the insertion was successful and we can display a toast.
-                Toast.makeText(this, "Inserted Successfully",
-                        Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public Loader<Cursor> onCreateLoader ( int id, Bundle args){
+            // Since the editor shows all pet attributes, define a projection that contains
+            // all columns from the pet table
+            String[] projection ={
+
+
+                    BillContract.BillEntry.COLUMN_EXPENSE_NAME,
+                    BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE,
+                    BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE};
+
+            // This loader will execute the ContentProvider's query method on a background thread
+            return new CursorLoader(this,   // Parent activity context
+                    // Query the content URI for the current pet
+                    projection,             // Columns to include in the resulting Cursor
+                    null,                   // No selection clause
+                    null,                   // No selection arguments
+                    null);                  // Default sort order
+        }
+
+        @Override
+        public void onLoadFinished (Loader < Cursor > loader, Cursor cursor){
+            // Bail early if the cursor is null or there is less than 1 row in the cursor
+            if (cursor == null || cursor.getCount() < 1) {
+                return;
             }
-        } else {
-            // Otherwise this is an EXISTING pet, so update the pet with content URI: mCurrentPetUri
-            // and pass in the new ContentValues. Pass in null for the selection and selection args
-            // because mCurrentPetUri will already identify the correct row in the database that
-            // we want to modify.
-            int rowsAffected = getContentResolver().update(mCurrentExpenseUri, values, null, null);
 
-            // Show a toast message depending on whether or not the update was successful.
-            if (rowsAffected == 0) {
-                // If no rows were affected, then there was an error with the update.
-                Toast.makeText(this, "Editing Failed",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // Otherwise, the update was successful and we can display a toast.
-                Toast.makeText(this, "Editing Successfull",
-                        Toast.LENGTH_SHORT).show();
+            // Proceed with moving to the first row of the cursor and reading data from it
+            // (This should be the only row in the cursor)
+            if (cursor.moveToFirst()) {
+                // Find the columns of pet attributes that we're interested in
+                int nameColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_NAME);
+                int startDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE);
+                int endDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE);
+
+                // Extract out the value from the Cursor for the given column index
+                String name = cursor.getString(nameColumnIndex);
+                String startDate = cursor.getString(startDateColumnIndex);
+                int endDate = cursor.getInt(endDateColumnIndex);
+
+                // Update the views on the screen with the values from the database
+                mNameEditText.setText(name);
+                mStartDateEditText.setText(startDate);
+                mEndDateText.setText(endDate);
+
+
             }
         }
-    }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        // Since the editor shows all pet attributes, define a projection that contains
-        // all columns from the pet table
-        String[] projection = {
-                BillContract.BillEntry.COLUMN_EXPENSE_NAME,
-                BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE,
-                BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE};
-
-        // This loader will execute the ContentProvider's query method on a background thread
-        return new CursorLoader(this,   // Parent activity context
-                mCurrentExpenseUri,         // Query the content URI for the current pet
-                projection,             // Columns to include in the resulting Cursor
-                null,                   // No selection clause
-                null,                   // No selection arguments
-                null);                  // Default sort order
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        // Bail early if the cursor is null or there is less than 1 row in the cursor
-        if (cursor == null || cursor.getCount() < 1) {
-            return;
-        }
-
-        // Proceed with moving to the first row of the cursor and reading data from it
-        // (This should be the only row in the cursor)
-        if (cursor.moveToFirst()) {
-            // Find the columns of pet attributes that we're interested in
-            int nameColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_NAME);
-            int startDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE);
-            int endDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE);
-
-            // Extract out the value from the Cursor for the given column index
-            String name = cursor.getString(nameColumnIndex);
-            String startDate = cursor.getString(startDateColumnIndex);
-            int endDate = cursor.getInt(endDateColumnIndex);
-
-            // Update the views on the screen with the values from the database
-            mNameEditText.setText(name);
-            mStartDateEditText.setText(startDate);
-            mEndDateText.setText(endDate);
-
+        @Override
+        public void onLoaderReset (Loader < Cursor > loader) {
+            // If the loader is invalidated, clear out all the data from the input fields.
+            mNameEditText.setText("");
+            mStartDateEditText.setText("");
+            mEndDateText.setText("");
 
         }
     }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        // If the loader is invalidated, clear out all the data from the input fields.
-        mNameEditText.setText("");
-        mStartDateEditText.setText("");
-        mEndDateText.setText("");
-
-    }
-}

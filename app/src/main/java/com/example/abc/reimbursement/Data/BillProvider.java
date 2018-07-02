@@ -12,8 +12,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  * {@link ContentProvider} for Pets app.
@@ -142,7 +140,7 @@ public class BillProvider extends ContentProvider {
         }
 
 
-        String startdate  = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE );
+       /* String startdate  = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE );
         String enddate  = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE );
         Date billdate  = new SimpleDateFormat("dd/MM/yyyy").parse(values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE ));
         String restname = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME);
@@ -153,7 +151,7 @@ public class BillProvider extends ContentProvider {
         String cat = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_CAT);
         long id = values.getAsInteger(BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID);
         String subcat = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT);
-
+*/
 
 
         // If the weight is provided, check that it's greater than or equal to 0 kg
@@ -165,7 +163,7 @@ public class BillProvider extends ContentProvider {
         SQLiteDatabase database = mBillDbHelper.getWritableDatabase();
 
         // Insert the new pet with the given values
-         id = database.insert(BillContract.BillEntry.TABLE_NAME, null, values);
+         long id = database.insert(BillContract.BillEntry.TABLE_NAME, null, values);
         // If the ID is -1, then the insertion failed. Log an error and return null.
         if (id == -1) {
             Log.e(LOG_TAG, "Failed to insert row for " + uri);
@@ -240,7 +238,7 @@ public class BillProvider extends ContentProvider {
         }
 */
         // Otherwise, get writeable database to update the data
-        SQLiteDatabase database = mBillDbHelper.getWritableDatabase();
+        /*SQLiteDatabase database = mBillDbHelper.getWritableDatabase();*/
 
         // Perform the update on the database and get the number of rows affected
         /*int rowsUpdated = database.update(PetEntry.TABLE_NAME, values, selection, selectionArgs);
