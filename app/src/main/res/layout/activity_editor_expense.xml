@@ -21,9 +21,10 @@
     tools:context=".Data.EditorExpense"
     android:background="#FFFFFF">
 
-    <TextView
+    <EditText
         android:layout_width="250dp"
         android:layout_height="40dp"
+        android:id="@+id/expensename"
 
         android:layout_marginStart="50dp"
         android:layout_marginTop="38dp"
@@ -36,7 +37,7 @@
         android:layout_marginTop="20dp">
 
 
-        <TextView
+        <EditText
 
             android:id="@+id/startdate"
             android:layout_width="110dp"
@@ -45,7 +46,7 @@
             android:hint="End Date" />
 
 
-        <TextView
+        <EditText
 
             android:id="@+id/enddate"
             android:layout_width="110dp"
