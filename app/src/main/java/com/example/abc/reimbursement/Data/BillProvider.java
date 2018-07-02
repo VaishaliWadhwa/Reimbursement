@@ -138,8 +138,8 @@ public class BillProvider extends ContentProvider {
         }
 
 
-        Date startdate  = new SimpleDateFormat("dd/MM/yyyy").parse(values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE ));
-        Date enddate  = new SimpleDateFormat("dd/MM/yyyy").parse(values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE ));
+        String startdate  = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE );
+        String enddate  = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE );
         Date billdate  = new SimpleDateFormat("dd/MM/yyyy").parse(values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE ));
         String restname = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME);
         String clientname = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME);
