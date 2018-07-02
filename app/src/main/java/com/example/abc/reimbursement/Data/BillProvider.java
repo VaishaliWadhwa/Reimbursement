@@ -115,22 +115,26 @@ public class BillProvider extends ContentProvider {
         return cursor;
     }
 
-   /* @Override
+    @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case EXPENSES:
-                return insertPet(uri, contentValues);
+                try {
+                    return insertExpense(uri, contentValues);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
     }
-*/
+
     /**
      * Insert a pet into the database with the given content values. Return the new content URI
      * for that specific row in the database.
      */
-    private Uri insertPet(Uri uri, ContentValues values) throws ParseException {
+    private Uri insertExpense(Uri uri, ContentValues values) throws ParseException {
         // Check that the name is not null
         String name = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_NAME);
         if (name == null) {
@@ -303,9 +307,4 @@ public class BillProvider extends ContentProvider {
         }
     }
 
-    @Nullable
-    @Override
-    public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-        return null;
-    }
 }
