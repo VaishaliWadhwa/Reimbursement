@@ -1,6 +1,11 @@
 package com.example.abc.reimbursement.Data;
 
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.abc.reimbursement.R;
 
-public class EditorExpense extends AppCompatActivity {
+public class EditorExpense extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     EditText mNameEditText;
     EditText mStartDateEditText;
     EditText mEndDateText;
@@ -39,6 +44,9 @@ public class EditorExpense extends AppCompatActivity {
          mNameEditText = (EditText) findViewById(R.id.expensename);
         mStartDateEditText = (EditText) findViewById(R.id.startdate);
         mEndDateText = (EditText) findViewById(R.id.enddate);
+
+        Intent intent = getIntent();
+        mCurrentExpenseUri = intent.getData();
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -122,5 +130,61 @@ public class EditorExpense extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        // Since the editor shows all pet attributes, define a projection that contains
+        // all columns from the pet table
+        String[] projection = {
+                BillContract.BillEntry.COLUMN_EXPENSE_NAME,
+                BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE,
+                BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE};
+
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                mCurrentExpenseUri,         // Query the content URI for the current pet
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        // Bail early if the cursor is null or there is less than 1 row in the cursor
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
+
+        // Proceed with moving to the first row of the cursor and reading data from it
+        // (This should be the only row in the cursor)
+        if (cursor.moveToFirst()) {
+            // Find the columns of pet attributes that we're interested in
+            int nameColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_NAME);
+            int startDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE);
+            int endDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE);
+
+            // Extract out the value from the Cursor for the given column index
+            String name = cursor.getString(nameColumnIndex);
+            String startDate = cursor.getString(startDateColumnIndex);
+            int endDate = cursor.getInt(endDateColumnIndex);
+
+            // Update the views on the screen with the values from the database
+            mNameEditText.setText(name);
+            mStartDateEditText.setText(startDate);
+            mEndDateText.setText(endDate);
+
+
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // If the loader is invalidated, clear out all the data from the input fields.
+        mNameEditText.setText("");
+        mStartDateEditText.setText("");
+        mEndDateText.setText("");
+
     }
 }
