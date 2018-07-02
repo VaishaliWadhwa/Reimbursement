@@ -66,12 +66,14 @@ public class BillContract {
          * <p>
          * Type: INTEGER
          */
-        public final static String COLUMN_EXPENSE_EXPENSE_ID = "Expense_ID";
 
+        //public final static String COLUMN_EXPENSE_ID = "_ID";
         public final static String COLUMN_EXPENSE_BILL_ID = "Bill_ID";
 
 
         public final static String COLUMN_EXPENSE_NAME = "name";
+
+
 
 
         public final static String COLUMN_EXPENSE_STARTDATE = "start_date";

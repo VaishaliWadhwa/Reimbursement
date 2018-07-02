@@ -3,6 +3,7 @@
     package="com.example.abc.reimbursement">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -46,6 +47,11 @@
             android:label="Edit"
 
             android:theme="@style/AppTheme.CustomTheme" />
+
+        <provider
+            android:authorities="com.example.abc.reimbursement"
+            android:name=".Data.BillProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

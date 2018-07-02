@@ -1,8 +1,12 @@
 package com.example.abc.reimbursement;
 
 import android.app.Activity;
+import android.app.LoaderManager;
 import android.content.ContentUris;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -21,8 +25,10 @@ import com.example.abc.reimbursement.Data.EditorExpense;
 /**
  * Displays list of pets that were entered and stored in the app.
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    /** Identifier for the pet data loader */
+    private static final int EXPENSE_LOADER = 0;
     /*
      * Database helper that will provide us access to the database
      */
@@ -84,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Kick off the loader
+        getLoaderManager().initLoader(EXPENSE_LOADER, null, this);
 
     }
 
@@ -109,5 +117,35 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        // Define a projection that specifies the columns from the table we care about.
+
+        String[] projection = {
+                BillContract.BillEntry.COLUMN_EXPENSE_NAME,
+                BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE,
+                BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE};
+
+
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                BillContract.BillEntry.CONTENT_URI,   // Provider content URI to query
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        mCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // Callback called when the data needs to be deleted
+        mCursorAdapter.swapCursor(null);
+    }
 
 }

@@ -41,7 +41,7 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
 
         getWindow().setLayout((int) (width * .80), (int) (height * .42));
         Button button = (Button) findViewById(R.id.ok);
-         mNameEditText = (EditText) findViewById(R.id.expensename);
+        mNameEditText = (EditText) findViewById(R.id.expensename);
         mStartDateEditText = (EditText) findViewById(R.id.startdate);
         mEndDateText = (EditText) findViewById(R.id.enddate);
 
@@ -51,12 +51,27 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
+                // Read from input fields
+                // Use trim to eliminate leading or trailing white space
+                String nameString = mNameEditText.getText().toString().trim();
+                String StartDateString = mStartDateEditText.getText().toString().trim();
+                String EndDateString = mEndDateText.getText().toString().trim();
 
-                saveExpense();
+                ContentValues values = new ContentValues();
+                values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, nameString);
+                values.put(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE, StartDateString);
+                values.put(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE, EndDateString);
+
+              // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+                Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+
+
+                //saveExpense();
+                finish();
 
             }
 
-            ;
+
         });
         Button button2 = (Button) findViewById(R.id.Back);
         button2.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +98,7 @@ public class EditorExpense extends AppCompatActivity implements LoaderManager.Lo
         // and check if all the fields in the editor are blank
         if (mCurrentExpenseUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(StartDateString) &&
-                TextUtils.isEmpty(EndDateString) ) {
+                TextUtils.isEmpty(EndDateString)) {
             // Since no fields were modified, we can return early without creating a new pet.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
