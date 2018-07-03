@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static com.example.abc.reimbursement.Data.BillContract.BillEntry.COLUMN_EXPENSE_NAME;
+
 public class BillDbHelper extends SQLiteOpenHelper {
 
 
@@ -34,7 +36,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
             // Create a String that contains the SQL statement to create the pets table
             String SQL_CREATE_EXPENSE_TABLE =  "CREATE TABLE " + BillContract.BillEntry.TABLE_NAME + " ("
                    // + BillContract.BillEntry.COLUMN_EXPENSE_ID + " INTEGER , "
-                    + BillContract.BillEntry.COLUMN_EXPENSE_NAME + " TEXT NOT NULL UNIQUE , "
+                    + COLUMN_EXPENSE_NAME + " TEXT NOT NULL UNIQUE ,"
                     + BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE+ " TEXT, "
 
                     + BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE+ " TEXT, "
@@ -53,9 +55,10 @@ public class BillDbHelper extends SQLiteOpenHelper {
                     + BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT+ " TEXT)";
 
 
+
             // Execute the SQL statement
-            db.execSQL(SQL_CREATE_EXPENSE_TABLE);
-        }
+            db.execSQL(SQL_CREATE_EXPENSE_TABLE); }
+
 
         /**
          * This is called when the database needs to be upgraded.

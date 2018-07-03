@@ -3,8 +3,8 @@
     <string-array name="names">
         <item>Add Expense</item>
         <item>Meal</item>
-        <item>Travel</item>
-        <item>Communication</item>
+        <item>Local Travel</item>
+        <item>Distant Travel</item>
         <item>Team Expense</item>
         <item> MISC</item>
     </string-array>

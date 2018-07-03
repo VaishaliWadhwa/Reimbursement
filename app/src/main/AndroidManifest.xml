@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.abc.reimbursement">
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -27,7 +27,6 @@
         <activity
             android:name=".MealActivity"
             android:label="Meal" />
-        <activity android:name=".TravelActivity" />
         <activity
             android:name=".ImageToTextConverter"
             android:label="Scan Here" />
@@ -37,22 +36,22 @@
         <activity
             android:name=".TeamExpenseActivity"
             android:label="Team Expense" />
-        <activity
-            android:name=".ChoiceActivity"
-            />
+        <activity android:name=".ChoiceActivity" />
         <activity
             android:name=".ExpenseReport"
             android:label="Expense Report" />
         <activity
             android:name=".Data.EditorExpense"
             android:label="Edit"
-
             android:theme="@style/AppTheme.CustomTheme" />
 
         <provider
-            android:authorities="com.example.abc.reimbursement"
             android:name=".Data.BillProvider"
-            android:exported="false"/>
+            android:authorities="com.example.abc.reimbursement"
+            android:exported="false" />
+
+        <activity android:name=".LocalTravel" />
+        <activity android:name=".DistantTravel"></activity>
     </application>
 
 </manifest>

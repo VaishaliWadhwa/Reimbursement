@@ -1,19 +1,18 @@
 package com.example.abc.reimbursement;
 
-import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_expenses:
-                //deleteAllPets();
+                deleteAllExpenses();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -150,6 +149,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<Cursor> loader) {
         // Callback called when the data needs to be deleted
         mCursorAdapter.swapCursor(null);
+    }
+    private void deleteAllExpenses() {
+        int rowsDeleted = getContentResolver().delete(BillContract.BillEntry.CONTENT_URI, null, null);
+        Log.v("CatalogActivity", rowsDeleted + " rows deleted from Expense database");
     }
 
     /*public String[] getAppCategoryDetail() {

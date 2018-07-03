@@ -3,7 +3,6 @@ package com.example.abc.reimbursement;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,6 +39,12 @@ public class ChoiceActivity extends AppCompatActivity implements AdapterView.OnI
     public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
         switch(i)
         {
+            case (0) :
+            {
+                break;
+
+
+            }
             case (1) :
             {
 
@@ -52,7 +57,7 @@ public class ChoiceActivity extends AppCompatActivity implements AdapterView.OnI
             case (2):
             {
 
-                Intent intent = new Intent (ChoiceActivity.this , TravelActivity.class );
+                Intent intent = new Intent (ChoiceActivity.this , LocalTravel.class );
                 startActivity(intent);
                 break;
 
@@ -60,6 +65,18 @@ public class ChoiceActivity extends AppCompatActivity implements AdapterView.OnI
 
 
             }
+            case (3):
+            {
+
+                Intent intent = new Intent (ChoiceActivity.this , DistantTravel.class );
+                startActivity(intent);
+                break;
+
+
+
+
+            }
+
             case (4):
             {
 

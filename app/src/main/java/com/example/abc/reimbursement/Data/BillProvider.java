@@ -10,21 +10,30 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * {@link ContentProvider} for Pets app.
  */
 public class BillProvider extends ContentProvider {
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = BillProvider.class.getSimpleName();
 
-    /** URI matcher code for the content URI for the pets table */
+    /**
+     * URI matcher code for the content URI for the pets table
+     */
     private static final int EXPENSES = 200;
 
-    /** URI matcher code for the content URI for a single pet in the pets table */
+    /**
+     * URI matcher code for the content URI for a single pet in the pets table
+     */
     private static final int EXPENSES_ID = 201;
 
     /**
@@ -55,7 +64,9 @@ public class BillProvider extends ContentProvider {
         sUriMatcher.addURI(BillContract.CONTENT_AUTHORITY, BillContract.PATH_EXPENSES + "/#", EXPENSES_ID);
     }
 
-    /** Database helper object */
+    /**
+     * Database helper object
+     */
     private BillDbHelper mBillDbHelper;
 
     @Override
@@ -93,7 +104,7 @@ public class BillProvider extends ContentProvider {
                 // arguments that will fill in the "?". Since we have 1 question mark in the
                 // selection, we have 1 String in the selection arguments' String array.
                 selection = BillContract.BillEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
                 // This will perform a query on the pets table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
@@ -118,8 +129,9 @@ public class BillProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case EXPENSES:
+
                 try {
-                    return insertExpense(uri, contentValues);
+                    return insertPet(uri, contentValues);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -132,38 +144,71 @@ public class BillProvider extends ContentProvider {
      * Insert a pet into the database with the given content values. Return the new content URI
      * for that specific row in the database.
      */
-    private Uri insertExpense(Uri uri, ContentValues values) throws ParseException {
+    private Uri insertPet(Uri uri, ContentValues values) throws ParseException {
+
         // Check that the name is not null
-        String name = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_NAME);
-        if (name == null) {
-            throw new IllegalArgumentException("Expense requires a name");
+        String username = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_NAME);
+        if (username.isEmpty() || username.trim().equals("") ){
+            Toast.makeText(getContext(),"Name cannot be empty" ,Toast.LENGTH_LONG).show();
+            return null ;
+
         }
 
 
-       /* String startdate  = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE );
-        String enddate  = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE );
-        Date billdate  = new SimpleDateFormat("dd/MM/yyyy").parse(values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE ));
-        String restname = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME);
-        String clientname = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME);
-        String members = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_MEMBERS);
-        String purpose = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE);
-        Float amount = values.getAsFloat(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT);
-        String cat = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_CAT);
-        long id = values.getAsInteger(BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID);
-        String subcat = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT);
-*/
+        String query = "Select * from Expenses where name ='"+ username+ "'";
+
+        SQLiteDatabase database = mBillDbHelper.getReadableDatabase();
+        Cursor cursor = database.rawQuery( query,null);
+        cursor.moveToFirst();
+        if(cursor.getCount()>=1) {
+            Toast.makeText(getContext(), "Enter another name ", Toast.LENGTH_LONG).show();
+            return null;
+        }
 
 
-        // If the weight is provided, check that it's greater than or equal to 0 kg
+          String startdate = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE);
+            String enddate = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE);
+        if (startdate!=null && startdate.trim()!=null ||(enddate!=null && enddate.trim()!=null)) {
+
+            Date date1=null;
+            Date date2=null;
+            try
+            {
+                date1 = new SimpleDateFormat("dd/MM/yyyy").parse(startdate);
+                date2 = new SimpleDateFormat("dd/MM/yyyy").parse(enddate);
+                if (date1.after(date2)) {
+                    Toast.makeText(getContext(), "Select dates appropriately", Toast.LENGTH_LONG).show();
+                    return null;
+                }
+                if (date2.after(date1)) {
+
+                }
+                if (date1.equals(date2)) {
+
+                }
+            }catch (Exception ex) {
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+        // Check that the gender is valid
 
 
         // No need to check the breed, any value is valid (including null).
 
         // Get writeable database
-        SQLiteDatabase database = mBillDbHelper.getWritableDatabase();
+        database = mBillDbHelper.getWritableDatabase();
 
         // Insert the new pet with the given values
-         long id = database.insert(BillContract.BillEntry.TABLE_NAME, null, values);
+        long id = database.insert(BillContract.BillEntry.TABLE_NAME, null, values);
         // If the ID is -1, then the insertion failed. Log an error and return null.
         if (id == -1) {
             Log.e(LOG_TAG, "Failed to insert row for " + uri);
@@ -177,81 +222,8 @@ public class BillProvider extends ContentProvider {
         return ContentUris.withAppendedId(uri, id);
     }
 
-    /*@Override
-    public int update(Uri uri, ContentValues contentValues, String selection,
-                      String[] selectionArgs) {
-        final int match = sUriMatcher.match(uri);
-        switch (match) {
-            case EXPENSES:
-                return updatePet(uri, contentValues, selection, selectionArgs);
-            case EXPENSES_ID:
-                // For the PET_ID code, extract out the ID from the URI,
-                // so we know which row to update. Selection will be "_id=?" and selection
-                // arguments will be a String array containing the actual ID.
-                selection = BillContract.BillEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
-                return updatePet(uri, contentValues, selection, selectionArgs);
-            default:
-                throw new IllegalArgumentException("Update is not supported for " + uri);
-        }
-    }*/
 
-    /**
-     * Update pets in the database with the given content values. Apply the changes to the rows
-     * specified in the selection and selection arguments (which could be 0 or 1 or more pets).
-     * Return the number of rows that were successfully updated.
-     */
-    /*private int updatePet(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        // If the {@link PetEntry#COLUMN_PET_NAME} key is present,
-        // check that the name value is not null.
-        if (values.containsKey(BillContract.BillEntry.COLUMN_PET_NAME)) {
-            String name = values.getAsString(PetEntry.COLUMN_PET_NAME);
-            if (name == null) {
-                throw new IllegalArgumentException("Pet requires a name");
-            }
-        }*/
 
-        // If the {@link PetEntry#COLUMN_PET_GENDER} key is present,
-        // check that the gender value is valid.
-       /* if (values.containsKey(PetEntry.COLUMN_PET_GENDER)) {
-            Integer gender = values.getAsInteger(PetEntry.COLUMN_PET_GENDER);
-            if (gender == null || !PetEntry.isValidGender(gender)) {
-                throw new IllegalArgumentException("Pet requires valid gender");
-            }
-        }
-
-        // If the {@link PetEntry#COLUMN_PET_WEIGHT} key is present,
-        // check that the weight value is valid.
-        if (values.containsKey(PetEntry.COLUMN_PET_WEIGHT)) {
-            // Check that the weight is greater than or equal to 0 kg
-            Integer weight = values.getAsInteger(PetEntry.COLUMN_PET_WEIGHT);
-            if (weight != null && weight < 0) {
-                throw new IllegalArgumentException("Pet requires valid weight");
-            }
-        }*/
-
-        // No need to check the breed, any value is valid (including null).
-
-       /* // If there are no values to update, then don't try to update the database
-        if (values.size() == 0) {
-            return 0;
-        }
-*/
-        // Otherwise, get writeable database to update the data
-        /*SQLiteDatabase database = mBillDbHelper.getWritableDatabase();*/
-
-        // Perform the update on the database and get the number of rows affected
-        /*int rowsUpdated = database.update(PetEntry.TABLE_NAME, values, selection, selectionArgs);
-
-        // If 1 or more rows were updated, then notify all listeners that the data at the
-        // given URI has changed
-        if (rowsUpdated != 0) {
-            getContext().getContentResolver().notifyChange(uri, null);
-        }
-
-        // Return the number of rows updated
-        return rowsUpdated;
-    }*/
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -270,7 +242,7 @@ public class BillProvider extends ContentProvider {
             case EXPENSES_ID:
                 // Delete a single row given by the ID in the URI
                 selection = BillContract.BillEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = database.delete(BillContract.BillEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
@@ -287,10 +259,12 @@ public class BillProvider extends ContentProvider {
         return rowsDeleted;
     }
 
+
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         return 0;
     }
+
 
     @Override
     public String getType(Uri uri) {
@@ -306,3 +280,5 @@ public class BillProvider extends ContentProvider {
     }
 
 }
+
+
