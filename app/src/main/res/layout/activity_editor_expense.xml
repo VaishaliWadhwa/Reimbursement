@@ -64,7 +64,7 @@
 
         <Button
 
-            android:id="@+id/okay"
+            android:id="@+id/ok"
             android:layout_width="90dp"
             android:layout_height="50dp"
             android:backgroundTint="@color/colorPrimary"
