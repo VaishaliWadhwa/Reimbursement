@@ -101,5 +101,6 @@ public class BillContract {
 
         public final static String COLUMN_EXPENSE_SUBCAT = "sub_category";
 
+        public static final String COLUMN_EXPENSE_BILL_ID ="ID" ;
     }
 }
