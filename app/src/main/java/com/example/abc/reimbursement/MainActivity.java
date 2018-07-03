@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.abc.reimbursement.Data.BillContract;
 import com.example.abc.reimbursement.Data.BillDbHelper;
@@ -70,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mCursorAdapter = new BillCursorAdapter(this, null);
         expenseListView.setAdapter(mCursorAdapter);
 
+        mDbHelper = new BillDbHelper(this);
+
         // Setup the item click listener
         expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,15 +80,31 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 // Create new intent to go to {@link EditorActivity}
                 Intent intent = new Intent(MainActivity.this, ExpenseReport.class);
 
+
+                SQLiteDatabase database = mDbHelper.getReadableDatabase();
+
+                String query = "SELECT name FROM Expenses WHERE _id=" + id;
+
+                Cursor  cursor = database.rawQuery(query,null);
+                String expenseName=null;
+
+                if (cursor.moveToFirst()) {
+                    expenseName = cursor.getString(cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_NAME));
+                }
+
+                intent.putExtra("expenseName", expenseName);
+                 //String name = adapterView.getItemAtPosition(position).;
                 // Form the content URI that represents the specific pet that was clicked on,
                 // by appending the "id" (passed as input to this method) onto the
                 // {@link PetEntry#CONTENT_URI}.
                 // For example, the URI would be "content://com.example.android.pets/pets/2"
                 // if the pet with ID 2 was clicked on.
-                Uri currentExpenseUri = ContentUris.withAppendedId(BillContract.BillEntry.CONTENT_URI, id);
+                //Uri currentExpenseUri = ContentUris.withAppendedId(BillContract.BillEntry.CONTENT_URI, id);
+
+                //intent.putExtra("ExpenseName", );
 
                 // Set the URI on the data field of the intent
-                intent.setData(currentExpenseUri);
+                //intent.setData(currentExpenseUri);
 
                 // Launch the {@link EditorActivity} to display the data for the current pet.
                 startActivity(intent);
@@ -154,25 +173,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         int rowsDeleted = getContentResolver().delete(BillContract.BillEntry.CONTENT_URI, null, null);
         Log.v("CatalogActivity", rowsDeleted + " rows deleted from Expense database");
     }
-
-    /*public String[] getAppCategoryDetail() {
-
-        final String TABLE_NAME = "name of table";
-
-        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
-
-        BillDbHelper mDbHelper =  ;
-        SQLiteDatabase db  = mDbHelper.getReadableDatabase();
-        Cursor cursor      = db.rawQuery(selectQuery, null);
-        String[] data      = null;
-
-        if (cursor.moveToFirst()) {
-            do {
-                // get the data into array, or class variable
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return data;
-    }*/
 
 }

@@ -1,7 +1,13 @@
 package com.example.abc.reimbursement;
 
+import android.app.LoaderManager;
+import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +15,7 @@ import android.os.Bundle;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,13 +23,30 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.abc.reimbursement.Data.BillContract;
 
 import java.util.Calendar;
 
-public class MealActivity extends AppCompatActivity {
+public class MealActivity extends AppCompatActivity  {
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    EditText finalAmount;
+    EditText mNameEditText;
+    EditText mCategoryEditText;
+    EditText mMealDateEditText;
+    EditText mRestaurantNameEditText;
+    EditText mClientNameEditText;
+    EditText mPurposeEditText;
+
+    EditText mFinalAmountEditText;
+
+    String expenseName;
+    String category;
+
+    private static final int EXPENSE_LOADER = 0;
+
+    BillCursorAdapter mCursorAdapter;
 
 
     @Override
@@ -31,7 +55,17 @@ public class MealActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
 
-        finalAmount = (EditText) findViewById(R.id.final_amount);
+        mFinalAmountEditText = (EditText) findViewById(R.id.final_amount);
+
+        mCursorAdapter = new BillCursorAdapter(this, null);
+
+        Intent intent = getIntent();
+        expenseName = intent.getStringExtra("expenseName");
+        category = intent.getStringExtra("category");
+
+
+
+
 
         /*DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -40,7 +74,7 @@ public class MealActivity extends AppCompatActivity {
         int height = dm.heightPixels;
 
         getWindow().setLayout((int)(width*.95),(int)(height*.90));*/
-        final TextView mDisplayDate = (TextView)findViewById(R.id.mealdate);
+        final TextView mDisplayDate = (TextView) findViewById(R.id.mealdate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,48 +86,62 @@ public class MealActivity extends AppCompatActivity {
 
                 DatePickerDialog dialog = new DatePickerDialog(MealActivity.this,
                         android.R.style.Theme_Holo_Light,
-                        mDateSetListener ,
-                        year,month,day);
+                        mDateSetListener,
+                        year, month, day);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
 
             }
 
-        } );
-        mDateSetListener= new DatePickerDialog.OnDateSetListener() {
+        });
+        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month +1;
-                String date = dayOfMonth + "/" + month +"/" + year;
+                month = month + 1;
+                String date = dayOfMonth + "/" + month + "/" + year;
                 mDisplayDate.setText(date);
 
             }
-        } ;
+        };
 
-        Button buttonScan =(Button)findViewById(R.id.button_scan);
+        Button buttonScan = (Button) findViewById(R.id.button_scan);
 
         buttonScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent imageToTextIntent = new Intent (MealActivity.this , ImageToTextConverter.class );
+                Intent imageToTextIntent = new Intent(MealActivity.this, ImageToTextConverter.class);
                 //startActivity(imageToTextIntent);
-                startActivityForResult(imageToTextIntent , 1);
+                startActivityForResult(imageToTextIntent, 1);
             }
         });
+
+
+        Button buttonFinalSubmit = (Button) findViewById(R.id.final_submit);
+        buttonFinalSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveBill();
+                Intent Intent = new Intent(MealActivity.this, ExpenseReport.class);
+                startActivity(Intent);
+            }
+        });
+
+
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //EditText finalAmount = (EditText) findViewById(R.id.final_amount);
-        if(requestCode == 1) {
+
+        if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
 
-                double result = data.getDoubleExtra("result" , 0.00);
-                finalAmount.setText(Double.toString(result));
+                double result = data.getDoubleExtra("result", 0.00);
+                mFinalAmountEditText.setText(Double.toString(result));
             }
-            if(resultCode == RESULT_CANCELED){
+            if (resultCode == RESULT_CANCELED) {
 
             }
         }
@@ -126,8 +174,7 @@ public class MealActivity extends AppCompatActivity {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save pet to database
-                //savePet();
-                // Exit activity
+                saveBill();
                 finish();
                 return true;
             // Respond to a click on the "Delete" menu option
@@ -161,4 +208,72 @@ public class MealActivity extends AppCompatActivity {
     }
 
 
+    private void saveBill() {
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        /*String nameString = mNameEditText.getText().toString().trim();
+        String category = mCategoryEditText.getText().toString().trim();*/
+
+        String billDate = mMealDateEditText.getText().toString().trim();
+        String restaurantName = mRestaurantNameEditText.getText().toString().trim();
+        String clientName = mClientNameEditText.getText().toString().trim();
+        String purpose = mPurposeEditText.getText().toString().trim();
+        String finalAmount = mFinalAmountEditText.getText().toString().trim();
+
+
+        ContentValues values = new ContentValues();
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_CAT, category);
+
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE, billDate);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME, restaurantName);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
+
+        // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+        Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+
+
+        //saveExpense();
+        finish();
+
+    }
+
+
+    /*@Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        // Define a projection that specifies the columns from the table we care about.
+
+
+        String[] projection = {
+                BillContract.BillEntry._ID,
+                BillContract.BillEntry.COLUMN_EXPENSE_CAT,
+                BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE,
+                BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE};
+
+
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                BillContract.BillEntry.CONTENT_URI,   // Provider content URI to query
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        mCursorAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        // Callback called when the data needs to be deleted
+        mCursorAdapter.swapCursor(null);
+    }*/
 }
+
+
+

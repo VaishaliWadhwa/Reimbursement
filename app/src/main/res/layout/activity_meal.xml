@@ -54,12 +54,12 @@
             android:layout_height="45dp"
             android:hint="Final Amount In The Bill"
             android:textSize="20dp"
-            android:editable="false"
             android:id="@+id/final_amount"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:text="Final Submit"/>
+            android:text="Final Submit"
+            android:id="@+id/final_submit"/>
 
     </LinearLayout>
 
