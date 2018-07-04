@@ -5,12 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.RadioButton;
 
-public class ChoiceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class ChoiceActivity extends AppCompatActivity  {
 
 
     String expenseName;
@@ -29,112 +26,69 @@ public class ChoiceActivity extends AppCompatActivity implements AdapterView.OnI
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width * .70), (int) (height * .70));
+        getWindow().setLayout((int) (width * .70), (int) (height * .30));
 
-        Spinner mySpinner = (Spinner)findViewById(R.id.spinner1);
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(ChoiceActivity.this,
-                android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.names));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);
-
-       /* DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        getWindow().setLayout((int)(width*.50),(int)(height*.20));*/
-
-        mySpinner.setOnItemSelectedListener(this);
 
     }
 
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-        int category = i;
-        switch(i)
-        {
-            case (0) :
-            {
-                break;
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.meal:
+                if (checked) {
+                    Intent intent =  new Intent(ChoiceActivity.this , MealActivity.class);
+                    intent.putExtra("category " , "Meal");
+                    intent.putExtra("expenseName",expenseName);
+                    startActivity(intent);
 
 
-            }
-            case (1) :
-            {
+                    break; }
+            case R.id.localtravel:
+                if (checked){
+                    // Ninjas rule
+                    Intent intent =  new Intent(ChoiceActivity.this , LocalTravel.class);
+                    intent.putExtra("category " , "Local Travel");
+                    intent.putExtra("expenseName",expenseName);
+                    startActivity(intent);
 
 
-                Intent intent = new Intent (ChoiceActivity.this , MealActivity.class );
-                intent.putExtra("category","Meal");
-                intent.putExtra("expenseName", expenseName);
-                startActivity(intent);
-                break;
-            }
+                    break; }
+            case R.id.distanttravel:
+                if (checked){Intent intent =  new Intent(ChoiceActivity.this , DistantTravel.class);
+                    intent.putExtra("category " , "Distant Travel");
+                    intent.putExtra("expenseName",expenseName);
+                    startActivity(intent);
 
-            case (2):
-            {
+                    break;}
+                    // Pirates are the best
 
-                Intent intent = new Intent (ChoiceActivity.this , LocalTravel.class );
-                startActivity(intent);
-                break;
-
-
-
-
-            }
-            case (3):
-            {
-
-                Intent intent = new Intent (ChoiceActivity.this , DistantTravel.class );
-                startActivity(intent);
-                break;
+            case R.id.teamexpense:
+                if (checked){
+                    Intent intent =  new Intent(ChoiceActivity.this , TeamExpenseActivity.class);
+                    intent.putExtra("category " , "Team Expense");
+                    intent.putExtra("expenseName",expenseName);
+                    startActivity(intent);
 
 
+                    break;
+                }
+                    // Pirates are the best
+
+            case R.id.misc:
+                if (checked){Intent intent =  new Intent(ChoiceActivity.this , MiscellaneousActivity.class);
+                    intent.putExtra("category " , "Miscellaneous");
+                    intent.putExtra("expenseName",expenseName);
+                    startActivity(intent);
 
 
-            }
-
-            case (4):
-            {
-
-                Intent intent = new Intent (ChoiceActivity.this , TeamExpenseActivity.class );
-                intent.putExtra("category","Team Expense");
-                intent.putExtra("expenseName", expenseName);
-                startActivity(intent);
-                break;
-
-
-
-
-            }
-            case (5):
-            {
-
-                Intent intent = new Intent (ChoiceActivity.this , MiscellaneousActivity.class );
-                intent.putExtra("category","Miscellaneous");
-                intent.putExtra("expenseName", expenseName);
-                startActivity(intent);
-                break;
-
-
-
-
-            }
-            default :
-            {
-                Toast.makeText(this, "Slct other", Toast.LENGTH_SHORT).show();
-                break;
-
-            }
+                    break;}
+                    // Pirates are the best
 
         }
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
     }
 }

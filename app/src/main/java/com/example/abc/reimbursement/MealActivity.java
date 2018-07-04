@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.abc.reimbursement.Data.BillContract;
 
@@ -24,6 +27,7 @@ import java.util.Calendar;
 
 public class MealActivity extends AppCompatActivity  {
     DatePickerDialog.OnDateSetListener mDateSetListener;
+    double result ;
 
     //EditText mNameEditText;
     //EditText mCategoryEditText;
@@ -132,20 +136,48 @@ public class MealActivity extends AppCompatActivity  {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, final int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
 
-                double result = data.getDoubleExtra("result", 0.00);
+                result = data.getDoubleExtra("result", 0.00);
                 mFinalAmountEditText.setText(Double.toString(result));
-            }
-            if (resultCode == RESULT_CANCELED) {
 
             }
-        }
-    }
+            EditText text = (EditText) findViewById(R.id.final_amount);
+            TextWatcher textWatcher = null;
+            text.addTextChangedListener(textWatcher);
+
+
+             textWatcher = new TextWatcher() {
+
+                 public void afterTextChanged(Editable s) {
+                 }
+
+                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                 }
+
+                 public void onTextChanged(CharSequence s, int start, int before,
+                                           int count) {
+                     if(mFinalAmountEditText.equals(Double.toString(result))) {
+
+                     }else{
+                         Toast.makeText(getApplicationContext(),"change",Toast.LENGTH_LONG).show();
+                     }
+
+
+                 }  };
+ 
+            if(resultCode ==RESULT_CANCELED)
+
+                 {
+
+                 }
+
+             }   }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
