@@ -26,7 +26,7 @@ public class ChoiceActivity extends AppCompatActivity  {
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int) (width * .70), (int) (height * .70));
+        getWindow().setLayout((int) (width * .70), (int) (height * .30));
 
 
     }

@@ -36,7 +36,8 @@
         <activity
             android:name=".TeamExpenseActivity"
             android:label="Team Expense" />
-        <activity android:name=".ChoiceActivity" />
+        <activity android:name=".ChoiceActivity"
+            android:theme="@style/AppTheme.CustomTheme"/>
         <activity
             android:name=".ExpenseReport"
             android:label="Expense Report" />
@@ -44,6 +45,7 @@
             android:name=".Data.EditorExpense"
             android:label="Edit"
             android:theme="@style/AppTheme.CustomTheme" />
+
 
         <provider
             android:name=".Data.BillProvider"
