@@ -17,7 +17,7 @@ import static com.example.abc.reimbursement.Data.BillContract.BillEntry.COLUMN_E
 public class BillDbHelper extends SQLiteOpenHelper {
 
 
-        public static final String LOG_TAG = BillDbHelper.class.getSimpleName();
+        public static final String TAG = BillDbHelper.class.getSimpleName();
 
         /** Name of the database file */
         private static final String DATABASE_NAME = "Reimbursement.db";

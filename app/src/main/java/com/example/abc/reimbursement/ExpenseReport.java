@@ -112,8 +112,8 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
         return new CursorLoader(this,   // Parent activity context
                 BillContract.BillEntry.CONTENT_URI,   // Provider content URI to query
                 projection,             // Columns to include in the resulting Cursor
-                selection,                   // No selection clause
-                selectionArgs,                   // No selection arguments
+                null,                   // No selection clause
+                null,                   // No selection arguments
                 null);                  // Default sort order
     }
 
