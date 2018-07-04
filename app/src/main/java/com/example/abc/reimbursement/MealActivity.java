@@ -227,7 +227,7 @@ public class MealActivity extends AppCompatActivity  {
 
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE, billDate);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME, restaurantName);
-        //values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
 

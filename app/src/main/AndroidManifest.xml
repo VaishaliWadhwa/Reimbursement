@@ -51,7 +51,8 @@
             android:exported="false" />
 
         <activity android:name=".LocalTravel" />
-        <activity android:name=".DistantTravel"></activity>
+        <activity android:name=".DistantTravel" />
+        <activity android:name=".DisplayActivity"></activity>
     </application>
 
 </manifest>
