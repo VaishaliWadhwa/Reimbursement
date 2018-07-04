@@ -151,32 +151,34 @@ public class MealActivity extends AppCompatActivity  {
             text.addTextChangedListener(textWatcher);
 
 
-             textWatcher = new TextWatcher() {
+            textWatcher = new TextWatcher() {
 
-                 public void afterTextChanged(Editable s) {
-                 }
+                public void afterTextChanged(Editable s) {
+                }
 
-                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                 }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
 
-                 public void onTextChanged(CharSequence s, int start, int before,
-                                           int count) {
-                     if(mFinalAmountEditText.equals(Double.toString(result))) {
+                public void onTextChanged(CharSequence s, int start, int before,
+                                          int count) {
+                    if (mFinalAmountEditText.equals(Double.toString(result))) {
 
-                     }else{
-                         Toast.makeText(getApplicationContext(),"change",Toast.LENGTH_LONG).show();
-                     }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "change", Toast.LENGTH_LONG).show();
+                    }
 
 
-                 }  };
- 
-            if(resultCode ==RESULT_CANCELED)
+                }
+            };
 
-                 {
+            if (resultCode == RESULT_CANCELED)
 
-                 }
+            {
 
-             }   }
+            }
+
+        }
+    }
 
 
     @Override
