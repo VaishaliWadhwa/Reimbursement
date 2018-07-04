@@ -44,7 +44,7 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
         ListView billListView = (ListView) findViewById(R.id.bill_list);
 
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
-       // View emptyView = findViewById(R.id.empty_view);
+        // View emptyView = findViewById(R.id.empty_view);
         //expenseListView.setEmptyView(emptyView);
 
         mCursorAdapter = new CategoryCursorAdapter(this, null);

@@ -22,12 +22,12 @@ public class BillDbHelper extends SQLiteOpenHelper {
         /** Name of the database file */
         private static final String DATABASE_NAME = "Reimbursement.db";
 
-        private static final String TAG = BillDbHelper.class.getName();
+        //private static final String TAG = BillDbHelper.class.getName();
 
         /**
          * Database version. If you change the database schema, you must increment the database version.
          */
-        private static final int DATABASE_VERSION = 1;
+        private static final int DATABASE_VERSION = 2;
 
 
         String SQL_CREATE_EXPENSE_TABLE;
@@ -57,8 +57,8 @@ public class BillDbHelper extends SQLiteOpenHelper {
                     + BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE+ " TEXT, "
                     + BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE+ " TEXT, "
                     + BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME+ " TEXT , "
-                    + BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME+ "TEXT ,"
-                     + BillContract.BillEntry.COLUMN_EXPENSE_MEMBERS+ "TEXT ,"
+                    + BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME+ " TEXT ,"
+                     + BillContract.BillEntry.COLUMN_EXPENSE_MEMBERS+ " TEXT ,"
                     + BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE+ " TEXT,"
                 + BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT +" REAL, "
                         + BillContract.BillEntry.COLUMN_EXPENSE_CAT+ " TEXT DEFAULT 'NoCategory',"
