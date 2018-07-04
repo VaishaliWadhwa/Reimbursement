@@ -27,7 +27,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
         /**
          * Database version. If you change the database schema, you must increment the database version.
          */
-        private static final int DATABASE_VERSION = 2;
+        private static final int DATABASE_VERSION = 1;
 
 
         String SQL_CREATE_EXPENSE_TABLE;
@@ -61,8 +61,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
                      + BillContract.BillEntry.COLUMN_EXPENSE_MEMBERS+ "TEXT ,"
                     + BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE+ " TEXT,"
                 + BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT +" REAL, "
-
-            +BillContract.BillEntry.COLUMN_EXPENSE_CAT+ " TEXT,"
+                        + BillContract.BillEntry.COLUMN_EXPENSE_CAT+ " TEXT DEFAULT 'NoCategory',"
                     //+BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID+ " INTEGER  PRIMARY KEY   AUTOINCREMENT , "
 
                     +BillContract.BillEntry._ID+ " INTEGER  PRIMARY KEY   AUTOINCREMENT , "

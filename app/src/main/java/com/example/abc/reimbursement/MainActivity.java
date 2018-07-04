@@ -146,12 +146,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE,
                 BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE};
 
+        String selection = BillContract.BillEntry.COLUMN_EXPENSE_CAT + "= 'NoCategory'";
+
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
                 BillContract.BillEntry.CONTENT_URI,   // Provider content URI to query
                 projection,             // Columns to include in the resulting Cursor
-                null,                   // No selection clause
+                selection,                   // No selection clause
                 null,                   // No selection arguments
                 null);                  // Default sort order
     }

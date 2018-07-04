@@ -146,14 +146,39 @@ public class MealActivity extends AppCompatActivity  {
                 mFinalAmountEditText.setText(Double.toString(result));
 
             }
+            EditText text = (EditText) findViewById(R.id.final_amount);
+            TextWatcher textWatcher = null;
+            text.addTextChangedListener(textWatcher);
 
-            if(resultCode ==RESULT_CANCELED)
 
-                 {
+            textWatcher = new TextWatcher() {
 
-                 }
+                public void afterTextChanged(Editable s) {
+                }
 
-             }   }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                public void onTextChanged(CharSequence s, int start, int before,
+                                          int count) {
+                    if (mFinalAmountEditText.equals(Double.toString(result))) {
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), "change", Toast.LENGTH_LONG).show();
+                    }
+
+
+                }
+            };
+
+            if (resultCode == RESULT_CANCELED)
+
+            {
+
+            }
+
+        }
+    }
 
 
     @Override
@@ -176,7 +201,6 @@ public class MealActivity extends AppCompatActivity  {
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
@@ -184,7 +208,6 @@ public class MealActivity extends AppCompatActivity  {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save pet to database
-
                 saveBill();
                 finish();
                 return true;
@@ -238,36 +261,12 @@ public class MealActivity extends AppCompatActivity  {
 
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE, billDate);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME, restaurantName);
-        //values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
 
         // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
         Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
-        EditText text = (EditText) findViewById(R.id.final_amount);
-        TextWatcher textWatcher = null;
-        text.addTextChangedListener(textWatcher);
-
-
-        textWatcher = new TextWatcher() {
-
-            public void afterTextChanged(Editable s) {
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-                if(mFinalAmountEditText.equals(Double.toString(result))) {
-
-                }else{
-                    Toast.makeText(getApplicationContext(),"change",Toast.LENGTH_LONG).show();
-                }
-
-
-            }  };
-
 
 
         //saveExpense();

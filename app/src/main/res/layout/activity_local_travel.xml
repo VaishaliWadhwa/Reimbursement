@@ -26,11 +26,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Write Your Purpose"
+                android:id="@+id/purpose"
                 />
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:hint="date"/>
+                android:hint="date"
+                android:id="@+id/bill_date"/>
 
 
             <Button
@@ -45,8 +47,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:hint="Total Amount"
-                android:editable="false"/>
+                android:hint="Total Amount" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,17 +81,19 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:editable="false"
-                android:text="Total Meal Amount"/>
+                android:text="Total Meal Amount"
+                android:id="@+id/meal_amount"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:editable="false"
-                android:hint="Final Total Amount"/>
+
+                android:hint="Final Total Amount"
+                android:id="@+id/final_amount"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Final Submit"/>
+                android:text="Final Submit"
+                android:id="@+id/final_submit"/>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

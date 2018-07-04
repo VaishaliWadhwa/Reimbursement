@@ -1,6 +1,7 @@
 package com.example.abc.reimbursement;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.abc.reimbursement.Data.BillContract;
@@ -41,14 +43,35 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
 
         setTitle(expenseName);
 
-        ListView expenseListView = (ListView) findViewById(R.id.bill_list);
+        ListView billListView = (ListView) findViewById(R.id.bill_list);
 
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
        // View emptyView = findViewById(R.id.empty_view);
         //expenseListView.setEmptyView(emptyView);
 
         mCursorAdapter = new CategoryCursorAdapter(this, null);
-        expenseListView.setAdapter(mCursorAdapter);
+        billListView.setAdapter(mCursorAdapter);
+
+        billListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                // Create new intent to go to {@link EditorActivity}
+                Intent intent = new Intent(ExpenseReport.this, DisplayActivity.class);
+
+                // Form the content URI that represents the specific pet that was clicked on,
+                // by appending the "id" (passed as input to this method) onto the
+                // {@link PetEntry#CONTENT_URI}.
+                // For example, the URI would be "content://com.example.android.pets/pets/2"
+                // if the pet with ID 2 was clicked on.
+                Uri currentPetUri = ContentUris.withAppendedId(BillContract.BillEntry.CONTENT_URI, id);
+
+                // Set the URI on the data field of the intent
+                intent.setData(currentPetUri);
+
+                // Launch the {@link EditorActivity} to display the data for the current pet.
+                startActivity(intent);
+            }
+        });
 
         // Setup FAB to open EditorActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -99,13 +122,19 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
                 BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE,
                 BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE};
 
+        //String selection = BillContract.BillEntry.COLUMN_EXPENSE_CAT + "!= 'NoCategory' AND"
+        //        + BillContract.BillEntry.COLUMN_EXPENSE_NAME + " = " + expenseName ;
+
+        String selection = "category != ? AND name = ?";
+        String selectionArgs [] = new String[] { "NoCategory", expenseName };
+
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
                 BillContract.BillEntry.CONTENT_URI,   // Provider content URI to query
                 projection,             // Columns to include in the resulting Cursor
-                null,                   // No selection clause
-                null,                   // No selection arguments
+                selection,                   // No selection clause
+                selectionArgs,                   // No selection arguments
                 null);                  // Default sort order
     }
 
