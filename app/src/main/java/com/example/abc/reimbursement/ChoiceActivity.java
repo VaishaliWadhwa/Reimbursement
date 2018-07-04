@@ -100,6 +100,8 @@ public class ChoiceActivity extends AppCompatActivity implements AdapterView.OnI
             {
 
                 Intent intent = new Intent (ChoiceActivity.this , TeamExpenseActivity.class );
+                intent.putExtra("category","Team Expense");
+                intent.putExtra("expenseName", expenseName);
                 startActivity(intent);
                 break;
 
@@ -111,6 +113,8 @@ public class ChoiceActivity extends AppCompatActivity implements AdapterView.OnI
             {
 
                 Intent intent = new Intent (ChoiceActivity.this , MiscellaneousActivity.class );
+                intent.putExtra("category","Miscellaneous");
+                intent.putExtra("expenseName", expenseName);
                 startActivity(intent);
                 break;
 

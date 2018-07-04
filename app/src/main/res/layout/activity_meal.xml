@@ -26,19 +26,20 @@
             android:layout_height="45dp"
             android:hint="Enter Your Restaurant Name"
             android:textSize="20dp"
-
-            />
+            android:id="@+id/restaurant_name"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:hint="Enter Your Client Names"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:id="@+id/client_name"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:hint="Purpose"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:id="@+id/purpose"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="45dp"

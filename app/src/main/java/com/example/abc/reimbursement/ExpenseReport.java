@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ListView;
 
@@ -22,6 +21,7 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
     private static final int EXISTING_EXPENSE_LOADER = 0;
 
     String expenseName;
+    String category;
     private static final int EXPENSE_LOADER = 0;
 
     CategoryCursorAdapter mCursorAdapter;
@@ -35,6 +35,7 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
 
         Intent intent = getIntent();
         expenseName = intent.getStringExtra("expenseName");
+        category = intent.getStringExtra("category");
 
         setTitle(expenseName);
 

@@ -1,10 +1,13 @@
 package com.example.abc.reimbursement;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
@@ -13,13 +16,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
+
+import com.example.abc.reimbursement.Data.BillContract;
 
 import java.util.Calendar;
 
 public class TeamExpenseActivity extends Activity {
 
-    EditText finalAmount;
+
+    EditText  mFinalAmountEditText;;
+
+    EditText mBillDateEditText;
+    EditText mPurposeEditText;
+    EditText mTeamMembersEditText;
+    //EditText finalAmount;
+
+    String expenseName;
+    String category;
+    BillCursorAdapter mCursorAdapter;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -28,11 +42,21 @@ public class TeamExpenseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_expense);
 
-        finalAmount = (EditText) findViewById(R.id.final_amount);
+        mFinalAmountEditText = (EditText) findViewById(R.id.final_amount);
+        mTeamMembersEditText = (EditText) findViewById(R.id.team_member);
+
+        mBillDateEditText = (EditText) findViewById(R.id.bill_date);
+        mPurposeEditText = (EditText) findViewById(R.id.purpose);
+
+        mCursorAdapter = new BillCursorAdapter(this, null);
+
+        Intent intent = getIntent();
+        expenseName = intent.getStringExtra("expenseName");
+        category = intent.getStringExtra("category");
 
 
-        final TextView mDisplayDate = (TextView)findViewById(R.id.date);
-        mDisplayDate.setOnClickListener(new View.OnClickListener() {
+        //final TextView mDisplayDate = (TextView)findViewById(R.id.date);
+        mBillDateEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
@@ -57,7 +81,7 @@ public class TeamExpenseActivity extends Activity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month +1;
                 String date = dayOfMonth + "/" + month +"/" + year;
-                mDisplayDate.setText(date);
+                mBillDateEditText.setText(date);
 
             }
         } ;
@@ -72,7 +96,51 @@ public class TeamExpenseActivity extends Activity {
                 startActivityForResult(imageToTextIntent , 1);
             }
         });
+
+        Button buttonFinalSubmit = (Button) findViewById(R.id.final_submit);
+        buttonFinalSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveBill();
+                Intent intent = new Intent(TeamExpenseActivity.this, ExpenseReport.class);
+                intent.putExtra("category","Meal");
+                intent.putExtra("expenseName", expenseName);
+                startActivity(intent);
+            }
+        });
     }
+
+    private void saveBill() {
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        /*String nameString = mNameEditText.getText().toString().trim();
+        String category = mCategoryEditText.getText().toString().trim();*/
+
+        String billDate = mBillDateEditText.getText().toString().trim();
+        String teamMember = mTeamMembersEditText.getText().toString().trim();
+        String purpose = mPurposeEditText.getText().toString().trim();
+        String finalAmount = mFinalAmountEditText.getText().toString().trim();
+
+
+        ContentValues values = new ContentValues();
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_CAT, category);
+
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE, billDate);
+        //values.put(BillContract.BillEntry.COLUMN_EXPENSE_MEMBERS, teamMember);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
+
+
+        // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+        Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+
+
+        //saveExpense();
+        finish();
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -82,7 +150,7 @@ public class TeamExpenseActivity extends Activity {
             if (resultCode == RESULT_OK) {
 
                 double result = data.getDoubleExtra("result" , 0.00);
-                finalAmount.setText(Double.toString(result));
+                mFinalAmountEditText.setText(Double.toString(result));
             }
             if(resultCode == RESULT_CANCELED){
 

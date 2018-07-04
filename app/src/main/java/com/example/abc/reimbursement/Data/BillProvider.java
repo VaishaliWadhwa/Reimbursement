@@ -157,13 +157,13 @@ public class BillProvider extends ContentProvider {
 
         String query = "Select * from Expenses where name ='"+ username+ "'";
 
-        SQLiteDatabase database = mBillDbHelper.getReadableDatabase();
-        Cursor cursor = database.rawQuery( query,null);
+        SQLiteDatabase database;// = mBillDbHelper.getReadableDatabase();
+        /*Cursor cursor = database.rawQuery( query,null);
         cursor.moveToFirst();
         if(cursor.getCount()>=1) {
             Toast.makeText(getContext(), "Enter another name ", Toast.LENGTH_LONG).show();
             return null;
-        }
+        }*/
 
 
           String startdate = values.getAsString(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE);

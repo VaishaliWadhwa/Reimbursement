@@ -1,21 +1,15 @@
 package com.example.abc.reimbursement;
 
-import android.app.LoaderManager;
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
-import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
-import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.text.TextUtils;
+import android.net.Uri;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +17,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.abc.reimbursement.Data.BillContract;
 
@@ -32,9 +25,9 @@ import java.util.Calendar;
 public class MealActivity extends AppCompatActivity  {
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
-    EditText mNameEditText;
-    EditText mCategoryEditText;
-    EditText mMealDateEditText;
+    //EditText mNameEditText;
+    //EditText mCategoryEditText;
+    EditText mBillDateEditText;
     EditText mRestaurantNameEditText;
     EditText mClientNameEditText;
     EditText mPurposeEditText;
@@ -56,6 +49,11 @@ public class MealActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_meal);
 
         mFinalAmountEditText = (EditText) findViewById(R.id.final_amount);
+
+        mBillDateEditText = (EditText) findViewById(R.id.mealdate);
+        mRestaurantNameEditText = (EditText) findViewById(R.id.restaurant_name);
+        mClientNameEditText = (EditText) findViewById(R.id.client_name);
+        mPurposeEditText = (EditText) findViewById(R.id.purpose);
 
         mCursorAdapter = new BillCursorAdapter(this, null);
 
@@ -122,8 +120,10 @@ public class MealActivity extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 saveBill();
-                Intent Intent = new Intent(MealActivity.this, ExpenseReport.class);
-                startActivity(Intent);
+                Intent intent = new Intent(MealActivity.this, ExpenseReport.class);
+                intent.putExtra("category","Meal");
+                intent.putExtra("expenseName", expenseName);
+                startActivity(intent);
             }
         });
 
@@ -214,7 +214,7 @@ public class MealActivity extends AppCompatActivity  {
         /*String nameString = mNameEditText.getText().toString().trim();
         String category = mCategoryEditText.getText().toString().trim();*/
 
-        String billDate = mMealDateEditText.getText().toString().trim();
+        String billDate = mBillDateEditText.getText().toString().trim();
         String restaurantName = mRestaurantNameEditText.getText().toString().trim();
         String clientName = mClientNameEditText.getText().toString().trim();
         String purpose = mPurposeEditText.getText().toString().trim();
@@ -227,7 +227,7 @@ public class MealActivity extends AppCompatActivity  {
 
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE, billDate);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME, restaurantName);
-        values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
+        //values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
 

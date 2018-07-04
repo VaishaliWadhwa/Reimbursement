@@ -16,7 +16,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/date"
+            android:id="@+id/bill_date"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:hint="Date"
@@ -28,14 +28,16 @@
             android:layout_height="45dp"
             android:hint="Purpose And Details"
             android:textSize="20dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:id="@+id/purpose"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:hint="Team Member"
             android:textSize="20dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            android:id="@+id/team_member"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -66,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:text="Final Submit"
-            />
+            android:id="@+id/final_submit"/>
 
     </LinearLayout>
 
