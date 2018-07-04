@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -64,7 +66,26 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
         getLoaderManager().initLoader(EXPENSE_LOADER, null, this);
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_expensereport, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+
+            // Respond to a click on the "Delete all entries" menu option
+            case R.id.action_delete_all_bills:
+                deleteAllBills();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     @Override
@@ -98,6 +119,10 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
     public void onLoaderReset(Loader<Cursor> loader) {
         // Callback called when the data needs to be deleted
         mCursorAdapter.swapCursor(null);
+    }
+    private void deleteAllBills() {
+        int rowsDeleted = getContentResolver().delete(BillContract.BillEntry.CONTENT_URI, null, null);
+
     }
 
 }
