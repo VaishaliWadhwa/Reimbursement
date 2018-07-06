@@ -18,6 +18,8 @@ import android.widget.ListView;
 
 import com.example.abc.reimbursement.Data.BillContract;
 
+import static com.example.abc.reimbursement.Data.BillContract.BillEntry._ID;
+
 public class ExpenseReport extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private Uri mCurrentExpenseUri;
@@ -40,6 +42,7 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
         Intent intent = getIntent();
         expenseName = intent.getStringExtra("expenseName");
         category = intent.getStringExtra("category");
+
 
         setTitle(expenseName);
 
@@ -95,6 +98,7 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_expensereport, menu);
         return true;
+
     }
 
     @Override
@@ -106,6 +110,12 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
             case R.id.action_delete_all_bills:
                 deleteAllBills();
                 return true;
+            case R.id.action_delete_expense:
+                deleteExpense();
+                finish();
+                return true;
+
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -117,7 +127,7 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
 
 
         String[] projection = {
-                BillContract.BillEntry._ID,
+                _ID,
                 BillContract.BillEntry.COLUMN_EXPENSE_CAT,
                 BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE,
                 BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE};
@@ -150,7 +160,19 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
         mCursorAdapter.swapCursor(null);
     }
     private void deleteAllBills() {
-        int rowsDeleted = getContentResolver().delete(BillContract.BillEntry.CONTENT_URI, null, null);
+        String selection = "category != ? AND name = ?";
+        String selectionArgs [] = new String[] { "NoCategory", expenseName };
+        int rowsDeleted = getContentResolver().delete(BillContract.BillEntry.CONTENT_URI,selection , selectionArgs);
+
+
+
+    }
+    private void deleteExpense() {
+        String selection = "name = ?";
+        String selectionArgs [] = new String[] {  expenseName };
+        int rowsDeleted = getContentResolver().delete(BillContract.BillEntry.CONTENT_URI,selection , selectionArgs);
+
+
 
     }
 
