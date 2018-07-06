@@ -39,15 +39,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="Scan Your Travel Bill"
-                android:id="@+id/button_scan"
-
-                />
+                android:id="@+id/travel_scan" />
 
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:hint="Total Amount" />
+                android:hint="Travel Amount"
+                android:id="@+id/travel_amount"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -77,11 +76,12 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Scan"/>
+                android:text="Meal Scan"
+                android:id="@+id/meal_scan"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Total Meal Amount"
+                android:hint="Total Meal Amount"
                 android:id="@+id/meal_amount"/>
             <EditText
                 android:layout_width="match_parent"

@@ -8,7 +8,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DistantTravelMealFragment"
+        tools:context=".DistantTravelStayFragment"
         tools:layout_editor_absoluteX="253dp"
         tools:layout_editor_absoluteY="41dp"
         android:background="#ffffff">
@@ -24,17 +24,26 @@
             android:layout_height="match_parent"
             android:layout_margin="30dp"
             android:background="#ffffff">
+
+            <EditText
+                android:id="@+id/bill_date"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="Select Your Stay Date"
+                android:textSize="20dp" />
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Venue"
-                android:layout_marginBottom="20dp"
-                />
+                android:layout_marginBottom="16dp"
+                android:id="@+id/venue"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Other Details"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:id="@+id/purpose"/>
 
 
             <Button
@@ -42,8 +51,7 @@
                 android:layout_height="40dp"
                 android:text="Scan Your Travel Bill"
                 android:layout_marginBottom="40dp"
-
-                />
+                android:id="@+id/button_scan"/>
 
 
             <EditText
@@ -51,7 +59,14 @@
                 android:layout_height="40dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
-                android:hint="Total Amount" />
+                android:hint="Total Amount"
+                android:id="@+id/final_amount"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Final Submit"
+                android:id="@+id/final_submit"/>
 
 
         </LinearLayout>

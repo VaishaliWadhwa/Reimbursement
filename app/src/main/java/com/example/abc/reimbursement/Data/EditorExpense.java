@@ -1,7 +1,11 @@
 package com.example.abc.reimbursement.Data;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,16 +13,23 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.abc.reimbursement.MiscellaneousActivity;
 import com.example.abc.reimbursement.R;
+
+import java.util.Calendar;
 
 public class EditorExpense extends AppCompatActivity  {
     EditText mNameEditText;
     EditText mStartDateEditText;
     EditText mEndDateText;
     private Uri mCurrentExpenseUri;
+
+    DatePickerDialog.OnDateSetListener mDateSetListener;
+    DatePickerDialog.OnDateSetListener mDateSetListener2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +51,69 @@ public class EditorExpense extends AppCompatActivity  {
         mNameEditText = (EditText) findViewById(R.id.expensename);
         mStartDateEditText = (EditText) findViewById(R.id.startdate);
         mEndDateText = (EditText) findViewById(R.id.enddate);
+
+
+        mStartDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.YEAR);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog dialog2 = new DatePickerDialog(EditorExpense.this,
+                        android.R.style.Theme_Holo_Light,
+                        mDateSetListener2 ,
+                        year,month,day);
+
+                dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog2.show();
+
+            }
+
+        } );
+        mDateSetListener2= new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month +1;
+                String date = dayOfMonth + "/" + month +"/" + year;
+                mStartDateEditText.setText(date);
+
+            }
+        } ;
+
+
+        mEndDateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.YEAR);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog dialog = new DatePickerDialog(EditorExpense.this,
+                        android.R.style.Theme_Holo_Light,
+                        mDateSetListener ,
+                        year,month,day);
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+            }
+
+        } );
+        mDateSetListener= new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month +1;
+                String date = dayOfMonth + "/" + month +"/" + year;
+                mEndDateText.setText(date);
+
+            }
+        } ;
+
 
         Intent intent = getIntent();
         mCurrentExpenseUri = intent.getData();

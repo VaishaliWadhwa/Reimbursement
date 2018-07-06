@@ -30,6 +30,9 @@ public class LocalTravel extends AppCompatActivity {
     EditText mFinalAmountEditText;
     BillCursorAdapter mCursorAdapter;
 
+    EditText mTravelAmountEditText;
+    EditText mMealAmountEditText;
+
     String expenseName;
     String category;
 
@@ -42,6 +45,8 @@ public class LocalTravel extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_local_travel);
 
+        mMealAmountEditText = (EditText) findViewById(R.id.meal_amount);
+        mTravelAmountEditText = (EditText) findViewById(R.id.travel_amount);
         mFinalAmountEditText = (EditText) findViewById(R.id.final_amount);
         mBillDateEditText = (EditText) findViewById(R.id.bill_date);
         mPurposeEditText = (EditText) findViewById(R.id.purpose);
@@ -86,14 +91,25 @@ public class LocalTravel extends AppCompatActivity {
 
 
 
-        Button buttonScan = (Button) findViewById(R.id.button_scan);
+        Button buttonTravelScan = (Button) findViewById(R.id.travel_scan);
 
-        buttonScan.setOnClickListener(new View.OnClickListener() {
+        buttonTravelScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent imageToTextIntent = new Intent(LocalTravel.this, ImageToTextConverter.class);
                 //startActivity(imageToTextIntent);
                 startActivityForResult(imageToTextIntent, 1);
+            }
+        });
+
+        Button buttonMealScan = (Button) findViewById(R.id.travel_scan);
+
+        buttonMealScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent imageToTextIntent = new Intent(LocalTravel.this, ImageToTextConverter.class);
+                //startActivity(imageToTextIntent);
+                startActivityForResult(imageToTextIntent, 2);
             }
         });
 
@@ -113,47 +129,35 @@ public class LocalTravel extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, final int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //EditText finalAmount = (EditText) findViewById(R.id.final_amount);
 
-        if (requestCode == 1) {
+        double travelResult = 0;
+        double mealResult = 0;
+        if(requestCode == 1) {
             if (resultCode == RESULT_OK) {
 
-                result = data.getDoubleExtra("result", 0.00);
-                mFinalAmountEditText.setText(Double.toString(result));
+                travelResult = data.getDoubleExtra("result" , 0.00);
+                mTravelAmountEditText.setText(Double.toString(travelResult));
+            }
+            if(resultCode == RESULT_CANCELED){
 
             }
-            EditText text = (EditText) findViewById(R.id.final_amount);
-            TextWatcher textWatcher = null;
-            text.addTextChangedListener(textWatcher);
-
-
-            textWatcher = new TextWatcher() {
-
-                public void afterTextChanged(Editable s) {
-                }
-
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                public void onTextChanged(CharSequence s, int start, int before,
-                                          int count) {
-                    if (mFinalAmountEditText.equals(Double.toString(result))) {
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "change", Toast.LENGTH_LONG).show();
-                    }
-
-
-                }
-            };
-
-            if (resultCode == RESULT_CANCELED)
-            {
-
-            }
-
         }
+
+        if(requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+
+                mealResult = data.getDoubleExtra("result" , 0.00);
+                mMealAmountEditText.setText(Double.toString(mealResult));
+            }
+            if(resultCode == RESULT_CANCELED){
+
+            }
+        }
+
+        mFinalAmountEditText.setText(Double.toString(travelResult+mealResult));
     }
 
     private void saveBill() {

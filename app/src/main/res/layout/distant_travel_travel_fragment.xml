@@ -8,12 +8,10 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".DistantTravelMealFragment"
+        tools:context=".DistantTravelTravelActivity"
         tools:layout_editor_absoluteX="253dp"
         tools:layout_editor_absoluteY="41dp"
         android:background="#ffffff">
-
-
 
 
         <LinearLayout
@@ -26,42 +24,38 @@
             android:background="#ffffff">
 
             <EditText
+                android:id="@+id/bill_date"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="Write Your Purpose" />
+                android:layout_height="45dp"
+                android:hint="Select Your Stay Date"
+                android:textSize="20dp" />
 
-            <Button
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:text="START GPS"
-                android:id="@+id/msg1"/>
+                android:hint="Purpose"
+                android:id="@+id/purpose"
+                android:layout_marginBottom="16dp"/>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="Scan Your Travel Bill"
+                android:layout_marginBottom="16dp"
+                android:id="@+id/button_scan"/>
 
-                />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:text=""/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:hint="Total Kms"
-                android:editable="false"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="Total Amount"
-                android:editable="false"/>
-
+                android:hint="Final Amount"
+                android:id="@+id/final_amount"
+                android:layout_marginBottom="16dp"/>
 
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Final Submit"/>
+                android:text="Final Submit"
+                android:id="@+id/final_submit"/>
         </LinearLayout>
     </ScrollView>
 
