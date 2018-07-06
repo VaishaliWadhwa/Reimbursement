@@ -76,7 +76,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:text="Scan"
+                android:text="Meal Scan"
                 android:id="@+id/meal_scan"/>
             <EditText
                 android:layout_width="match_parent"

@@ -42,7 +42,7 @@ public class ChoiceActivity extends AppCompatActivity  {
             case R.id.meal:
                 if (checked) {
                     Intent intent =  new Intent(ChoiceActivity.this , MealActivity.class);
-                    intent.putExtra("category " , "Meal");
+                    intent.putExtra("category" , "Meal");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
 
@@ -52,7 +52,7 @@ public class ChoiceActivity extends AppCompatActivity  {
                 if (checked){
                     // Ninjas rule
                     Intent intent =  new Intent(ChoiceActivity.this , LocalTravel.class);
-                    intent.putExtra("category " , "Local Travel");
+                    intent.putExtra("category" , "Local Travel");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
 
@@ -60,7 +60,7 @@ public class ChoiceActivity extends AppCompatActivity  {
                     break; }
             case R.id.distanttravel:
                 if (checked){Intent intent =  new Intent(ChoiceActivity.this , DistantTravel.class);
-                    intent.putExtra("category " , "Distant Travel");
+                    intent.putExtra("category" , "Distant Travel");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
 
@@ -70,7 +70,7 @@ public class ChoiceActivity extends AppCompatActivity  {
             case R.id.teamexpense:
                 if (checked){
                     Intent intent =  new Intent(ChoiceActivity.this , TeamExpenseActivity.class);
-                    intent.putExtra("category " , "Team Expense");
+                    intent.putExtra("category" , "Team Expense");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
 
@@ -81,7 +81,7 @@ public class ChoiceActivity extends AppCompatActivity  {
 
             case R.id.misc:
                 if (checked){Intent intent =  new Intent(ChoiceActivity.this , MiscellaneousActivity.class);
-                    intent.putExtra("category " , "Miscellaneous");
+                    intent.putExtra("category" , "Miscellaneous");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
 

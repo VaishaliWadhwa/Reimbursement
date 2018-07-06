@@ -48,12 +48,12 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
 
         clientOrMember = (LinearLayout) findViewById(R.id.client_or_member);
 
-        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        clientNameText = new TextView(this);
-        clientNameText.setLayoutParams(lparams);
-        clientNameText.setText("test");
-        this.clientOrMember.addView(clientNameText);
+        //LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+                //LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        //clientNameText = new TextView(this);
+        //clientNameText.setLayoutParams(lparams);
+        //clientNameText.setText("test");
+        //this.clientOrMember.addView(clientNameText);
 
 
         // Examine the intent that was used to launch this activity,

@@ -7,9 +7,7 @@
     android:gravity="center"
     android:background="#ffffff"
     android:layout_height="wrap_content"
-    >
-
-
+    tools:context=".DistantTravel">
 
 
         <LinearLayout
@@ -74,9 +72,7 @@
                 class="com.example.abc.reimbursement.DistantTravelMealFragment"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-
                 android:layout_weight="12">
-
             </fragment>
 
 

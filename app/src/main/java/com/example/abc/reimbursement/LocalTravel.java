@@ -109,7 +109,7 @@ public class LocalTravel extends AppCompatActivity {
             public void onClick(View v) {
                 Intent imageToTextIntent = new Intent(LocalTravel.this, ImageToTextConverter.class);
                 //startActivity(imageToTextIntent);
-                startActivityForResult(imageToTextIntent, 1);
+                startActivityForResult(imageToTextIntent, 2);
             }
         });
 
@@ -132,16 +132,32 @@ public class LocalTravel extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //EditText finalAmount = (EditText) findViewById(R.id.final_amount);
+
+        double travelResult = 0;
+        double mealResult = 0;
         if(requestCode == 1) {
             if (resultCode == RESULT_OK) {
 
-                double result = data.getDoubleExtra("result" , 0.00);
-                mFinalAmountEditText.setText(Double.toString(result));
+                travelResult = data.getDoubleExtra("result" , 0.00);
+                mTravelAmountEditText.setText(Double.toString(travelResult));
             }
             if(resultCode == RESULT_CANCELED){
 
             }
         }
+
+        if(requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+
+                mealResult = data.getDoubleExtra("result" , 0.00);
+                mMealAmountEditText.setText(Double.toString(mealResult));
+            }
+            if(resultCode == RESULT_CANCELED){
+
+            }
+        }
+
+        mFinalAmountEditText.setText(Double.toString(travelResult+mealResult));
     }
 
     private void saveBill() {

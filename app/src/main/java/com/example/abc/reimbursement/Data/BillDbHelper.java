@@ -27,7 +27,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
         /**
          * Database version. If you change the database schema, you must increment the database version.
          */
-        private static final int DATABASE_VERSION = 2;
+        private static final int DATABASE_VERSION = 5;
 
 
         String SQL_CREATE_EXPENSE_TABLE;
