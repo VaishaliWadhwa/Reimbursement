@@ -176,6 +176,7 @@ public class ImageToTextConverter extends AppCompatActivity {
                     if (word.equalsIgnoreCase("rupees")) {
                         //ArrayList<String> numberInWords = new ArrayList<>();
                         StringBuilder noToWord = new StringBuilder();
+
                         String stringForConvertion, convertedString;
 
                         for (int l = 1; l < elements.size(); l++) {
@@ -198,6 +199,7 @@ public class ImageToTextConverter extends AppCompatActivity {
 
 
                         //mTextView.setText("Final Amount = " + convertedString.replaceFirst("^0+(?!$)", ""));
+
                         mTextView.setText("Final Amount = " + convertedString);
 
                         mCameraSource.stop();
@@ -416,5 +418,6 @@ public class ImageToTextConverter extends AppCompatActivity {
         }
         return num;
     }
+
 }
 

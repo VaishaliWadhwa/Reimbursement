@@ -58,7 +58,9 @@
         <activity android:name=".LocalTravel" />
         <activity android:name=".DistantTravel" />
         <activity android:name=".DisplayActivity"
-            android:label="Display">  </activity>
+            android:label="Display"
+           >
+          </activity>
     </application>
 
 </manifest>

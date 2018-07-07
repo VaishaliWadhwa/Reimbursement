@@ -160,7 +160,7 @@ public class DistantTravelTravelActivity extends Fragment {
 
 
         //saveExpense();
-        Toast.makeText(getActivity(),"Your Meal is Saved" ,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Your Travel Details Have Been Saved" ,Toast.LENGTH_LONG).show();
 
     }
 

@@ -82,6 +82,7 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ExpenseReport.this, ChoiceActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("expenseName", expenseName);
                 startActivity(intent);
             }

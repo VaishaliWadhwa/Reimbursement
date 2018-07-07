@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -260,6 +261,7 @@ public class BillProvider extends ContentProvider {
     }
 
 
+
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
         return 0;
@@ -277,6 +279,14 @@ public class BillProvider extends ContentProvider {
             default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }
+    }
+    public void addEntry( String name, byte[] image) throws SQLiteException {
+        SQLiteDatabase database = mBillDbHelper.getWritableDatabase();
+        ContentValues cv = new  ContentValues();
+        cv.put(BillContract.BillEntry.COLUMN_EXPENSE_KEY_NAME,    name);
+
+        cv.put(BillContract.BillEntry.COLUMN_EXPENSE_KEY_IMAGE,   image);
+        database.insert(String.valueOf(EXPENSES), null, cv );
     }
 
 }
