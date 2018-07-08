@@ -26,7 +26,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="10dp"
 
-         app:backgroundTint="#2979FF"
+         app:backgroundTint="#2AB0D9"
         android:src="@drawable/ic_add_black_24dp">
 
     </android.support.design.widget.FloatingActionButton>

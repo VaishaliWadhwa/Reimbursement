@@ -1,16 +1,8 @@
 package com.example.abc.reimbursement.Data;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.text.TextUtils;
-import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import static com.example.abc.reimbursement.Data.BillContract.BillEntry.COLUMN_EXPENSE_NAME;
 
@@ -27,7 +19,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
         /**
          * Database version. If you change the database schema, you must increment the database version.
          */
-        private static final int DATABASE_VERSION = 5;
+        private static final int DATABASE_VERSION = 8;
 
 
         String SQL_CREATE_EXPENSE_TABLE;
@@ -65,6 +57,9 @@ public class BillDbHelper extends SQLiteOpenHelper {
                     //+BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID+ " INTEGER  PRIMARY KEY   AUTOINCREMENT , "
 
                     +BillContract.BillEntry._ID+ " INTEGER  PRIMARY KEY   AUTOINCREMENT , "
+                     +BillContract.BillEntry.COLUMN_EXPENSE_KEY_IMAGE + "BLOB ,"
+                     +BillContract.BillEntry.COLUMN_EXPENSE_KEY_NAME + "TEXT,"
+
 
 
                     + BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT+ " TEXT)";
@@ -95,7 +90,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.e(TAG, "Updating table from " + oldVersion + " to " + newVersion);
+            /*Log.e(TAG, "Updating table from " + oldVersion + " to " + newVersion);
             // You will not need to modify this unless you need to do some android specific things.
             // When upgrading the database, all you need to do is add a file to the assets folder and name it:
             // from_1_to_2.sql with the version that you are upgrading to as the last version.
@@ -107,12 +102,12 @@ public class BillDbHelper extends SQLiteOpenHelper {
                 }
             } catch (Exception exception) {
                 Log.e(TAG, "Exception running upgrade script:", exception);
-            }
+            }*/
 
         }
 
 
-    private void readAndExecuteSQLScript(SQLiteDatabase db, Context ctx, String fileName) {
+    /*private void readAndExecuteSQLScript(SQLiteDatabase db, Context ctx, String fileName) {
         if (TextUtils.isEmpty(fileName)) {
             Log.d(TAG, "SQL script file name is empty");
             return;
@@ -152,6 +147,6 @@ public class BillDbHelper extends SQLiteOpenHelper {
                 statement = new StringBuilder();
             }
         }
-    }
+    }*/
 
 }

@@ -2,13 +2,11 @@ package com.example.abc.reimbursement;
 
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -182,18 +180,14 @@ public class MealActivity extends AppCompatActivity  {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
-            case R.id.action_save:
-                // Save pet to database
-                saveBill();
-                finish();
-                return true;
+
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
                 // Pop up confirmation dialog for deletion
                 //showDeleteConfirmationDialog();
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
-            case android.R.id.home:
+           /* case android.R.id.home:
                 // If the pet hasn't changed, continue with navigating up to parent activity
                 // which is the {@link CatalogActivity}.
 
@@ -212,7 +206,7 @@ public class MealActivity extends AppCompatActivity  {
 
                 // Show a dialog that notifies the user they have unsaved changes
                 //showUnsavedChangesDialog(discardButtonClickListener);
-                return true;
+                return true;*/
         }
         return super.onOptionsItemSelected(item);
     }
@@ -243,6 +237,7 @@ public class MealActivity extends AppCompatActivity  {
 
         // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
         Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+
 
 
         //saveExpense();

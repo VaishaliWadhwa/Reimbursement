@@ -1,6 +1,5 @@
 package com.example.abc.reimbursement.Data;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -17,7 +16,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.abc.reimbursement.MiscellaneousActivity;
 import com.example.abc.reimbursement.R;
 
 import java.util.Calendar;
@@ -46,7 +44,7 @@ public class EditorExpense extends AppCompatActivity  {
         int height = dm.heightPixels;
 
 
-        getWindow().setLayout((int) (width * .80), (int) (height * .42));
+        getWindow().setLayout((int) (width * .60), (int) (height * .30));
         Button button = (Button) findViewById(R.id.ok);
         mNameEditText = (EditText) findViewById(R.id.expensename);
         mStartDateEditText = (EditText) findViewById(R.id.startdate);

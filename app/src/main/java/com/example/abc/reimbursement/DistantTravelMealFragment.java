@@ -169,7 +169,7 @@ public class DistantTravelMealFragment extends Fragment {
 
 
         //saveExpense();
-        Toast.makeText(getActivity(),"Your Meal is Saved" ,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Your Meal Details have been saved" ,Toast.LENGTH_LONG).show();
 
     }
 

@@ -40,7 +40,10 @@
             android:theme="@style/AppTheme.CustomTheme"/>
         <activity
             android:name=".ExpenseReport"
-            android:label="Expense Report" />
+            android:label="Expense Report" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" /> </activity>
         <activity
             android:name=".Data.EditorExpense"
             android:label="Edit"
@@ -55,7 +58,9 @@
         <activity android:name=".LocalTravel" />
         <activity android:name=".DistantTravel" />
         <activity android:name=".DisplayActivity"
-            android:label="Display"></activity>
+            android:label="Display"
+           >
+          </activity>
     </application>
 
 </manifest>

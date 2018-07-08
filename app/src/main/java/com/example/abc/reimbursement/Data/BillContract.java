@@ -19,6 +19,9 @@ public class BillContract {
      */
     public static final String CONTENT_AUTHORITY = "com.example.abc.reimbursement";
 
+
+
+
     /**
      * Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
      * the content provider.
@@ -98,7 +101,8 @@ public class BillContract {
         public final static String COLUMN_EXPENSE_FINAL_AMOUNT = "final_amount";
 
         public final static String COLUMN_EXPENSE_CAT = "category";
-
+        public static final String COLUMN_EXPENSE_KEY_IMAGE = "IMAGE";
+        public static final String COLUMN_EXPENSE_KEY_NAME = "IMAGE NAME";
         public final static String COLUMN_EXPENSE_SUBCAT = "sub_category";
 
         //public static final String COLUMN_EXPENSE_BILL_ID ="ID" ;

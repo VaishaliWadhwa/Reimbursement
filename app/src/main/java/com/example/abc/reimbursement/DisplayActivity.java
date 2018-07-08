@@ -6,10 +6,11 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.abc.reimbursement.Data.BillContract;
@@ -28,10 +29,13 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
     TextView finalAmountText;
     TextView clientNameText;
     TextView membersText;
+    String id ;
 
     LinearLayout clientOrMember;
 
-    /** Identifier for the pet data loader */
+    /**
+     * Identifier for the pet data loader
+     */
     private static final int EXPENSE_LOADER = 0;
 
 
@@ -49,7 +53,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
         clientOrMember = (LinearLayout) findViewById(R.id.client_or_member);
 
         //LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-                //LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        //LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         //clientNameText = new TextView(this);
         //clientNameText.setLayoutParams(lparams);
         //clientNameText.setText("test");
@@ -109,7 +113,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
             int finalAmountColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT);
 
             // Extract out the value from the Cursor for the given column index
-            String id = cursor.getString(idColumnIndex);
+            id = cursor.getString(idColumnIndex);
             String expenseName = cursor.getString(nameColumnIndex);
             String billDate = cursor.getString(billDateColumnIndex);
             String clientName = cursor.getString(clientNameColumnIndex);
@@ -138,7 +142,40 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
         //memberText.setText("");
         finalAmountText.setText("");*/
     }
-}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_display, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+
+            // Respond to a click on the "Delete all entries" menu option
+            case R.id.action_delete_bill:
+                deleteBill();
+                finish();
+                return true;
+
+
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteBill() {
+        String selection = "_ID=?";
+        String selectionArgs [] = new String[] { id };
+        int rowsDeleted = getContentResolver().delete(BillContract.BillEntry.CONTENT_URI,selection , selectionArgs);
+
+
+
+    } }
 
 
 

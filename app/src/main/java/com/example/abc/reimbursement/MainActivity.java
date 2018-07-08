@@ -174,4 +174,5 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.v("CatalogActivity", rowsDeleted + " rows deleted from Expense database");
     }
 
+
 }

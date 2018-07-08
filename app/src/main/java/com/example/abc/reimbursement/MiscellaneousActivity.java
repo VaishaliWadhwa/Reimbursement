@@ -192,12 +192,7 @@ public class MiscellaneousActivity extends AppCompatActivity {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
-            case R.id.action_save:
-                // Save pet to database
-                //savePet();
-                // Exit activity
-                finish();
-                return true;
+
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
                 // Pop up confirmation dialog for deletion

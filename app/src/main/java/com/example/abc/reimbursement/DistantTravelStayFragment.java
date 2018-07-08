@@ -160,7 +160,7 @@ public class DistantTravelStayFragment extends Fragment {
 
 
         //saveExpense();
-        Toast.makeText(getActivity(),"Your Stay Details is Saved" ,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Your Stay Details Have Been Saved" ,Toast.LENGTH_LONG).show();
 
     }
 }
