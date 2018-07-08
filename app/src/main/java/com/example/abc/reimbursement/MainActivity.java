@@ -49,10 +49,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EditorExpense.class);
+                /*Intent intent = new Intent(MainActivity.this, EditorExpense.class);
                 getWindow().setBackgroundDrawable(new ColorDrawable(
                         Color.WHITE));
-                startActivity(intent);
+                startActivity(intent);*/
+
+                openDialog();
 
             }
         });
@@ -172,6 +174,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private void deleteAllExpenses() {
         int rowsDeleted = getContentResolver().delete(BillContract.BillEntry.CONTENT_URI, null, null);
         Log.v("CatalogActivity", rowsDeleted + " rows deleted from Expense database");
+    }
+
+
+    public void openDialog(){
+
+        EditorExpense editorExpenseDialog = new EditorExpense();
+        editorExpenseDialog.show(getSupportFragmentManager(), "Editor Expense Dialog");
+
+
     }
 
 

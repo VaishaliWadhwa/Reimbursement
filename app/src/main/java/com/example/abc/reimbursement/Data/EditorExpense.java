@@ -1,37 +1,219 @@
 package com.example.abc.reimbursement.Data;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.abc.reimbursement.R;
 
 import java.util.Calendar;
 
-public class EditorExpense extends AppCompatActivity  {
+public class EditorExpense extends AppCompatDialogFragment {
     EditText mNameEditText;
-    EditText mStartDateEditText;
-    EditText mEndDateText;
+    TextView mStartDateEditText;
+    TextView mEndDateText;
     private Uri mCurrentExpenseUri;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
     DatePickerDialog.OnDateSetListener mDateSetListener2;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        LayoutInflater inflator = getActivity().getLayoutInflater();
+        View view =inflator.inflate(R.layout.activity_editor_expense , null);
+
+        mNameEditText = (EditText) view.findViewById(R.id.expensename);
+        mStartDateEditText = (TextView) view.findViewById(R.id.startdate);
+        mEndDateText = (TextView) view.findViewById(R.id.enddate);
+
+
+
+        mStartDateEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.YEAR);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog dialog2 = new DatePickerDialog(getActivity(),
+                        android.R.style.Theme_Holo_Light,
+                        mDateSetListener2 ,
+                        year,month,day);
+
+                dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog2.show();
+
+            }
+
+        } );
+        mDateSetListener2= new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month +1;
+                String date = dayOfMonth + "/" + month +"/" + year;
+                mStartDateEditText.setText(date);
+
+            }
+        } ;
+
+
+        mEndDateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.YEAR);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+
+
+                DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+                        android.R.style.Theme_Holo_Light,
+                        mDateSetListener ,
+                        year,month,day);
+
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+
+            }
+
+        } );
+        mDateSetListener= new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month +1;
+                String date = dayOfMonth + "/" + month +"/" + year;
+                mEndDateText.setText(date);
+
+            }
+        } ;
+
+
+
+        builder.setView(view)
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        // Read from input fields
+                        // Use trim to eliminate leading or trailing white space
+                        String nameString = mNameEditText.getText().toString().trim();
+                        String StartDateString = mStartDateEditText.getText().toString().trim();
+                        String EndDateString = mEndDateText.getText().toString().trim();
+
+                        ContentValues values = new ContentValues();
+                        values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, nameString);
+                        values.put(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE, StartDateString);
+                        values.put(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE, EndDateString);
+
+                        // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+                        Uri newUri = getActivity().getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+
+
+                        //saveExpense();
+                        getActivity().finish();
+
+
+                    }
+                });
+
+
+
+
+        return builder.create();
+
+    }
+
+    private void saveExpense() {
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        String nameString = mNameEditText.getText().toString().trim();
+        String StartDateString = mStartDateEditText.getText().toString().trim();
+        String EndDateString = mEndDateText.getText().toString().trim();
+
+        // Check if this is supposed to be a new pet
+        // and check if all the fields in the editor are blank
+        if (mCurrentExpenseUri == null &&
+                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(StartDateString) &&
+                TextUtils.isEmpty(EndDateString)) {
+            // Since no fields were modified, we can return early without creating a new pet.
+            // No need to create ContentValues and no need to do any ContentProvider operations.
+            return;
+        }
+
+        // Create a ContentValues object where column names are the keys,
+        // and pet attributes from the editor are the values.
+        ContentValues values = new ContentValues();
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, nameString);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE, StartDateString);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE, EndDateString);
+
+        // Determine if this is a new or existing pet by checking if mCurrentPetUri is null or not
+        if (mCurrentExpenseUri == null) {
+            // This is a NEW pet, so insert a new pet into the provider,
+            // returning the content URI for the new pet.
+            Uri newUri = getActivity().getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
+
+            // Show a toast message depending on whether or not the insertion was successful.
+            if (newUri == null) {
+                // If the new content URI is null, then there was an error with insertion.
+                Toast.makeText(getActivity(), "Insertion Failed Try Again",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the insertion was successful and we can display a toast.
+                Toast.makeText(getActivity(), "Inserted Successfully",
+                        Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            // Otherwise this is an EXISTING pet, so update the pet with content URI: mCurrentPetUri
+            // and pass in the new ContentValues. Pass in null for the selection and selection args
+            // because mCurrentPetUri will already identify the correct row in the database that
+            // we want to modify.
+            int rowsAffected = getActivity().getContentResolver().update(mCurrentExpenseUri, values, null, null);
+
+            // Show a toast message depending on whether or not the update was successful.
+            if (rowsAffected == 0) {
+                // If no rows were affected, then there was an error with the update.
+                Toast.makeText(getActivity(), "Editing Failed",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the update was successful and we can display a toast.
+                Toast.makeText(getActivity(), "Editing Successfull",
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+}
+        /*super.onCreate(savedInstanceState);
 
 
         setContentView(R.layout.activity_editor_expense);
@@ -47,8 +229,8 @@ public class EditorExpense extends AppCompatActivity  {
         getWindow().setLayout((int) (width * .60), (int) (height * .30));
         Button button = (Button) findViewById(R.id.ok);
         mNameEditText = (EditText) findViewById(R.id.expensename);
-        mStartDateEditText = (EditText) findViewById(R.id.startdate);
-        mEndDateText = (EditText) findViewById(R.id.enddate);
+        mStartDateEditText = (TextView) findViewById(R.id.startdate);
+        mEndDateText = (TextView) findViewById(R.id.enddate);
 
 
         mStartDateEditText.setOnClickListener(new View.OnClickListener() {
@@ -216,3 +398,4 @@ public class EditorExpense extends AppCompatActivity  {
     }
 
 }
+*/
