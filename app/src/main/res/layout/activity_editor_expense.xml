@@ -37,8 +37,7 @@
         android:layout_marginTop="20dp">
 
 
-        <EditText
-
+        <TextView
             android:id="@+id/startdate"
             android:layout_width="110dp"
             android:layout_height="40dp"
@@ -46,7 +45,7 @@
             android:hint="Start Date" />
 
 
-        <EditText
+        <TextView
             android:id="@+id/enddate"
             android:layout_width="110dp"
             android:layout_marginLeft="30dp"

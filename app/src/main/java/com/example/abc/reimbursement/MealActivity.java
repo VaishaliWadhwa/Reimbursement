@@ -142,34 +142,10 @@ public class MealActivity extends AppCompatActivity  {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
 
-                result = data.getDoubleExtra("result", 0.00);
-                mFinalAmountEditText.setText(Double.toString(result));
+                result = data.getDoubleExtra("result", 0);
+                mFinalAmountEditText.setText(String.valueOf(result));
 
             }
-            EditText text = (EditText) findViewById(R.id.final_amount);
-            TextWatcher textWatcher = null;
-            text.addTextChangedListener(textWatcher);
-
-
-            textWatcher = new TextWatcher() {
-
-                public void afterTextChanged(Editable s) {
-                }
-
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
-
-                public void onTextChanged(CharSequence s, int start, int before,
-                                          int count) {
-                    if (mFinalAmountEditText.equals(Double.toString(result))) {
-
-                    } else {
-                        Toast.makeText(getApplicationContext(), "change", Toast.LENGTH_LONG).show();
-                    }
-
-
-                }
-            };
 
             if (resultCode == RESULT_CANCELED)
 
