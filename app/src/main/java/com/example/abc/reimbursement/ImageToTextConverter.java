@@ -34,9 +34,9 @@ public class ImageToTextConverter extends AppCompatActivity {
 
     SurfaceView mCameraView;
     String word2;
-
-    private static final String TAG = "MainActivity";
-    private static final int requestPermissionID = 101;
+    Intent resultIntent;
+    private  final String TAG = "MainActivity";
+    private  final int requestPermissionID = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +132,7 @@ public class ImageToTextConverter extends AppCompatActivity {
 
                                 //mCameraSource.stop();
 
-                                Intent resultIntent = new Intent();
+                                 resultIntent = new Intent();
                                 resultIntent.putExtra("result" , ttt);
                                 setResult(RESULT_OK , resultIntent);
                                 finish();
@@ -237,10 +237,15 @@ public class ImageToTextConverter extends AppCompatActivity {
 
             Double max = max(allAmountList);
 
-            mCameraSource.stop();
-            mTextView.setText("Final Amount = " + max.toString());
-            return max.toString();
-        }
+
+
+
+                mCameraSource.stop();
+                mTextView.setText("Final Amount = " + max.toString());
+                return max.toString();
+            }
+
+
 
 
         mCameraSource.stop();
@@ -419,5 +424,7 @@ public class ImageToTextConverter extends AppCompatActivity {
         return num;
     }
 
-}
+            }
+
+
 

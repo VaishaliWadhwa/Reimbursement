@@ -3,20 +3,22 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
+
         android:layout_marginBottom="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.90"
+            android:textSize="20dp"
             android:text="Expense ID"/>
         <TextView
             android:layout_width="wrap_content"
@@ -28,57 +30,60 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="8dp">
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Expense name"/>
+            android:layout_weight="0.76"
+            android:textSize="20dp"
+            android:text="Expense name" />
+
         <TextView
+            android:id="@+id/expense_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/expense_name"/>
+            android:layout_weight="1" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
+
         android:layout_marginBottom="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
+            android:textSize="20dp"
             android:text="Bill Date"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+
             android:id="@+id/bill_date"/>
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/client_or_member">
-    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:orientation="horizontal"
+
         android:layout_marginBottom="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.2"
+            android:textSize="20dp"
             android:text="Purpose"/>
         <TextView
             android:layout_width="wrap_content"
@@ -90,19 +95,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+       >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Final Amount"/>
+            android:layout_weight="0.82"
+            android:textSize="20dp"
+
+            android:text="Final Amount" />
+
         <TextView
+            android:id="@+id/final_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/final_amount"/>
+            android:layout_weight="1" />
     </LinearLayout>
+   <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:id="@+id/client_or_member"
+    android:orientation="horizontal">
+
+</LinearLayout>
+
 
 
 </LinearLayout>
