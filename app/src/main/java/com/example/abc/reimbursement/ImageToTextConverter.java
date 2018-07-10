@@ -243,6 +243,7 @@ public class ImageToTextConverter extends AppCompatActivity {
                 mCameraSource.stop();
                 mTextView.setText("Final Amount = " + max.toString());
                 return max.toString();
+
             }
 
 

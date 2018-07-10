@@ -62,6 +62,7 @@ public class MealActivity extends AppCompatActivity  {
         Intent intent = getIntent();
         expenseName = intent.getStringExtra("expenseName");
         category = intent.getStringExtra("category");
+        mFinalAmountEditText.addTextChangedListener(tw);
 
 
 
@@ -157,6 +158,8 @@ public class MealActivity extends AppCompatActivity  {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        mFinalAmountEditText.addTextChangedListener(tw);
+
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_all_activity, menu);
@@ -239,7 +242,6 @@ public class MealActivity extends AppCompatActivity  {
         Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
 
 
-
         //saveExpense();
         finish();
 
@@ -278,7 +280,36 @@ public class MealActivity extends AppCompatActivity  {
         // Callback called when the data needs to be deleted
         mCursorAdapter.swapCursor(null);
     }*/
-}
+
+    TextWatcher tw = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (mFinalAmountEditText.toString() != String.valueOf(result)) {
+                Toast.makeText(MealActivity.this,"Changed",Toast.LENGTH_LONG);
+
+            }
+            else
+            {
+                Toast.makeText(MealActivity.this," not Changed",Toast.LENGTH_LONG);
+
+            }
+
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
+
+
+  }
 
 
 
