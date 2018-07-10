@@ -4,21 +4,31 @@ package com.example.abc.reimbursement;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.vision.Detector;
+import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.Element;
 import com.google.android.gms.vision.text.Line;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +39,15 @@ import java.util.regex.Pattern;
 public class ImageToTextConverter extends AppCompatActivity {
 
     TextView mTextView;
+    Button button;
+    ImageView imageView;
+    int PICK_IMAGE = 100;
+    Uri selectedImage;
 
-    com.google.android.gms.vision.CameraSource mCameraSource;
+    Bitmap bitmapOrg;
+    Bitmap bitmap;
+
+    //com.google.android.gms.vision.CameraSource mCameraSource;
 
     SurfaceView mCameraView;
     String word2;
@@ -44,14 +61,91 @@ public class ImageToTextConverter extends AppCompatActivity {
         setContentView(R.layout.activity_image_to_text_converter);
 
         setTitle("Scan");
+        imageView = (ImageView) findViewById(R.id.image_view);
 
-        Intent intent =  getIntent();
+        Intent intent = getIntent();
 
-        mCameraView = (SurfaceView) findViewById(R.id.surface_view);
+        //mCameraView = (SurfaceView) findViewById(R.id.surface_view);
         mTextView = (TextView) findViewById(R.id.text_view);
 
-        startCameraSource();
+
+        button = (Button) findViewById(R.id.button);
+
+
+        button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                Intent i = new Intent(
+                        Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, PICK_IMAGE);
+            }
+        });
+
+        //startCameraSource();
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
+            selectedImage = data.getData();
+
+            String filepath = getRealPathFromURI(selectedImage);
+
+            //imageView.setImageURI(selectedImage);
+
+            File image = new File(filepath);
+            //BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+
+            imageView.setImageBitmap(bitmap);
+
+            startCameraSource();
+
+            /*Bitmap bitmapOrg = BitmapFactory.decodeResource(getResources(), Integer.parseInt(filepath));
+
+
+            Bitmap bitmap = bitmapOrg;
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] imageInByte = stream.toByteArray();
+            long lengthbmp = imageInByte.length;*/
+        }
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        String[] projection = { MediaStore.Images.Media.DATA };
+        @SuppressWarnings("deprecation")
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
+            selectedImage = data.getData();
+
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+            } catch (IOException e) {
+                mTextView.setText("error");
+            }
+
+            imageView.setImageURI(selectedImage);
+        }
+        startCameraSource();
+    }*/
 
 
     private void startCameraSource() {
@@ -63,89 +157,32 @@ public class ImageToTextConverter extends AppCompatActivity {
             Log.w(TAG, "Detector dependencies not loaded yet");
         } else {
 
-            //Initialize camerasource to use high resolution and set Autofocus on.
-            mCameraSource = new com.google.android.gms.vision.CameraSource.Builder(getApplicationContext(), textRecognizer)
-                    .setFacing(com.google.android.gms.vision.CameraSource.CAMERA_FACING_BACK)
-                    .setRequestedPreviewSize(1280, 1024)
-                    .setAutoFocusEnabled(true)
-                    .setRequestedFps(2.0f)
-                    .build();
+            Frame frame = new Frame.Builder().setBitmap(bitmap).build();
 
-            /**
-             * Add call back to SurfaceView and check if camera permission is granted.
-             * If permission is granted we can start our cameraSource and pass it to surfaceView
-             */
-            mCameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
-                @Override
-                public void surfaceCreated(SurfaceHolder holder) {
-                    try {
+            final SparseArray<TextBlock> items = textRecognizer.detect(frame);
 
-                        if (ActivityCompat.checkSelfPermission(getApplicationContext(),
-                                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            if (items.size() != 0) {
 
-                            ActivityCompat.requestPermissions(ImageToTextConverter.this,
-                                    new String[]{Manifest.permission.CAMERA},
-                                    requestPermissionID);
-                            return;
-                        }
-                        mCameraSource.start(mCameraView.getHolder());
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                mTextView.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        double ttt = Double.parseDouble(getAmount(items));
+
+                        //mCameraSource.stop();
+
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("result", ttt);
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
+                        //mCameraSource.stop();
+
                     }
-                }
+                });
+            }
 
-                @Override
-                public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-                }
-
-                /**
-                 * Release resources for cameraSource
-                 */
-                @Override
-                public void surfaceDestroyed(SurfaceHolder holder) {
-                    mCameraSource.stop();
-                }
-            });
-
-            //Set the TextRecognizer's Processor.
-            textRecognizer.setProcessor(new Detector.Processor<TextBlock>() {
-                @Override
-                public void release() {
-                }
-
-                /**
-                 * Detect all the text from camera using TextBlock and the values into a stringBuilder
-                 * which will then be set to the textView.
-                 * */
-
-                @Override
-                public void receiveDetections(Detector.Detections<TextBlock> detections) {
-                    final SparseArray<TextBlock> items = detections.getDetectedItems();
-
-                    if (items.size() != 0) {
-
-                        mTextView.post(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                double ttt = Double.parseDouble(getAmount(items));
-
-                                //mCameraSource.stop();
-
-                                Intent resultIntent = new Intent();
-                                resultIntent.putExtra("result" , ttt);
-                                setResult(RESULT_OK , resultIntent);
-                                finish();
-                                //mCameraSource.stop();
-
-                            }
-                        });
-                    }
-                }
-            });
         }
     }
-
 
 
     public String getAmount(SparseArray<TextBlock> items) {
@@ -202,7 +239,6 @@ public class ImageToTextConverter extends AppCompatActivity {
 
                         mTextView.setText("Final Amount = " + convertedString);
 
-                        mCameraSource.stop();
                         return convertedString;
 
                     }
@@ -237,13 +273,10 @@ public class ImageToTextConverter extends AppCompatActivity {
 
             Double max = max(allAmountList);
 
-            mCameraSource.stop();
             mTextView.setText("Final Amount = " + max.toString());
             return max.toString();
         }
 
-
-        mCameraSource.stop();
         return "00";
 
 
@@ -420,4 +453,3 @@ public class ImageToTextConverter extends AppCompatActivity {
     }
 
 }
-

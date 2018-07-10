@@ -139,7 +139,6 @@ public class EditorExpense extends AppCompatDialogFragment {
 
 
                         //saveExpense();
-                        getActivity().finish();
 
 
                     }

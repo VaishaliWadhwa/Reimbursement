@@ -173,8 +173,6 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
         String selectionArgs [] = new String[] {  expenseName };
         int rowsDeleted = getContentResolver().delete(BillContract.BillEntry.CONTENT_URI,selection , selectionArgs);
 
-
-
     }
 
 }
