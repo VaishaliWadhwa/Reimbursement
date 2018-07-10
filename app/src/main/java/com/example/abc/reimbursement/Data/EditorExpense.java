@@ -165,7 +165,7 @@ public class EditorExpense extends AppCompatDialogFragment {
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(StartDateString) &&
                 TextUtils.isEmpty(EndDateString)) {
             // Since no fields were modified, we can return early without creating a new pet.
-            // No need to create ContentValues and no need to do any ContentProvider operations.
+            // No need to create ContentVlues and no need to do any ContentProvider operations.
             return;
         }
 
