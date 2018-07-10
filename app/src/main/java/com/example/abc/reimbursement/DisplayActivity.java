@@ -52,12 +52,33 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
 
         clientOrMember = (LinearLayout) findViewById(R.id.client_or_member);
 
-        //LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
-        //LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        //clientNameText = new TextView(this);
-        //clientNameText.setLayoutParams(lparams);
-        //clientNameText.setText("test");
-        //this.clientOrMember.addView(clientNameText);
+        LinearLayout.LayoutParams lparams = new LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT ,
+                 1.0f
+
+        );
+
+
+       /* clientNameText = new TextView(this);
+        clientNameText.setLayoutParams(new TableLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT,0.33f));
+        clientNameText.setLayoutParams(lparams);
+
+        clientNameText.setText("Client Names");
+        clientNameText.setTextSize(20);
+        this.clientOrMember.addView(clientNameText );
+
+        TextView tv=new TextView(this);
+        tv.setLayoutParams(new TableLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+
+        tv.setLayoutParams(lparams);
+
+        tv.setText("test");
+
+
+        this.clientOrMember.addView(tv);
+
+        ;*/
+        //clientNameText.setLayoutParams(param);
 
 
         // Examine the intent that was used to launch this activity,
