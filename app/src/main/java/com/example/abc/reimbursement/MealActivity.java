@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.example.abc.reimbursement.Data.BillContract;
 
+import org.w3c.dom.Text;
+
 import java.util.Calendar;
 
 public class MealActivity extends AppCompatActivity  {
@@ -29,7 +31,7 @@ public class MealActivity extends AppCompatActivity  {
 
     //EditText mNameEditText;
     //EditText mCategoryEditText;
-    EditText mBillDateEditText;
+    TextView mBillDateEditText;
     EditText mRestaurantNameEditText;
     EditText mClientNameEditText;
     EditText mPurposeEditText;
@@ -52,7 +54,7 @@ public class MealActivity extends AppCompatActivity  {
 
         mFinalAmountEditText = (EditText) findViewById(R.id.final_amount);
 
-        mBillDateEditText = (EditText) findViewById(R.id.mealdate);
+        mBillDateEditText = (TextView) findViewById(R.id.mealdate);
         mRestaurantNameEditText = (EditText) findViewById(R.id.restaurant_name);
         mClientNameEditText = (EditText) findViewById(R.id.client_name);
         mPurposeEditText = (EditText) findViewById(R.id.purpose);

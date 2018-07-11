@@ -23,19 +23,21 @@
             android:layout_margin="30dp"
             android:background="#ffffff">
 
-            <EditText
+            <TextView
                 android:id="@+id/bill_date"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:hint="Select Your Stay Date"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:configChanges="orientation|keyboardHidden"/>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Purpose"
                 android:id="@+id/purpose"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:configChanges="orientation|keyboardHidden"/>
 
             <Button
                 android:layout_width="match_parent"
@@ -49,7 +51,8 @@
                 android:layout_height="40dp"
                 android:hint="Final Amount"
                 android:id="@+id/final_amount"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:configChanges="orientation|keyboardHidden"/>
 
             <Button
                 android:layout_width="match_parent"

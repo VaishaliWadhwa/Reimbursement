@@ -182,7 +182,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         EditorExpense editorExpenseDialog = new EditorExpense();
         editorExpenseDialog.show(getSupportFragmentManager(), "Editor Expense Dialog");
 
-
     }
 
 

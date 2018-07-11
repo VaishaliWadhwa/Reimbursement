@@ -24,7 +24,7 @@ import java.util.Calendar;
 
 public class LocalTravel extends AppCompatActivity {
 
-    EditText mBillDateEditText;
+    TextView mBillDateEditText;
     EditText mPurposeEditText;
 
     EditText mFinalAmountEditText;
@@ -48,7 +48,7 @@ public class LocalTravel extends AppCompatActivity {
         mMealAmountEditText = (EditText) findViewById(R.id.meal_amount);
         mTravelAmountEditText = (EditText) findViewById(R.id.travel_amount);
         mFinalAmountEditText = (EditText) findViewById(R.id.final_amount);
-        mBillDateEditText = (EditText) findViewById(R.id.bill_date);
+        mBillDateEditText = (TextView) findViewById(R.id.bill_date);
         mPurposeEditText = (EditText) findViewById(R.id.purpose);
 
         mCursorAdapter = new BillCursorAdapter(this, null);

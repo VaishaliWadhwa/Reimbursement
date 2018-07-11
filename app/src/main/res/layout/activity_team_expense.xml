@@ -15,13 +15,13 @@
         android:layout_margin="16dp"
         android:orientation="vertical">
 
-        <EditText
+        <TextView
             android:id="@+id/bill_date"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:hint="Date"
             android:textSize="20dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -29,7 +29,8 @@
             android:hint="Purpose And Details"
             android:textSize="20dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/purpose"/>
+            android:id="@+id/purpose"
+            android:configChanges="orientation|keyboardHidden"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -37,7 +38,8 @@
             android:hint="Team Member"
             android:textSize="20dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/team_member"/>
+            android:id="@+id/team_member"
+            android:configChanges="orientation|keyboardHidden"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -45,7 +47,6 @@
             android:paddingRight="40dp"
             android:layout_height="45dp"
             android:text="Click Here To Scan"
-
             android:layout_marginBottom="16dp"
             android:id="@+id/button_scan"
             android:layout_gravity="center"/>
@@ -62,7 +63,8 @@
             android:hint="Final Amount In The Bill"
             android:textSize="20dp"
             android:layout_marginBottom="8dp"
-            android:id="@+id/final_amount"/>
+            android:id="@+id/final_amount"
+            android:configChanges="orientation|keyboardHidden"/>
 
         <Button
             android:layout_width="match_parent"

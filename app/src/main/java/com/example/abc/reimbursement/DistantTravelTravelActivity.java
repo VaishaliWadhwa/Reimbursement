@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.abc.reimbursement.Data.BillContract;
@@ -30,7 +31,7 @@ public class DistantTravelTravelActivity extends Fragment {
     String expenseName;
     String category;
 
-    EditText mBillDateEditText;
+    TextView mBillDateEditText;
 
     EditText mPurposeEditText;
 
@@ -52,7 +53,7 @@ public class DistantTravelTravelActivity extends Fragment {
 
         mFinalAmountEditText = (EditText) view.findViewById(R.id.final_amount);
 
-        mBillDateEditText = (EditText) view.findViewById(R.id.bill_date);
+        mBillDateEditText = (TextView) view.findViewById(R.id.bill_date);
 
         mPurposeEditText = (EditText) view.findViewById(R.id.purpose);
 

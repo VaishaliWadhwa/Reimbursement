@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.abc.reimbursement.Data.BillContract;
 
@@ -26,7 +27,7 @@ public class TeamExpenseActivity extends Activity {
 
     EditText  mFinalAmountEditText;;
 
-    EditText mBillDateEditText;
+    TextView mBillDateEditText;
     EditText mPurposeEditText;
     EditText mTeamMembersEditText;
     //EditText finalAmount;
@@ -45,7 +46,7 @@ public class TeamExpenseActivity extends Activity {
         mFinalAmountEditText = (EditText) findViewById(R.id.final_amount);
         mTeamMembersEditText = (EditText) findViewById(R.id.team_member);
 
-        mBillDateEditText = (EditText) findViewById(R.id.bill_date);
+        mBillDateEditText = (TextView) findViewById(R.id.bill_date);
         mPurposeEditText = (EditText) findViewById(R.id.purpose);
 
         mCursorAdapter = new BillCursorAdapter(this, null);

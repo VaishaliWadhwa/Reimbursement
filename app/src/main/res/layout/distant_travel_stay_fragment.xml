@@ -25,7 +25,7 @@
             android:layout_margin="30dp"
             android:background="#ffffff">
 
-            <EditText
+            <TextView
                 android:id="@+id/bill_date"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
@@ -37,13 +37,15 @@
                 android:layout_height="40dp"
                 android:hint="Venue"
                 android:layout_marginBottom="16dp"
-                android:id="@+id/venue"/>
+                android:id="@+id/venue"
+                android:configChanges="orientation|keyboardHidden"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Other Details"
                 android:layout_marginBottom="20dp"
-                android:id="@+id/purpose"/>
+                android:id="@+id/purpose"
+                android:configChanges="orientation|keyboardHidden"/>
 
 
             <Button
@@ -60,7 +62,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:hint="Total Amount"
-                android:id="@+id/final_amount"/>
+                android:id="@+id/final_amount"
+                android:configChanges="orientation|keyboardHidden"/>
 
             <Button
                 android:layout_width="match_parent"

@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_width="wrap_content">
 
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         tools:context=".Travel"
         tools:layout_editor_absoluteX="253dp"
         tools:layout_editor_absoluteY="41dp"
@@ -22,17 +22,20 @@
             android:layout_height="match_parent"
             android:layout_margin="30dp"
             android:background="#ffffff">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="Date"
+                android:id="@+id/bill_date"
+                android:configChanges="orientation|keyboardHidden"/>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Write Your Purpose"
                 android:id="@+id/purpose"
-                />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:hint="date"
-                android:id="@+id/bill_date"/>
+                android:configChanges="orientation|keyboardHidden"/>
 
 
             <Button
@@ -46,16 +49,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Travel Amount"
-                android:id="@+id/travel_amount"/>
+                android:id="@+id/travel_amount"
+                android:configChanges="orientation|keyboardHidden"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <EditText
+                <TextView
                     android:layout_width="130dp"
                     android:layout_height="40dp"
                     android:text="Had Meal?"
-                    android:textSize="20dp"/>
+                    android:textSize="20dp"
+                    android:textColor="#000000"
+                    android:configChanges="orientation|keyboardHidden"/>
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -82,13 +88,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:hint="Total Meal Amount"
-                android:id="@+id/meal_amount"/>
+                android:id="@+id/meal_amount"
+                android:configChanges="orientation|keyboardHidden"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-
                 android:hint="Final Total Amount"
-                android:id="@+id/final_amount"/>
+                android:id="@+id/final_amount"
+                android:configChanges="orientation|keyboardHidden"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

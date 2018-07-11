@@ -1,5 +1,6 @@
 package com.example.abc.reimbursement.Data;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -10,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.text.TextUtils;
@@ -110,16 +112,21 @@ public class EditorExpense extends AppCompatDialogFragment {
             }
         } ;
 
+        /*Button positiveButton = builder.create().getButton(AlertDialog.BUTTON_POSITIVE);
+        Button negativeButton = builder.create().getButton(AlertDialog.BUTTON_NEGATIVE);
+
+        positiveButton.setTextColor(Color.parseColor("#2AB0D9"));
+        positiveButton.setTextColor(Color.parseColor("#2AB0D9"));*/
 
 
         builder.setView(view)
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
                 })
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -145,7 +152,10 @@ public class EditorExpense extends AppCompatDialogFragment {
                 });
 
 
-
+        /*Button positive = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_POSITIVE);
+        positive.setTextColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));
+        Button negative = ((AlertDialog) getDialog()).getButton(AlertDialog.BUTTON_NEGATIVE);
+        negative.setTextColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimary));*/
 
         return builder.create();
 

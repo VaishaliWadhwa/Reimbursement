@@ -1,5 +1,6 @@
 package com.example.abc.reimbursement;
 
+import android.app.Dialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.abc.reimbursement.Data.BillContract;
+import com.example.abc.reimbursement.Data.EditorExpense;
 
 import static com.example.abc.reimbursement.Data.BillContract.BillEntry._ID;
 
@@ -81,10 +83,12 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ExpenseReport.this, ChoiceActivity.class);
+
+                /*Intent intent = new Intent(ExpenseReport.this, ChoiceActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("expenseName", expenseName);
-                startActivity(intent);
+                startActivity(intent);*/
+                openDialog();
             }
         });
 
@@ -175,4 +179,10 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
 
     }
 
+    public void openDialog(){
+
+        ChoiceActivity choiceActivityDialog = new ChoiceActivity(expenseName);
+        choiceActivityDialog.show(getSupportFragmentManager(), "Editor Expense Dialog");
+
+    }
 }
