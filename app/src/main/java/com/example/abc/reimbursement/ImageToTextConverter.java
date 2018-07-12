@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.Frame;
@@ -28,9 +30,12 @@ import com.google.android.gms.vision.text.Line;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,11 +46,17 @@ public class ImageToTextConverter extends AppCompatActivity {
     TextView mTextView;
     Button button;
     ImageView imageView;
-    int PICK_IMAGE = 100;
+    int PICK_IMAGE = 101;
+    int TAKE_IMAGE =100;
     Uri selectedImage;
 
     Bitmap bitmapOrg;
     Bitmap bitmap;
+
+    Uri file;
+    Button takePhoto;
+    File fPhoto;
+    byte[] dataDB;
 
     //com.google.android.gms.vision.CameraSource mCameraSource;
 
@@ -84,8 +95,44 @@ public class ImageToTextConverter extends AppCompatActivity {
         });
 
         //startCameraSource();
+        takePhoto = (Button) findViewById(R.id.take_picture);
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                takePicture();
+
+            }
+        });
     }
+
+
+    public void takePicture() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        fPhoto = getOutputMediaFile();
+        file = Uri.fromFile(fPhoto);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
+
+        startActivityForResult(intent, TAKE_IMAGE);
+    }
+
+    private  File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "CameraDemo");
+
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        return new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
+    }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -102,6 +149,10 @@ public class ImageToTextConverter extends AppCompatActivity {
             //BitmapFactory.Options bmOptions = new BitmapFactory.Options();
             bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
 
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,200,baos);
+            dataDB = baos.toByteArray();
+
             imageView.setImageBitmap(bitmap);
 
             startCameraSource();
@@ -115,6 +166,26 @@ public class ImageToTextConverter extends AppCompatActivity {
             byte[] imageInByte = stream.toByteArray();
             long lengthbmp = imageInByte.length;*/
         }
+        if (requestCode == TAKE_IMAGE && resultCode == RESULT_OK){
+            //String filepath = getRealPathFromURI(file);
+
+            //imageView.setImageURI(selectedImage);
+
+            //File image = new File(filepath);
+            //BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+            bitmap = BitmapFactory.decodeFile(fPhoto.getAbsolutePath());
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG,200,baos);
+            dataDB = baos.toByteArray();
+
+            imageView.setImageBitmap(bitmap);
+
+            startCameraSource();
+
+
+        }
+
     }
 
     public String getRealPathFromURI(Uri uri) {
@@ -173,6 +244,7 @@ public class ImageToTextConverter extends AppCompatActivity {
 
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("result", ttt);
+                        resultIntent.putExtra("photo", dataDB);
                         setResult(RESULT_OK, resultIntent);
                         finish();
                         //mCameraSource.stop();

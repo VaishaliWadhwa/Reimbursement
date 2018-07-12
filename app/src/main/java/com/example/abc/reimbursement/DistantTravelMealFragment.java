@@ -29,6 +29,8 @@ public class DistantTravelMealFragment extends Fragment {
 
     String expenseName;
     String category;
+    String travelFrom;
+    String travelTo;
 
     TextView mBillDateEditText;
     EditText mRestaurantNameEditText;
@@ -52,6 +54,9 @@ public class DistantTravelMealFragment extends Fragment {
         try {
             expenseName = getArguments().getString("expenseName");
             category = getArguments().getString("category");
+            travelFrom = getArguments().getString("travelFrom");
+            travelTo = getArguments().getString("travelTo");
+
         }catch(NullPointerException e)
         {
             System.out.println("NullPointerException caught");
@@ -158,6 +163,9 @@ public class DistantTravelMealFragment extends Fragment {
         ContentValues values = new ContentValues();
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_CAT, category);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_FROM, DistantTravel.getTravelFrom());
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_TO, DistantTravel.getTravelTo());
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT,"Meal");
 
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE, billDate);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME, restaurantName);

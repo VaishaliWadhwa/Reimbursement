@@ -67,6 +67,9 @@ public class BillCursorAdapter extends CursorAdapter {
         int startDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_STARTDATE);
         int endDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_ENDDATE);
 
+
+
+
         // Read the pet attributes from the Cursor for the current pet
         String expenseName = cursor.getString(nameColumnIndex);
         String expenseStartDate = cursor.getString(startDateColumnIndex);

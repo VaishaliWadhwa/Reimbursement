@@ -142,7 +142,7 @@ public class MealActivity extends AppCompatActivity  {
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-
+                
                 result = data.getDoubleExtra("result", 0);
                 mFinalAmountEditText.setText(String.valueOf(result));
 

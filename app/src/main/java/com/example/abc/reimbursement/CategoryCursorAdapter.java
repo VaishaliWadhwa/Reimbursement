@@ -20,12 +20,7 @@ public class CategoryCursorAdapter extends CursorAdapter {
 
     LayoutInflater mInflater;
 
-    /**
-     * Constructs a new {@link BillCursorAdapter}.
-     *
-     * @param context The context
-     * @param c       The cursor from which to get the data.
-     */
+
     public CategoryCursorAdapter(Context context, Cursor c) {
         super(context, c, 0 /* flags */);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -61,22 +56,37 @@ public class CategoryCursorAdapter extends CursorAdapter {
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.name);
         TextView summaryTextView = (TextView) view.findViewById(R.id.summary);
+        TextView dateTextView = (TextView) view.findViewById(R.id.date);
 
         // Find the columns of pet attributes that we're interested in
         int categoryColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_CAT);
         int purposeDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE);
         int billDateColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE);
+        int fromColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_FROM);
+        int toColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_TO);
+        int subCategoryColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT);
+
+
 
         // Read the pet attributes from the Cursor for the current pet
         String expenseCategory = cursor.getString(categoryColumnIndex);
         String expensePurpose = cursor.getString(purposeDateColumnIndex);
         String expenseBillDate = cursor.getString(billDateColumnIndex);
+        String subCategory = cursor.getString(subCategoryColumnIndex);
+        String from = cursor.getString(fromColumnIndex);
+        String to = cursor.getString(toColumnIndex);
 
         // If the pet breed is empty string or null, then use some default text
         // that says "Unknown breed", so the TextView isn't blank.
 
         // Update the TextViews with the attributes for the current pet
-        nameTextView.setText(expenseCategory);
-        summaryTextView.setText(expensePurpose+"    - "+expenseBillDate);
+        nameTextView.setText(expenseCategory + " - "+ subCategory);
+        dateTextView.setText(expenseBillDate);
+        summaryTextView.setText(expensePurpose);
+
+        if(expenseCategory.equalsIgnoreCase("Distant Travel")||
+                expenseCategory.equalsIgnoreCase("Local travel")){
+            summaryTextView.setText(from +" - "+ to);
+        }
     }
 }

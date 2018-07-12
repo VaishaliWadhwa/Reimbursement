@@ -135,6 +135,9 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
                 _ID,
                 BillContract.BillEntry.COLUMN_EXPENSE_CAT,
                 BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE,
+                BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT,
+                BillContract.BillEntry.COLUMN_EXPENSE_FROM,
+                BillContract.BillEntry.COLUMN_EXPENSE_TO,
                 BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE};
 
         //String selection = BillContract.BillEntry.COLUMN_EXPENSE_CAT + "!= 'NoCategory' AND"

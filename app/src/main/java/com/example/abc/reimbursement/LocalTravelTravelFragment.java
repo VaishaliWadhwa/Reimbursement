@@ -2,6 +2,7 @@ package com.example.abc.reimbursement;
 
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,8 +26,7 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 
-public class DistantTravelTravelActivity extends Fragment {
-
+public class LocalTravelTravelFragment extends Fragment {
 
     String expenseName;
     String category;
@@ -48,7 +48,7 @@ public class DistantTravelTravelActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.distant_travel_travel_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_local_travel_travel, container, false);
 
         expenseName = getArguments().getString("expenseName");
         category = getArguments().getString("category");
@@ -154,8 +154,8 @@ public class DistantTravelTravelActivity extends Fragment {
         ContentValues values = new ContentValues();
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_CAT, category);
-        values.put(BillContract.BillEntry.COLUMN_EXPENSE_FROM, DistantTravel.getTravelFrom());
-        values.put(BillContract.BillEntry.COLUMN_EXPENSE_TO, DistantTravel.getTravelTo());
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_FROM, LocalTravel.getTravelFrom());
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_TO, LocalTravel.getTravelTo());
 
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT,"Travel");
 

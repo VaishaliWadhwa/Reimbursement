@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,8 @@ public class DistantTravelStayFragment extends Fragment {
 
     String expenseName;
     String category;
+    String travelFrom;
+    String travelTo;
 
     TextView mBillDateEditText;
     EditText mVenueEditText;
@@ -49,6 +52,15 @@ public class DistantTravelStayFragment extends Fragment {
 
         expenseName = getArguments().getString("expenseName");
         category = getArguments().getString("category");
+        //travelFrom = getArguments().getString("travelFrom");
+        //travelTo = getArguments().getString("travelTo");
+        //travelFrom = getActivity().getTravelFrom();
+
+        //travelFrom = DistantTravel.travelFrom;
+        //travelTo = DistantTravel.travelTo;
+
+        //travelFrom = DistantTravel.getTravelFrom();
+        //travelTo = DistantTravel.getTravelTo();
 
         mFinalAmountEditText = (EditText) view.findViewById(R.id.final_amount);
 
@@ -150,9 +162,12 @@ public class DistantTravelStayFragment extends Fragment {
         ContentValues values = new ContentValues();
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_CAT, category);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_FROM, DistantTravel.getTravelFrom());
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_TO, DistantTravel.getTravelTo());
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT, "Stay");
 
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE, billDate);
-        values.put(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME, venue);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_VENUE, venue);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
 

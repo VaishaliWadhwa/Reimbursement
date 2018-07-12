@@ -2,6 +2,8 @@ package com.example.abc.reimbursement;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,9 +24,122 @@ import com.example.abc.reimbursement.Data.BillContract;
 
 import java.util.Calendar;
 
-public class LocalTravel extends AppCompatActivity {
+public class LocalTravel extends AppCompatActivity implements View.OnClickListener {
+    String expenseName;
+    String category;
+    public static EditText mTravelFrom;
+    public static EditText mTravelTo;
 
-    TextView mBillDateEditText;
+    public static String travelFrom;
+    public static String travelTo;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_local_travel);
+        Intent intent = getIntent();
+        expenseName = intent.getStringExtra("expenseName");
+        category = intent.getStringExtra("category");
+
+        mTravelFrom = (EditText) findViewById(R.id.from);
+        mTravelTo = (EditText)findViewById(R.id.to);
+
+        //travelFrom = mTravelFrom.getText().toString();
+        //travelTo = mTravelTo.getText().toString();
+
+
+        Bundle bundle = new Bundle();
+
+        bundle.putString("expenseName",expenseName);
+        bundle.putString("category",category);
+        //bundle.putString("travelFrom",travelFrom);
+        //bundle.putString("travelTo", travelTo);
+
+        Fragment fragment = new LocalTravelTravelFragment();
+        fragment.setArguments(bundle);
+            /*FragmentManager manager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = manager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment2, fragment);
+            fragmentTransaction.commit();*/
+        FragmentManager manager = getFragmentManager();
+        android.app.FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragment2, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+
+
+        Button mTravelButton =  findViewById(R.id.travel_button);
+        mTravelButton.setOnClickListener(this);
+        Button mMealButton = findViewById(R.id.meal_button);
+        mMealButton.setOnClickListener(this);
+
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        Fragment fragment = null;
+        if (v.getId() == R.id.travel_button) {
+            Bundle bundle = new Bundle();
+            bundle.putString("expenseName",expenseName);
+            bundle.putString("category",category);
+            //bundle.putString("travelFrom",travelFrom);
+            //bundle.putString("travelTo", travelTo);
+            fragment = new LocalTravelTravelFragment();
+            fragment.setArguments(bundle);
+
+        } else if (v.getId() == R.id.meal_button){
+            Bundle bundle = new Bundle();
+            bundle.putString("expenseName",expenseName);
+            bundle.putString("category",category);
+            //bundle.putString("travelFrom",travelFrom);
+            //bundle.putString("travelTo", travelTo);
+            fragment = new LocalTravelMealFragment();
+            fragment.setArguments(bundle);
+
+        }
+
+        FragmentManager manager = getFragmentManager();
+        android.app.FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragment2, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+    }
+
+
+    public static String getTravelFrom(){
+        travelFrom = mTravelFrom.getText().toString();
+        return travelFrom;
+    }
+    public static String getTravelTo(){
+        travelTo = mTravelTo.getText().toString();
+        return travelTo;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   /* TextView mBillDateEditText;
     EditText mPurposeEditText;
 
     EditText mFinalAmountEditText;
@@ -163,8 +278,8 @@ public class LocalTravel extends AppCompatActivity {
     private void saveBill() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
-        /*String nameString = mNameEditText.getText().toString().trim();
-        String category = mCategoryEditText.getText().toString().trim();*/
+        *//*String nameString = mNameEditText.getText().toString().trim();
+        String category = mCategoryEditText.getText().toString().trim();*//*
 
         String billDate = mBillDateEditText.getText().toString().trim();
         String purpose = mPurposeEditText.getText().toString().trim();
@@ -190,3 +305,4 @@ public class LocalTravel extends AppCompatActivity {
 
 
 }
+*/

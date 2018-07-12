@@ -101,9 +101,18 @@ public class BillContract {
         public final static String COLUMN_EXPENSE_FINAL_AMOUNT = "final_amount";
 
         public final static String COLUMN_EXPENSE_CAT = "category";
-        public static final String COLUMN_EXPENSE_KEY_IMAGE = "IMAGE";
-        public static final String COLUMN_EXPENSE_KEY_NAME = "IMAGE NAME";
+
+        public static final String COLUMN_EXPENSE_BILL_IMAGE = "IMAGE";
+
         public final static String COLUMN_EXPENSE_SUBCAT = "sub_category";
+
+        public final static String COLUMN_EXPENSE_FROM = "travel_from";
+
+        public final static String COLUMN_EXPENSE_TO = "travel_to";
+
+        public final static String COLUMN_EXPENSE_VENUE = "venue";
+
+
 
         //public static final String COLUMN_EXPENSE_BILL_ID ="ID" ;
     }

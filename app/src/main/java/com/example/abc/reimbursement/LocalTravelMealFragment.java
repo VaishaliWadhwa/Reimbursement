@@ -2,6 +2,7 @@ package com.example.abc.reimbursement;
 
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -25,16 +26,15 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 
-public class DistantTravelTravelActivity extends Fragment {
-
-
+public class LocalTravelMealFragment extends Fragment {
     String expenseName;
     String category;
     String travelFrom;
     String travelTo;
 
     TextView mBillDateEditText;
-
+    EditText mRestaurantNameEditText;
+    EditText mClientNameEditText;
     EditText mPurposeEditText;
 
     EditText mFinalAmountEditText;
@@ -44,21 +44,29 @@ public class DistantTravelTravelActivity extends Fragment {
     DatePickerDialog.OnDateSetListener mDateSetListener;
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.distant_travel_travel_fragment, container, false);
 
-        expenseName = getArguments().getString("expenseName");
-        category = getArguments().getString("category");
-        travelFrom = getArguments().getString("travelFrom");
-        travelTo = getArguments().getString("travelTo");
+
+        View view = inflater.inflate(R.layout.fragment_local_travel_meal, container, false);
+
+        try {
+            expenseName = getArguments().getString("expenseName");
+            category = getArguments().getString("category");
+            travelFrom = getArguments().getString("travelFrom");
+            travelTo = getArguments().getString("travelTo");
+
+        }catch(NullPointerException e)
+        {
+            System.out.println("NullPointerException caught");
+        }
 
         mFinalAmountEditText = (EditText) view.findViewById(R.id.final_amount);
 
         mBillDateEditText = (TextView) view.findViewById(R.id.bill_date);
-
+        mRestaurantNameEditText = (EditText) view.findViewById(R.id.restaurant_name);
+        mClientNameEditText = (EditText) view.findViewById(R.id.client_name);
         mPurposeEditText = (EditText) view.findViewById(R.id.purpose);
 
         mCursorAdapter = new BillCursorAdapter(getActivity(), null);
@@ -146,7 +154,8 @@ public class DistantTravelTravelActivity extends Fragment {
         String category = mCategoryEditText.getText().toString().trim();*/
 
         String billDate = mBillDateEditText.getText().toString().trim();
-
+        String restaurantName = mRestaurantNameEditText.getText().toString().trim();
+        String clientName = mClientNameEditText.getText().toString().trim();
         String purpose = mPurposeEditText.getText().toString().trim();
         String finalAmount = mFinalAmountEditText.getText().toString().trim();
 
@@ -154,13 +163,13 @@ public class DistantTravelTravelActivity extends Fragment {
         ContentValues values = new ContentValues();
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_CAT, category);
-        values.put(BillContract.BillEntry.COLUMN_EXPENSE_FROM, DistantTravel.getTravelFrom());
-        values.put(BillContract.BillEntry.COLUMN_EXPENSE_TO, DistantTravel.getTravelTo());
-
-        values.put(BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT,"Travel");
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_FROM, LocalTravel.getTravelFrom());
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_TO, LocalTravel.getTravelTo());
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT,"Meal");
 
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE, billDate);
-
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME, restaurantName);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
 
@@ -169,8 +178,9 @@ public class DistantTravelTravelActivity extends Fragment {
 
 
         //saveExpense();
-        Toast.makeText(getActivity(),"Your Travel Details Have Been Saved" ,Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(),"Your Meal Details have been saved" ,Toast.LENGTH_LONG).show();
 
     }
+
 
 }
