@@ -80,13 +80,15 @@ public class CategoryCursorAdapter extends CursorAdapter {
         // that says "Unknown breed", so the TextView isn't blank.
 
         // Update the TextViews with the attributes for the current pet
-        nameTextView.setText(expenseCategory + " - "+ subCategory);
+        nameTextView.setText(expenseCategory);
         dateTextView.setText(expenseBillDate);
         summaryTextView.setText(expensePurpose);
 
         if(expenseCategory.equalsIgnoreCase("Distant Travel")||
                 expenseCategory.equalsIgnoreCase("Local travel")){
             summaryTextView.setText(from +" - "+ to);
+
+            nameTextView.setText(expenseCategory + " - "+ subCategory);
         }
     }
 }

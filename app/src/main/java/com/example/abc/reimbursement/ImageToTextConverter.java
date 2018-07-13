@@ -13,6 +13,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
@@ -63,6 +64,13 @@ public class ImageToTextConverter extends AppCompatActivity {
     SurfaceView mCameraView;
     String word2;
 
+    int flag=0;
+
+    String filepath;
+
+    //String encodeString;
+    String path;
+
     private static final String TAG = "MainActivity";
     private static final int requestPermissionID = 101;
 
@@ -112,6 +120,7 @@ public class ImageToTextConverter extends AppCompatActivity {
 
         fPhoto = getOutputMediaFile();
         file = Uri.fromFile(fPhoto);
+        Log.v("uri = ",file.toString());
         intent.putExtra(MediaStore.EXTRA_OUTPUT, file);
 
         startActivityForResult(intent, TAKE_IMAGE);
@@ -127,7 +136,10 @@ public class ImageToTextConverter extends AppCompatActivity {
             }
         }
 
+
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        path = mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg";
         return new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_" + timeStamp + ".jpg");
     }
@@ -141,7 +153,9 @@ public class ImageToTextConverter extends AppCompatActivity {
         if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
             selectedImage = data.getData();
 
-            String filepath = getRealPathFromURI(selectedImage);
+            flag=1;
+
+            filepath = getRealPathFromURI(selectedImage);
 
             //imageView.setImageURI(selectedImage);
 
@@ -150,8 +164,10 @@ public class ImageToTextConverter extends AppCompatActivity {
             bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,200,baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
             dataDB = baos.toByteArray();
+
+            //encodeString = Base64.encodeToString(dataDB, Base64.DEFAULT);
 
             imageView.setImageBitmap(bitmap);
 
@@ -169,6 +185,10 @@ public class ImageToTextConverter extends AppCompatActivity {
         if (requestCode == TAKE_IMAGE && resultCode == RESULT_OK){
             //String filepath = getRealPathFromURI(file);
 
+            flag=2;
+
+
+
             //imageView.setImageURI(selectedImage);
 
             //File image = new File(filepath);
@@ -176,8 +196,10 @@ public class ImageToTextConverter extends AppCompatActivity {
             bitmap = BitmapFactory.decodeFile(fPhoto.getAbsolutePath());
 
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG,200,baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
             dataDB = baos.toByteArray();
+
+            //encodeString = Base64.encodeToString(dataDB, Base64.DEFAULT);
 
             imageView.setImageBitmap(bitmap);
 
@@ -200,23 +222,6 @@ public class ImageToTextConverter extends AppCompatActivity {
 
 
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            selectedImage = data.getData();
-
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-            } catch (IOException e) {
-                mTextView.setText("error");
-            }
-
-            imageView.setImageURI(selectedImage);
-        }
-        startCameraSource();
-    }*/
 
 
     private void startCameraSource() {
@@ -244,7 +249,16 @@ public class ImageToTextConverter extends AppCompatActivity {
 
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("result", ttt);
-                        resultIntent.putExtra("photo", dataDB);
+
+                        //resultIntent.putExtra("base64",encodeString);
+
+                        if(flag==1){
+                            resultIntent.putExtra("uri",filepath);
+                        }
+                        if(flag==2){
+                           resultIntent.putExtra("uri",path);
+
+                        }
                         setResult(RESULT_OK, resultIntent);
                         finish();
                         //mCameraSource.stop();

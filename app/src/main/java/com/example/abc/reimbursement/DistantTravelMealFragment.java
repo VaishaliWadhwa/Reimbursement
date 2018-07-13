@@ -3,6 +3,8 @@ package com.example.abc.reimbursement;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -19,6 +21,8 @@ import android.widget.Toast;
 
 import com.example.abc.reimbursement.Data.BillContract;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Calendar;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -42,6 +46,14 @@ public class DistantTravelMealFragment extends Fragment {
     BillCursorAdapter mCursorAdapter;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    byte[] photo;
+
+    String uri;
+
+    Bitmap bitmap;
+
+    String imageString;
 
 
     @Override
@@ -138,6 +150,7 @@ public class DistantTravelMealFragment extends Fragment {
         if(requestCode == 1) {
             if (resultCode == RESULT_OK) {
 
+                uri = data.getStringExtra("uri");
                 double result = data.getDoubleExtra("result" , 0.00);
                 mFinalAmountEditText.setText(Double.toString(result));
             }
@@ -152,6 +165,7 @@ public class DistantTravelMealFragment extends Fragment {
         // Use trim to eliminate leading or trailing white space
         /*String nameString = mNameEditText.getText().toString().trim();
         String category = mCategoryEditText.getText().toString().trim();*/
+        compress();
 
         String billDate = mBillDateEditText.getText().toString().trim();
         String restaurantName = mRestaurantNameEditText.getText().toString().trim();
@@ -172,6 +186,8 @@ public class DistantTravelMealFragment extends Fragment {
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE, photo);
+
 
         // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
         Uri newUri = getActivity().getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
@@ -182,5 +198,46 @@ public class DistantTravelMealFragment extends Fragment {
 
     }
 
+
+    public void compress() {
+        File image = new File(uri);
+        //BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        long length = image.length();
+        bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (length < (499 * 1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            photo = baos.toByteArray();
+        }
+        if (length > (499 * 1024) && length <(999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (999 * 1024) && length <(1999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (1999 * 1024) && length <(2999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 16, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (2999 * 1024) && length <(4999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (4999 * 1024) && length <(6999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 7, baos);
+            photo = baos.toByteArray();
+        }
+        if (length > (6999 * 1024) && length <(9999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 5, baos);
+            photo = baos.toByteArray();
+        }
+
+    }
 
 }

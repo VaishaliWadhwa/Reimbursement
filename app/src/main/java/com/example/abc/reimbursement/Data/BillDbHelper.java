@@ -59,7 +59,7 @@ public class BillDbHelper extends SQLiteOpenHelper {
                 //+BillContract.BillEntry.COLUMN_EXPENSE_BILL_ID+ " INTEGER  PRIMARY KEY   AUTOINCREMENT , "
 
                 + BillContract.BillEntry._ID + " INTEGER  PRIMARY KEY   AUTOINCREMENT , "
-                + BillContract.BillEntry.COLUMN_EXPENSE_BILLDATE + " BLOB ,"
+                + BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE + " BLOB ,"
                 //+ BillContract.BillEntry.COLUMN_EXPENSE_KEY_NAME + "TEXT,"
                 + BillContract.BillEntry.COLUMN_EXPENSE_FROM + " TEXT,"
                 + BillContract.BillEntry.COLUMN_EXPENSE_TO + " TEXT,"

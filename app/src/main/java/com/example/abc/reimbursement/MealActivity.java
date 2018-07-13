@@ -3,6 +3,8 @@ package com.example.abc.reimbursement;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -23,11 +25,13 @@ import com.example.abc.reimbursement.Data.BillContract;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Calendar;
 
-public class MealActivity extends AppCompatActivity  {
+public class MealActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener mDateSetListener;
-    double result ;
+    double result;
 
     //EditText mNameEditText;
     //EditText mCategoryEditText;
@@ -44,6 +48,14 @@ public class MealActivity extends AppCompatActivity  {
     private static final int EXPENSE_LOADER = 0;
 
     BillCursorAdapter mCursorAdapter;
+
+    byte[] photo;
+
+    String uri;
+
+    Bitmap bitmap;
+
+    String imageString;
 
 
     @Override
@@ -126,12 +138,11 @@ public class MealActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 saveBill();
                 Intent intent = new Intent(MealActivity.this, ExpenseReport.class);
-                intent.putExtra("category","Meal");
+                intent.putExtra("category", "Meal");
                 intent.putExtra("expenseName", expenseName);
                 startActivity(intent);
             }
         });
-
 
 
     }
@@ -142,7 +153,10 @@ public class MealActivity extends AppCompatActivity  {
 
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
-                
+                //photo = data.getByteArrayExtra("photo");
+
+                uri = data.getStringExtra("uri");
+                //imageString = data.getStringExtra("base64");
                 result = data.getDoubleExtra("result", 0);
                 mFinalAmountEditText.setText(String.valueOf(result));
 
@@ -223,6 +237,15 @@ public class MealActivity extends AppCompatActivity  {
         /*String nameString = mNameEditText.getText().toString().trim();
         String category = mCategoryEditText.getText().toString().trim();*/
 
+        /*File image = new File(uri);
+        //BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        photo = baos.toByteArray();*/
+
+        compress();
+
         String billDate = mBillDateEditText.getText().toString().trim();
         String restaurantName = mRestaurantNameEditText.getText().toString().trim();
         String clientName = mClientNameEditText.getText().toString().trim();
@@ -239,6 +262,7 @@ public class MealActivity extends AppCompatActivity  {
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_CLIENTNAME, clientName);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE, photo);
 
         // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
         Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
@@ -292,12 +316,10 @@ public class MealActivity extends AppCompatActivity  {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             if (mFinalAmountEditText.toString() != String.valueOf(result)) {
-                Toast.makeText(MealActivity.this,"Changed",Toast.LENGTH_LONG);
+                Toast.makeText(MealActivity.this, "Changed", Toast.LENGTH_LONG);
 
-            }
-            else
-            {
-                Toast.makeText(MealActivity.this," not Changed",Toast.LENGTH_LONG);
+            } else {
+                Toast.makeText(MealActivity.this, " not Changed", Toast.LENGTH_LONG);
 
             }
 
@@ -310,8 +332,49 @@ public class MealActivity extends AppCompatActivity  {
         }
     };
 
+    public void compress() {
+        File image = new File(uri);
+        //BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        long length = image.length();
+        bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (length < (499 * 1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            photo = baos.toByteArray();
+        }
+        if (length > (499 * 1024) && length <(999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            photo = baos.toByteArray();
+        }
 
-  }
+        if (length > (999 * 1024) && length <(1999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (1999 * 1024) && length <(2999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 16, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (2999 * 1024) && length <(4999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (4999 * 1024) && length <(6999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 7, baos);
+            photo = baos.toByteArray();
+        }
+        if (length > (6999 * 1024) && length <(9999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 5, baos);
+            photo = baos.toByteArray();
+        }
+
+    }
+
+
+}
 
 
 

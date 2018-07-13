@@ -5,12 +5,15 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
     TextView fromText;
     TextView toText;
     TextView venueText;
+    ImageView billImage;
 
     LinearLayout clientNameLayout;
     LinearLayout membersLayout;
@@ -47,7 +51,8 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
 
     String id;
 
-    LinearLayout clientOrMember;
+    byte[] photo;
+
 
     /**
      * Identifier for the pet data loader
@@ -81,6 +86,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
         fromText = (TextView) findViewById(R.id.from);
         toText = (TextView) findViewById(R.id.to);
         venueText = (TextView) findViewById(R.id.venue);
+        billImage = (ImageView) findViewById(R.id.bill_image);
 
         clientNameLayout.setVisibility(View.GONE);
         membersLayout.setVisibility(View.GONE);
@@ -149,6 +155,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
                 BillContract.BillEntry.COLUMN_EXPENSE_RESTNAME,
                 BillContract.BillEntry.COLUMN_EXPENSE_FROM,
                 BillContract.BillEntry.COLUMN_EXPENSE_VENUE,
+                BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE,
                 BillContract.BillEntry.COLUMN_EXPENSE_TO,};
 
         // This loader will execute the ContentProvider's query method on a background thread
@@ -184,6 +191,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
             int fromColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_FROM);
             int toColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_TO);
             int venueColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_VENUE);
+            int photoColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE);
 
 
 
@@ -201,6 +209,15 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
             String to = cursor.getString(toColumnIndex);
             String finalAmount = cursor.getString(finalAmountColumnIndex);
             String venue = cursor.getString(venueColumnIndex);
+            photo = cursor.getBlob(photoColumnIndex);
+
+
+            Bitmap bitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length);
+            billImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap,200,200,false));
+
+
+            billImage.setImageBitmap(bitmap);
+
 
             // Update the views on the screen with the values from the database
             expenseIdText.setText(id);

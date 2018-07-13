@@ -280,14 +280,14 @@ public class BillProvider extends ContentProvider {
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }
     }
-    public void addEntry( String name, byte[] image) throws SQLiteException {
+    /*public void addEntry( String name, byte[] image) throws SQLiteException {
         SQLiteDatabase database = mBillDbHelper.getWritableDatabase();
         ContentValues cv = new  ContentValues();
         cv.put(BillContract.BillEntry.COLUMN_EXPENSE_KEY_NAME,    name);
 
         cv.put(BillContract.BillEntry.COLUMN_EXPENSE_KEY_IMAGE,   image);
         database.insert(String.valueOf(EXPENSES), null, cv );
-    }
+    }*/
 
 }
 

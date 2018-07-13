@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -20,6 +22,8 @@ import android.widget.TextView;
 
 import com.example.abc.reimbursement.Data.BillContract;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.Calendar;
 
 public class MiscellaneousActivity extends AppCompatActivity {
@@ -35,6 +39,15 @@ public class MiscellaneousActivity extends AppCompatActivity {
     BillCursorAdapter mCursorAdapter;
 
     DatePickerDialog.OnDateSetListener mDateSetListener;
+
+    byte[] photo;
+
+    String uri;
+
+    Bitmap bitmap;
+
+    String imageString;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +135,8 @@ public class MiscellaneousActivity extends AppCompatActivity {
         /*String nameString = mNameEditText.getText().toString().trim();
         String category = mCategoryEditText.getText().toString().trim();*/
 
+        compress();
+
         String billDate = mBillDateEditText.getText().toString().trim();
         String purpose = mPurposeEditText.getText().toString().trim();
         String finalAmount = mFinalAmountEditText.getText().toString().trim();
@@ -135,6 +150,7 @@ public class MiscellaneousActivity extends AppCompatActivity {
 
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE, photo);
 
 
         // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
@@ -159,6 +175,8 @@ public class MiscellaneousActivity extends AppCompatActivity {
         if(requestCode == 1) {
             if (resultCode == RESULT_OK) {
 
+
+                uri = data.getStringExtra("uri");
                 double result = data.getDoubleExtra("result" , 0.00);
                 mFinalAmountEditText.setText(Double.toString(result));
             }
@@ -223,5 +241,47 @@ public class MiscellaneousActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void compress() {
+        File image = new File(uri);
+        //BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        long length = image.length();
+        bitmap = BitmapFactory.decodeFile(image.getAbsolutePath());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (length < (499 * 1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            photo = baos.toByteArray();
+        }
+        if (length > (499 * 1024) && length <(999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (999 * 1024) && length <(1999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (1999 * 1024) && length <(2999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 16, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (2999 * 1024) && length <(4999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
+            photo = baos.toByteArray();
+        }
+
+        if (length > (4999 * 1024) && length <(6999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 7, baos);
+            photo = baos.toByteArray();
+        }
+        if (length > (6999 * 1024) && length <(9999*1024)) {
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 5, baos);
+            photo = baos.toByteArray();
+        }
+
+    }
+
 }
 
