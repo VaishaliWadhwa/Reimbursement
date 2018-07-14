@@ -28,6 +28,7 @@ import java.util.Calendar;
 
 public class MiscellaneousActivity extends AppCompatActivity {
 
+    double result;
     EditText  mFinalAmountEditText;;
 
     TextView mBillDateEditText;
@@ -79,7 +80,7 @@ public class MiscellaneousActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
@@ -129,6 +130,26 @@ public class MiscellaneousActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //EditText finalAmount = (EditText) findViewById(R.id.final_amount);
+        if(requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+
+
+                uri = data.getStringExtra("uri");
+                double result = data.getDoubleExtra("result" , 0.00);
+                mFinalAmountEditText.setText(String.valueOf(result));
+            }
+            if(resultCode == RESULT_CANCELED){
+
+            }
+        }
+    }
+
+
     private void saveBill() {
         // Read from input fields
         // Use trim to eliminate leading or trailing white space
@@ -141,6 +162,15 @@ public class MiscellaneousActivity extends AppCompatActivity {
         String purpose = mPurposeEditText.getText().toString().trim();
         String finalAmount = mFinalAmountEditText.getText().toString().trim();
 
+        String edited;
+
+        if(finalAmount.equals(String.valueOf(result))){
+            edited = "No";
+        }
+        else{
+            edited = "Yes";
+        }
+
 
         ContentValues values = new ContentValues();
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
@@ -151,6 +181,7 @@ public class MiscellaneousActivity extends AppCompatActivity {
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE, photo);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_AMOUNT_EDITED, edited);
 
 
         // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
@@ -168,23 +199,7 @@ public class MiscellaneousActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }*/
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //EditText finalAmount = (EditText) findViewById(R.id.final_amount);
-        if(requestCode == 1) {
-            if (resultCode == RESULT_OK) {
 
-
-                uri = data.getStringExtra("uri");
-                double result = data.getDoubleExtra("result" , 0.00);
-                mFinalAmountEditText.setText(Double.toString(result));
-            }
-            if(resultCode == RESULT_CANCELED){
-
-            }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

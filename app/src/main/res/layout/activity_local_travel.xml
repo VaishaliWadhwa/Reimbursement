@@ -34,20 +34,20 @@
 
             <EditText
                 android:id="@+id/from"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="8dp"
-                android:hint="From"
+                android:hint="Source"
                 android:layout_weight="1"
                 android:configChanges="orientation|keyboardHidden"/>
 
             <EditText
                 android:id="@+id/to"
-                android:layout_width="wrap_content"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="To"
+                android:hint="Destination"
                 android:layout_weight="1"
                 android:configChanges="orientation|keyboardHidden"/>
 
@@ -57,24 +57,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <Button
                 android:id="@+id/travel_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Travel"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="#2AB0D9"
+                android:textColor="#ffffff"/>
 
             <Button
                 android:id="@+id/meal_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_marginTop="20dp"
                 android:text="Meal"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="#2AB0D9"
+                android:textColor="#ffffff"/>
 
         </LinearLayout>
 

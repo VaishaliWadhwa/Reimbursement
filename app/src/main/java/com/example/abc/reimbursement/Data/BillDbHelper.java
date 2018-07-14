@@ -64,6 +64,8 @@ public class BillDbHelper extends SQLiteOpenHelper {
                 + BillContract.BillEntry.COLUMN_EXPENSE_FROM + " TEXT,"
                 + BillContract.BillEntry.COLUMN_EXPENSE_TO + " TEXT,"
                 +BillContract.BillEntry.COLUMN_EXPENSE_VENUE + " TEXT,"
+
+                +BillContract.BillEntry.COLUMN_EXPENSE_AMOUNT_EDITED + " TEXT,"
                 + BillContract.BillEntry.COLUMN_EXPENSE_SUBCAT + " TEXT)";
 
 

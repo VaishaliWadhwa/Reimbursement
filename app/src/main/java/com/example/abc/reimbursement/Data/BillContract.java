@@ -112,6 +112,10 @@ public class BillContract {
 
         public final static String COLUMN_EXPENSE_VENUE = "venue";
 
+        public final static String COLUMN_EXPENSE_AMOUNT_EDITED = "amount_edited";
+
+
+
 
 
         //public static final String COLUMN_EXPENSE_BILL_ID ="ID" ;

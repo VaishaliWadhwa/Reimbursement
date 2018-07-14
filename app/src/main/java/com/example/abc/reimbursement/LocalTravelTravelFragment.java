@@ -32,6 +32,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class LocalTravelTravelFragment extends Fragment {
 
+    double result;
     String expenseName;
     String category;
     String travelFrom;
@@ -84,7 +85,7 @@ public class LocalTravelTravelFragment extends Fragment {
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
@@ -145,7 +146,7 @@ public class LocalTravelTravelFragment extends Fragment {
 
                 uri = data.getStringExtra("uri");
                 double result = data.getDoubleExtra("result" , 0.00);
-                mFinalAmountEditText.setText(Double.toString(result));
+                mFinalAmountEditText.setText(String.valueOf(result));
             }
             if(resultCode == RESULT_CANCELED){
 
@@ -165,6 +166,15 @@ public class LocalTravelTravelFragment extends Fragment {
         String purpose = mPurposeEditText.getText().toString().trim();
         String finalAmount = mFinalAmountEditText.getText().toString().trim();
 
+        String edited;
+
+        if(finalAmount.equals(String.valueOf(result))){
+            edited = "No";
+        }
+        else{
+            edited = "Yes";
+        }
+
 
         ContentValues values = new ContentValues();
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
@@ -179,6 +189,7 @@ public class LocalTravelTravelFragment extends Fragment {
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE, photo);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_AMOUNT_EDITED, edited);
 
         // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
         Uri newUri = getActivity().getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);

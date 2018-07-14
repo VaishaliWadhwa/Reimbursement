@@ -56,7 +56,7 @@ public class EditorExpense extends AppCompatDialogFragment {
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
@@ -87,7 +87,7 @@ public class EditorExpense extends AppCompatDialogFragment {
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 

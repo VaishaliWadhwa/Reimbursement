@@ -28,6 +28,7 @@ import java.util.Calendar;
 
 public class TeamExpenseActivity extends Activity {
 
+    double result;
 
     EditText  mFinalAmountEditText;;
 
@@ -75,7 +76,7 @@ public class TeamExpenseActivity extends Activity {
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
@@ -137,6 +138,15 @@ public class TeamExpenseActivity extends Activity {
         String purpose = mPurposeEditText.getText().toString().trim();
         String finalAmount = mFinalAmountEditText.getText().toString().trim();
 
+        String edited;
+
+        if(finalAmount.equals(String.valueOf(result))){
+            edited = "No";
+        }
+        else{
+            edited = "Yes";
+        }
+
 
         ContentValues values = new ContentValues();
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
@@ -147,6 +157,7 @@ public class TeamExpenseActivity extends Activity {
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE, photo);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_AMOUNT_EDITED, edited);
 
 
         // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
@@ -169,7 +180,7 @@ public class TeamExpenseActivity extends Activity {
 
                 uri = data.getStringExtra("uri");
                 double result = data.getDoubleExtra("result" , 0.00);
-                mFinalAmountEditText.setText(Double.toString(result));
+                mFinalAmountEditText.setText(String.valueOf(result));
             }
             if(resultCode == RESULT_CANCELED){
 

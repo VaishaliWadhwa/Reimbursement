@@ -50,9 +50,11 @@
             android:configChanges="orientation|keyboardHidden"/>
         <Button
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="35dp"
             android:text="Click Here To Scan"
-            android:id="@+id/button_scan"/>
+            android:id="@+id/button_scan"
+            android:background="#2AB0D9"
+            android:textColor="#ffffff"/>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="120dp"
@@ -67,9 +69,11 @@
             android:configChanges="orientation|keyboardHidden"/>
         <Button
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="35dp"
             android:text="Final Submit"
-            android:id="@+id/final_submit"/>
+            android:id="@+id/final_submit"
+            android:background="#2AB0D9"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 

@@ -80,29 +80,21 @@ public class MealActivity extends AppCompatActivity {
 
 
 
-
-
-        /*DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        getWindow().setLayout((int)(width*.95),(int)(height*.90));*/
         final TextView mDisplayDate = (TextView) findViewById(R.id.mealdate);
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
 
                 DatePickerDialog dialog = new DatePickerDialog(MealActivity.this,
                         android.R.style.Theme_Holo_Light,
                         mDateSetListener,
-                        year, month, day);
+
+                        year , month , day );
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();
@@ -251,7 +243,14 @@ public class MealActivity extends AppCompatActivity {
         String clientName = mClientNameEditText.getText().toString().trim();
         String purpose = mPurposeEditText.getText().toString().trim();
         String finalAmount = mFinalAmountEditText.getText().toString().trim();
+        String edited;
 
+        if(finalAmount.equals(String.valueOf(result))){
+            edited = "No";
+        }
+        else{
+            edited = "Yes";
+        }
 
         ContentValues values = new ContentValues();
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_NAME, expenseName);
@@ -263,6 +262,7 @@ public class MealActivity extends AppCompatActivity {
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_PURPOSE, purpose);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_FINAL_AMOUNT, finalAmount);
         values.put(BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE, photo);
+        values.put(BillContract.BillEntry.COLUMN_EXPENSE_AMOUNT_EDITED, edited);
 
         // Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);
         Uri newUri = getContentResolver().insert(BillContract.BillEntry.CONTENT_URI, values);

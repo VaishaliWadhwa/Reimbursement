@@ -39,6 +39,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
     TextView fromText;
     TextView toText;
     TextView venueText;
+    TextView editText;
     ImageView billImage;
 
     LinearLayout clientNameLayout;
@@ -87,6 +88,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
         toText = (TextView) findViewById(R.id.to);
         venueText = (TextView) findViewById(R.id.venue);
         billImage = (ImageView) findViewById(R.id.bill_image);
+        editText = (TextView) findViewById(R.id.edited);
 
         clientNameLayout.setVisibility(View.GONE);
         membersLayout.setVisibility(View.GONE);
@@ -156,6 +158,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
                 BillContract.BillEntry.COLUMN_EXPENSE_FROM,
                 BillContract.BillEntry.COLUMN_EXPENSE_VENUE,
                 BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE,
+                BillContract.BillEntry.COLUMN_EXPENSE_AMOUNT_EDITED,
                 BillContract.BillEntry.COLUMN_EXPENSE_TO,};
 
         // This loader will execute the ContentProvider's query method on a background thread
@@ -192,6 +195,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
             int toColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_TO);
             int venueColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_VENUE);
             int photoColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_BILL_IMAGE);
+            int editedColumnIndex = cursor.getColumnIndex(BillContract.BillEntry.COLUMN_EXPENSE_AMOUNT_EDITED);
 
 
 
@@ -209,6 +213,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
             String to = cursor.getString(toColumnIndex);
             String finalAmount = cursor.getString(finalAmountColumnIndex);
             String venue = cursor.getString(venueColumnIndex);
+            String amountEdited = cursor.getString(editedColumnIndex);
             photo = cursor.getBlob(photoColumnIndex);
 
 
@@ -228,6 +233,7 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
             finalAmountText.setText(finalAmount);
             purposeText.setText(purpose);
             categoryText.setText(category);
+            editText.setText(amountEdited);
 
             if(category.equalsIgnoreCase("Meal")){
                 clientNameLayout.setVisibility(View.VISIBLE);

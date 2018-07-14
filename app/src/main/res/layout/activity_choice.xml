@@ -5,14 +5,9 @@
     android:orientation="vertical"
    >
 
-    <RadioGroup
-        android:id="@+id/radio_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="vertical">
 
-        <RadioButton
+
+        <CheckBox
             android:id="@+id/meal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,7 +15,7 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_marginBottom="8dp"/>
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/localtravel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +23,7 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_marginBottom="8dp"/>
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/distanttravel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +31,7 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_marginBottom="8dp"/>
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/teamexpense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,12 +39,12 @@
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_marginBottom="8dp"/>
 
-        <RadioButton
+        <CheckBox
             android:id="@+id/misc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Miscellaneous"
             android:textAppearance="?android:textAppearanceMedium"
             android:layout_marginBottom="8dp"/>
-    </RadioGroup>
+
 </LinearLayout>
