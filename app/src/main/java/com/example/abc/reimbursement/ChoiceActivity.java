@@ -85,9 +85,11 @@ public class ChoiceActivity extends AppCompatDialogFragment {
         });
         builder.setView(view);
 
-        //onRadioButtonClicked(view);
+       // onRadioButtonClicked(view);
         return builder.create();
-    }
+    } }
+
+
 
    /* public void onRadioButtonClicked(View view) {
         // Is the button now checked?
@@ -155,7 +157,7 @@ public class ChoiceActivity extends AppCompatDialogFragment {
     }*/
 
 
-}
+
 
 
 

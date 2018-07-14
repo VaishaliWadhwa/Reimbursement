@@ -14,14 +14,25 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_margin="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
         <TextView
             android:id="@+id/mealdate"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
             android:hint="Select Your Meal Date"
             android:textSize="20dp"
             android:configChanges="orientation|keyboardHidden"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+
+            android:background="@color/colorPrimary" />
+        </LinearLayout>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="45dp"
