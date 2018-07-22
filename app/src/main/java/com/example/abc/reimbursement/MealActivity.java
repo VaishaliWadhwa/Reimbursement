@@ -51,7 +51,7 @@ public class MealActivity extends AppCompatActivity {
 
     byte[] photo;
 
-    String uri;
+    String uri=null;
 
     Bitmap bitmap;
 
@@ -235,7 +235,7 @@ public class MealActivity extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG,100,baos);
         photo = baos.toByteArray();*/
-
+        if(uri!=null)
         compress();
 
         String billDate = mBillDateEditText.getText().toString().trim();

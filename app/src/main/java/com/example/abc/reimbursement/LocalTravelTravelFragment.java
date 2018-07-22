@@ -159,7 +159,8 @@ public class LocalTravelTravelFragment extends Fragment {
         // Use trim to eliminate leading or trailing white space
         /*String nameString = mNameEditText.getText().toString().trim();
         String category = mCategoryEditText.getText().toString().trim();*/
-        compress();
+        if(uri!=null)
+            compress();
 
         String billDate = mBillDateEditText.getText().toString().trim();
 

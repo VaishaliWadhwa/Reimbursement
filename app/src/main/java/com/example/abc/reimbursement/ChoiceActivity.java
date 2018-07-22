@@ -85,7 +85,7 @@ public class ChoiceActivity extends AppCompatDialogFragment {
         });
         builder.setView(view);
 
-       // onRadioButtonClicked(view);
+        // onRadioButtonClicked(view);
         return builder.create();
     } }
 
@@ -94,7 +94,6 @@ public class ChoiceActivity extends AppCompatDialogFragment {
    /* public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
-
         // Check which radio button was clicked
         switch (view.getId()) {
             case R.id.meal:
@@ -103,8 +102,6 @@ public class ChoiceActivity extends AppCompatDialogFragment {
                     intent.putExtra("category", "Meal");
                     intent.putExtra("expenseName", expenseName);
                     startActivity(intent);
-
-
                     break;
                 }
             case R.id.localtravel:
@@ -114,8 +111,6 @@ public class ChoiceActivity extends AppCompatDialogFragment {
                     intent.putExtra("category", "Local Travel");
                     intent.putExtra("expenseName", expenseName);
                     startActivity(intent);
-
-
                     break;
                 }
             case R.id.distanttravel:
@@ -124,35 +119,27 @@ public class ChoiceActivity extends AppCompatDialogFragment {
                     intent.putExtra("category", "Distant Travel");
                     intent.putExtra("expenseName", expenseName);
                     startActivity(intent);
-
                     break;
                 }
                 // Pirates are the best
-
             case R.id.teamexpense:
                 if (checked) {
                     Intent intent = new Intent(getActivity(), TeamExpenseActivity.class);
                     intent.putExtra("category", "Team Expense");
                     intent.putExtra("expenseName", expenseName);
                     startActivity(intent);
-
-
                     break;
                 }
                 // Pirates are the best
-
             case R.id.misc:
                 if (checked) {
                     Intent intent = new Intent(getActivity(), MiscellaneousActivity.class);
                     intent.putExtra("category", "Miscellaneous");
                     intent.putExtra("expenseName", expenseName);
                     startActivity(intent);
-
-
                     break;
                 }
                 // Pirates are the best
-
         }
     }*/
 
@@ -164,26 +151,17 @@ public class ChoiceActivity extends AppCompatDialogFragment {
 
 
         /*setContentView(R.layout.activity_choice);
-
         Intent intent = getIntent();
         expenseName = intent.getStringExtra("expenseName");
-
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         getWindow().setLayout((int) (width * .70), (int) (height * .30));
-
-
     }
-
-
-
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
-
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.meal:
@@ -192,8 +170,6 @@ public class ChoiceActivity extends AppCompatDialogFragment {
                     intent.putExtra("category" , "Meal");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
-
-
                     break; }
             case R.id.localtravel:
                 if (checked){
@@ -202,40 +178,30 @@ public class ChoiceActivity extends AppCompatDialogFragment {
                     intent.putExtra("category" , "Local Travel");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
-
-
                     break; }
             case R.id.distanttravel:
                 if (checked){Intent intent =  new Intent(ChoiceActivity.this , DistantTravel.class);
                     intent.putExtra("category" , "Distant Travel");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
-
                     break;}
                     // Pirates are the best
-
             case R.id.teamexpense:
                 if (checked){
                     Intent intent =  new Intent(ChoiceActivity.this , TeamExpenseActivity.class);
                     intent.putExtra("category" , "Team Expense");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
-
-
                     break;
                 }
                     // Pirates are the best
-
             case R.id.misc:
                 if (checked){Intent intent =  new Intent(ChoiceActivity.this , MiscellaneousActivity.class);
                     intent.putExtra("category" , "Miscellaneous");
                     intent.putExtra("expenseName",expenseName);
                     startActivity(intent);
-
-
                     break;}
                     // Pirates are the best
-
         }
     }
 }*/

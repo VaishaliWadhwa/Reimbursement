@@ -216,12 +216,12 @@ public class DisplayActivity extends AppCompatActivity implements LoaderManager.
             String amountEdited = cursor.getString(editedColumnIndex);
             photo = cursor.getBlob(photoColumnIndex);
 
-
+            if(photo!=null){
             Bitmap bitmap = BitmapFactory.decodeByteArray(photo, 0, photo.length);
             billImage.setImageBitmap(Bitmap.createScaledBitmap(bitmap,200,200,false));
 
 
-            billImage.setImageBitmap(bitmap);
+            billImage.setImageBitmap(bitmap);}
 
 
             // Update the views on the screen with the values from the database
