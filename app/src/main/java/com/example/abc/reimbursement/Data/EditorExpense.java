@@ -63,7 +63,7 @@ public class EditorExpense extends AppCompatActivity  {
                 DatePickerDialog dialog2 = new DatePickerDialog(EditorExpense.this,
                         android.R.style.Theme_Holo_Light,
                         mDateSetListener2 ,
-                        year,month,day);
+                        year=2018,month=9,day=03);
 
                 dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog2.show();
@@ -94,7 +94,7 @@ public class EditorExpense extends AppCompatActivity  {
                 DatePickerDialog dialog = new DatePickerDialog(EditorExpense.this,
                         android.R.style.Theme_Holo_Light,
                         mDateSetListener ,
-                        year,month,day);
+                        year=2018,month=9,day=03);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();

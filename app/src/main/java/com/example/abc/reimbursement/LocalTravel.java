@@ -1,22 +1,17 @@
 package com.example.abc.reimbursement;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.abc.reimbursement.Data.BillContract;
 
@@ -71,7 +66,7 @@ public class LocalTravel extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(LocalTravel.this,
                         android.R.style.Theme_Holo_Light,
                         mDateSetListener,
-                        year, month, day);
+                        year=2018, month=9, day=03);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();

@@ -72,7 +72,7 @@ public class MiscellaneousActivity extends AppCompatActivity {
                 DatePickerDialog dialog = new DatePickerDialog(MiscellaneousActivity.this,
                         android.R.style.Theme_Holo_Light,
                         mDateSetListener ,
-                        year,month,day);
+                        year=2018,month=9,day=03);
 
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.show();

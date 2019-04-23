@@ -46,7 +46,7 @@
             android:value=".MainActivity" /> </activity>
         <activity
             android:name=".Data.EditorExpense"
-            android:label="Edit"
+            android:label="Entry"
             android:theme="@style/AppTheme.CustomTheme" />
 
 

@@ -115,6 +115,12 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
                 deleteExpense();
                 finish();
                 return true;
+            case R.id.action_submit:
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                emailIntent.setType("text/plain");
+                startActivity(emailIntent);
+                finish();
+                return true;
 
 
         }
