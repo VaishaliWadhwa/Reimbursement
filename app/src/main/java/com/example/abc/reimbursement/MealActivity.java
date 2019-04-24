@@ -101,9 +101,16 @@ public class MealActivity extends AppCompatActivity  {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
                 String date = dayOfMonth + "/" + month + "/" + year;
-                mDisplayDate.setText(date);
+                if (R.id.startdate < R.id.mealdate)
 
-            }
+
+
+
+                mDisplayDate.setText(date);
+            else
+                    Toast.makeText(getApplicationContext(),"Insert date properly",Toast.LENGTH_SHORT).show();}
+
+
         };
 
         Button buttonScan = (Button) findViewById(R.id.button_scan);

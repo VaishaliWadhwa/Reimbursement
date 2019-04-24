@@ -118,7 +118,11 @@ public class ExpenseReport extends AppCompatActivity implements LoaderManager.Lo
             case R.id.action_submit:
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setType("text/plain");
-                startActivity(emailIntent);
+                emailIntent.putExtra(Intent.EXTRA_BCC, "abc@gmail.com");
+
+
+                startActivity(Intent.createChooser(emailIntent, "abc@gmail.com"));
+
                 finish();
                 return true;
 
